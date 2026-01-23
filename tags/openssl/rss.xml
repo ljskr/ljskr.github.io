@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Openssl on 咕噜猫小站</title><link>/tags/openssl/</link><description>Recent content in Openssl on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 31 Oct 2019 13:56:00 +0800</lastBuildDate><atom:link href="/tags/openssl/rss.xml" rel="self" type="application/rss+xml"/><item><title>使用 openssl 生成证书</title><link>/post/ssl/openssl_manual/</link><pubDate>Thu, 31 Oct 2019 13:56:00 +0800</pubDate><guid>/post/ssl/openssl_manual/</guid><description>&lt;h1 id="使用-openssl-生成证书"&gt;使用 openssl 生成证书
+&lt;a class="header-anchor" href="#%e4%bd%bf%e7%94%a8-openssl-%e7%94%9f%e6%88%90%e8%af%81%e4%b9%a6"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-前置知识"&gt;1. 前置知识
+&lt;a class="header-anchor" href="#1-%e5%89%8d%e7%bd%ae%e7%9f%a5%e8%af%86"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;KEY&lt;/strong&gt; 通常指私钥。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CSR&lt;/strong&gt; 是 Certificate Signing Request 的缩写，即证书签名请求，这不是证书，只是包含申请证书的基本信息。生成证书时要把这个提交给权威的证书颁发机构，颁发机构审核通过之后，再根据这些申请信息生成相应的证书。&lt;/p&gt;</description></item></channel></rss>

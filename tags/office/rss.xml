@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Office on 咕噜猫小站</title><link>/tags/office/</link><description>Recent content in Office on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 24 Nov 2021 16:32:00 +0800</lastBuildDate><atom:link href="/tags/office/rss.xml" rel="self" type="application/rss+xml"/><item><title>安装 Office 2021</title><link>/post/windows/office_2021_install/</link><pubDate>Wed, 24 Nov 2021 16:32:00 +0800</pubDate><guid>/post/windows/office_2021_install/</guid><description>&lt;h1 id="安装-office-2021"&gt;安装 Office 2021
+&lt;a class="header-anchor" href="#%e5%ae%89%e8%a3%85-office-2021"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="下载-office-deployment-tool"&gt;下载 Office Deployment Tool
+&lt;a class="header-anchor" href="#%e4%b8%8b%e8%bd%bd-office-deployment-tool"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;相关工具请查看上一篇 
+&lt;a href="/post/windows/office_2019_install" title="安装 Office 2019" &gt;
+ 安装 Office 2019
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;从 
+&lt;a href="https://www.microsoft.com/en-us/download/details.aspx?id=49117" title="Office Deployment Tool" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Office Deployment Tool
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 下载 Office Deployment Tool ，解压得到 &lt;code&gt;setup.exe&lt;/code&gt; 。&lt;/p&gt;
+&lt;h2 id="准备配置文件"&gt;准备配置文件
+&lt;a class="header-anchor" href="#%e5%87%86%e5%a4%87%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;可以到 
+&lt;a href="https://config.office.com/" title="Office 365 客户端配置" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Office 365 客户端配置
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 生成自定义的安装配置文件。&lt;/p&gt;</description></item><item><title>安装 Office 2019</title><link>/post/windows/office_2019_install/</link><pubDate>Tue, 12 Nov 2019 13:47:00 +0800</pubDate><guid>/post/windows/office_2019_install/</guid><description>&lt;h1 id="安装-office-2019"&gt;安装 Office 2019
+&lt;a class="header-anchor" href="#%e5%ae%89%e8%a3%85-office-2019"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="下载-office-deployment-tool"&gt;下载 Office Deployment Tool
+&lt;a class="header-anchor" href="#%e4%b8%8b%e8%bd%bd-office-deployment-tool"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Office Deployment Tool 是微软官方的 Office 部署工具，可以直接在官网下载&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://www.microsoft.com/en-us/download/details.aspx?id=49117" title="Office Deployment Tool" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Office Deployment Tool
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://docs.microsoft.com/zh-cn/deployoffice/overview-of-the-office-2016-deployment-tool" title="Office 部署工具概述" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Office 部署工具概述
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;该工具很小，官网下载只有3M不到，运行后会解压出来一个 &lt;code&gt;setup.exe&lt;/code&gt; 和一些 xml 配置文件。 这个 setup.exe 就是今天的主角。&lt;/p&gt;</description></item></channel></rss>

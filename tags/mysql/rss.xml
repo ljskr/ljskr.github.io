@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mysql on 咕噜猫小站</title><link>/tags/mysql/</link><description>Recent content in Mysql on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Fri, 08 Sep 2023 11:26:23 +0800</lastBuildDate><atom:link href="/tags/mysql/rss.xml" rel="self" type="application/rss+xml"/><item><title>Mysql windows 绿色版安装指南</title><link>/post/software/mysql_portable_install/</link><pubDate>Fri, 08 Sep 2023 11:26:23 +0800</pubDate><guid>/post/software/mysql_portable_install/</guid><description>&lt;h1 id="mysql-windows-绿色版安装指南"&gt;Mysql windows 绿色版安装指南
+&lt;a class="header-anchor" href="#mysql-windows-%e7%bb%bf%e8%89%b2%e7%89%88%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-下载并解压"&gt;1. 下载并解压
+&lt;a class="header-anchor" href="#1-%e4%b8%8b%e8%bd%bd%e5%b9%b6%e8%a7%a3%e5%8e%8b"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;从 mysql 官网下载 zip 格式（非安装版）的程序包，并解压出来。&lt;/p&gt;
+&lt;h2 id="2-初始化服务器数据"&gt;2. 初始化服务器数据
+&lt;a class="header-anchor" href="#2-%e5%88%9d%e5%a7%8b%e5%8c%96%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%95%b0%e6%8d%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;打开 cmd ，进到解压出来的 mysql 目录&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt;7&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; mysql/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 初始化数据。root 无密码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mysqld --initialize-insecure
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 初始化数据。root 有密码，初始密码会打印到控制台中。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mysqld --initialize --console&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="3-启动服务器"&gt;3. 启动服务器
+&lt;a class="header-anchor" href="#3-%e5%90%af%e5%8a%a8%e6%9c%8d%e5%8a%a1%e5%99%a8"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; mysql/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 加 --console 会把日志信息打印到控制台中。否则日志需要查看日志文件。建议加上该参数。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mysqld --console&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="4-使用客户端连接"&gt;4. 使用客户端连接
+&lt;a class="header-anchor" href="#4-%e4%bd%bf%e7%94%a8%e5%ae%a2%e6%88%b7%e7%ab%af%e8%bf%9e%e6%8e%a5"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-2-1"&gt;&lt;a class="lnlinks" href="#hl-2-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-2"&gt;&lt;a class="lnlinks" href="#hl-2-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-3"&gt;&lt;a class="lnlinks" href="#hl-2-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-4"&gt;&lt;a class="lnlinks" href="#hl-2-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-5"&gt;&lt;a class="lnlinks" href="#hl-2-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-6"&gt;&lt;a class="lnlinks" href="#hl-2-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-7"&gt;&lt;a class="lnlinks" href="#hl-2-7"&gt;7&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; mysql/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# root 无密码时&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mysql -u root
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# root 有密码时&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mysql -u root -p&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="5-修改-root-密码"&gt;5. 修改 root 密码
+&lt;a class="header-anchor" href="#5-%e4%bf%ae%e6%94%b9-root-%e5%af%86%e7%a0%81"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;使用 root 账号连接上之后，运行如下命令&lt;/p&gt;</description></item><item><title>Mysql 踩坑及优化笔记</title><link>/post/software/mysql_faq/</link><pubDate>Thu, 14 May 2020 20:01:22 +0800</pubDate><guid>/post/software/mysql_faq/</guid><description>&lt;h1 id="mysql-踩坑及优化笔记"&gt;Mysql 踩坑及优化笔记
+&lt;a class="header-anchor" href="#mysql-%e8%b8%a9%e5%9d%91%e5%8f%8a%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="q-server-has-gone-away"&gt;Q: server has gone away
+&lt;a class="header-anchor" href="#q-server-has-gone-away"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;排查方向：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;查看 server 端的 wait_timeout&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-gdscript3" data-lang="gdscript3"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;mysql&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="n"&gt;global&lt;/span&gt; &lt;span class="n"&gt;variables&lt;/span&gt; &lt;span class="n"&gt;like&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;%timeout%&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ol start="2"&gt;
+&lt;li&gt;client 端使用连接池，并把连接池的超时检测值设置为小于 wait_timeout 的值。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="q-使用了-order-by-limit-语句导致查询慢"&gt;Q: 使用了 order by limit 语句导致查询慢
+&lt;a class="header-anchor" href="#q-%e4%bd%bf%e7%94%a8%e4%ba%86-order-by-limit-%e8%af%ad%e5%8f%a5%e5%af%bc%e8%87%b4%e6%9f%a5%e8%af%a2%e6%85%a2"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;排查方向：&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>docker 部署 mysql</title><link>/post/docker/app/mysql/</link><pubDate>Wed, 30 Oct 2019 17:22:00 +0800</pubDate><guid>/post/docker/app/mysql/</guid><description>&lt;h1 id="docker-部署-mysql"&gt;docker 部署 mysql
+&lt;a class="header-anchor" href="#docker-%e9%83%a8%e7%bd%b2-mysql"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;运行 mysql&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;# 2019-01-07 修改&lt;/strong&gt;： &lt;code&gt;mysql&lt;/code&gt; 修改成 &lt;code&gt;mariadb&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -itd --name mysql-test -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;123456&lt;/span&gt; mariadb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如果需要docker外的程序连接，则暴露端口：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -itd --name mysql-test -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;123456&lt;/span&gt; -p 3306:3306 mariadb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如果需要把数据保存在外面：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -itd --name mysql-test -v /local/dir:/var/lib/mysql -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;123456&lt;/span&gt; -p 3306:3306 mariadb&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;运行 phpmyadmin&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ssl on 咕噜猫小站</title><link>/categories/ssl/</link><description>Recent content in Ssl on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 23 Feb 2023 12:09:00 +0800</lastBuildDate><atom:link href="/categories/ssl/rss.xml" rel="self" type="application/rss+xml"/><item><title>各内部系统连接 ldaps 而导入可信根证书的操作步骤</title><link>/post/ssl/trusted_certs_config/</link><pubDate>Thu, 31 Oct 2019 14:38:00 +0800</pubDate><guid>/post/ssl/trusted_certs_config/</guid><description>&lt;h1 id="各内部系统连接-ldaps-而导入可信根证书的操作步骤"&gt;各内部系统连接 ldaps 而导入可信根证书的操作步骤
+&lt;a class="header-anchor" href="#%e5%90%84%e5%86%85%e9%83%a8%e7%b3%bb%e7%bb%9f%e8%bf%9e%e6%8e%a5-ldaps-%e8%80%8c%e5%af%bc%e5%85%a5%e5%8f%af%e4%bf%a1%e6%a0%b9%e8%af%81%e4%b9%a6%e7%9a%84%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="前言"&gt;前言
+&lt;a class="header-anchor" href="#%e5%89%8d%e8%a8%80"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;由于使用了自签署证书，如果系统间连接需要使用 ssl ，难免会产生证书是否可信的问题。内部系统中主要是使用了 &lt;code&gt;ldaps&lt;/code&gt; 进行账号验证，因此需要指明可信根证书的位置。&lt;/p&gt;</description></item><item><title>使用 openssl 生成证书</title><link>/post/ssl/openssl_manual/</link><pubDate>Thu, 31 Oct 2019 13:56:00 +0800</pubDate><guid>/post/ssl/openssl_manual/</guid><description>&lt;h1 id="使用-openssl-生成证书"&gt;使用 openssl 生成证书
+&lt;a class="header-anchor" href="#%e4%bd%bf%e7%94%a8-openssl-%e7%94%9f%e6%88%90%e8%af%81%e4%b9%a6"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-前置知识"&gt;1. 前置知识
+&lt;a class="header-anchor" href="#1-%e5%89%8d%e7%bd%ae%e7%9f%a5%e8%af%86"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;KEY&lt;/strong&gt; 通常指私钥。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CSR&lt;/strong&gt; 是 Certificate Signing Request 的缩写，即证书签名请求，这不是证书，只是包含申请证书的基本信息。生成证书时要把这个提交给权威的证书颁发机构，颁发机构审核通过之后，再根据这些申请信息生成相应的证书。&lt;/p&gt;</description></item><item><title>Nginx SSL 优化配置方法</title><link>/post/ssl/nginx_config/</link><pubDate>Thu, 31 Oct 2019 13:53:00 +0800</pubDate><guid>/post/ssl/nginx_config/</guid><description>&lt;h1 id="nginx-ssl-优化配置方法"&gt;Nginx SSL 优化配置方法
+&lt;a class="header-anchor" href="#nginx-ssl-%e4%bc%98%e5%8c%96%e9%85%8d%e7%bd%ae%e6%96%b9%e6%b3%95"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考：&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://wiki.mozilla.org/Security/Server_Side_TLS#Nginx" title="https://wiki.mozilla.org/Security/Server_Side_TLS#Nginx" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.mozilla.org/Security/Server_Side_TLS#Nginx
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/" title="https://mozilla.github.io/server-side-tls/ssl-config-generator/" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://mozilla.github.io/server-side-tls/ssl-config-generator/
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HSTS 慎用&lt;/li&gt;
+&lt;li&gt;http2 优势明显，但是不适合于 nginx 当反向代理的情况。比较适合的情况是，如 php 这类直接解析的。非代理的情况下建议用 http2 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-10"&gt;&lt;a class="lnlinks" href="#hl-0-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-11"&gt;&lt;a class="lnlinks" href="#hl-0-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-12"&gt;&lt;a class="lnlinks" href="#hl-0-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-13"&gt;&lt;a class="lnlinks" href="#hl-0-13"&gt;13&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-14"&gt;&lt;a class="lnlinks" href="#hl-0-14"&gt;14&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-15"&gt;&lt;a class="lnlinks" href="#hl-0-15"&gt;15&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-16"&gt;&lt;a class="lnlinks" href="#hl-0-16"&gt;16&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-17"&gt;&lt;a class="lnlinks" href="#hl-0-17"&gt;17&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-18"&gt;&lt;a class="lnlinks" href="#hl-0-18"&gt;18&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-19"&gt;&lt;a class="lnlinks" href="#hl-0-19"&gt;19&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-20"&gt;&lt;a class="lnlinks" href="#hl-0-20"&gt;20&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-21"&gt;&lt;a class="lnlinks" href="#hl-0-21"&gt;21&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-22"&gt;&lt;a class="lnlinks" href="#hl-0-22"&gt;22&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-23"&gt;&lt;a class="lnlinks" href="#hl-0-23"&gt;23&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-24"&gt;&lt;a class="lnlinks" href="#hl-0-24"&gt;24&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-25"&gt;&lt;a class="lnlinks" href="#hl-0-25"&gt;25&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-26"&gt;&lt;a class="lnlinks" href="#hl-0-26"&gt;26&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-27"&gt;&lt;a class="lnlinks" href="#hl-0-27"&gt;27&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-28"&gt;&lt;a class="lnlinks" href="#hl-0-28"&gt;28&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-29"&gt;&lt;a class="lnlinks" href="#hl-0-29"&gt;29&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-30"&gt;&lt;a class="lnlinks" href="#hl-0-30"&gt;30&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-31"&gt;&lt;a class="lnlinks" href="#hl-0-31"&gt;31&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-32"&gt;&lt;a class="lnlinks" href="#hl-0-32"&gt;32&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-33"&gt;&lt;a class="lnlinks" href="#hl-0-33"&gt;33&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-34"&gt;&lt;a class="lnlinks" href="#hl-0-34"&gt;34&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-35"&gt;&lt;a class="lnlinks" href="#hl-0-35"&gt;35&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-36"&gt;&lt;a class="lnlinks" href="#hl-0-36"&gt;36&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-37"&gt;&lt;a class="lnlinks" href="#hl-0-37"&gt;37&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-38"&gt;&lt;a class="lnlinks" href="#hl-0-38"&gt;38&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-39"&gt;&lt;a class="lnlinks" href="#hl-0-39"&gt;39&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;server {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; listen 80 default_server;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; listen [::]:80 default_server;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; return 301 https://$host$request_uri;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;server {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; listen 443 ssl http2;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; listen [::]:443 ssl http2;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_certificate /path/to/signed_cert_plus_intermediates;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_certificate_key /path/to/private_key;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_session_timeout 1d;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_session_cache shared:SSL:50m;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_session_tickets off;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; # modern configuration. tweak to your needs.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_protocols TLSv1.2;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_ciphers &amp;#39;ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_prefer_server_ciphers on;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; add_header Strict-Transport-Security max-age=15768000;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; # OCSP Stapling ---
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; # fetch OCSP records from URL in ssl_certificate and cache them
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_stapling on;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_stapling_verify on;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ## verify chain of trust of OCSP response using Root CA and Intermediate certs
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ssl_trusted_certificate /path/to/root_CA_cert_plus_intermediates;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; resolver &amp;lt;IP DNS resolver&amp;gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ....
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;</description></item><item><title>JAVA 导入信任证书 (Keytool 的使用)</title><link>/post/ssl/keytool_qa/</link><pubDate>Thu, 31 Oct 2019 13:51:00 +0800</pubDate><guid>/post/ssl/keytool_qa/</guid><description>&lt;h1 id="java-导入信任证书-keytool-的使用"&gt;JAVA 导入信任证书 (Keytool 的使用)
+&lt;a class="header-anchor" href="#java-%e5%af%bc%e5%85%a5%e4%bf%a1%e4%bb%bb%e8%af%81%e4%b9%a6-keytool-%e7%9a%84%e4%bd%bf%e7%94%a8"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-问题背景"&gt;1. 问题背景
+&lt;a class="header-anchor" href="#1-%e9%97%ae%e9%a2%98%e8%83%8c%e6%99%af"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;使用 ssl 连接时，遇到不信任的证书，应用程序一般都会拒绝连接。&lt;/p&gt;
+&lt;p&gt;浏览网站时，我们可以通过在浏览器的设置中导入证书，把证书加入到信任列表中。&lt;/p&gt;</description></item></channel></rss>

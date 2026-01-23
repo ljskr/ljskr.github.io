@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Preseed on 咕噜猫小站</title><link>/tags/preseed/</link><description>Recent content in Preseed on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 30 Jul 2023 16:53:00 +0800</lastBuildDate><atom:link href="/tags/preseed/rss.xml" rel="self" type="application/rss+xml"/><item><title>Debian 自动安装配置备忘</title><link>/post/linux/debian_preseed/</link><pubDate>Sat, 02 Jan 2021 16:25:50 +0800</pubDate><guid>/post/linux/debian_preseed/</guid><description>&lt;h1 id="debian-自动安装配置备忘"&gt;Debian 自动安装配置备忘
+&lt;a class="header-anchor" href="#debian-%e8%87%aa%e5%8a%a8%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae%e5%a4%87%e5%bf%98"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://wiki.debian.org/DebianInstaller/Preseed" title="DebianInstaller Preseed" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ DebianInstaller Preseed
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="http://www.debian.org/releases/stable/example-preseed.txt" title="Preseed file example" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Preseed file example
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://www.debian.org/releases/stable/amd64/apb.zh-cn.html" title="使用预置自动进行安装" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ 使用预置自动进行安装
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自用的配置文件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;https://conf.gulucat.com/debian/buster.txt&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;https://conf.gulucat.com/debian/bullseye.txt&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;https://conf.gulucat.com/debian/bookworm.txt&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

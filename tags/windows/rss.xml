@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Windows on 咕噜猫小站</title><link>/tags/windows/</link><description>Recent content in Windows on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 08 Dec 2022 17:42:00 +0800</lastBuildDate><atom:link href="/tags/windows/rss.xml" rel="self" type="application/rss+xml"/><item><title>Windows 右键菜单添加以管理员打开 cmd</title><link>/post/windows/open_cmd_as_admin/</link><pubDate>Tue, 29 Mar 2022 10:42:00 +0800</pubDate><guid>/post/windows/open_cmd_as_admin/</guid><description>&lt;h1 id="windows-右键菜单添加以管理员打开-cmd"&gt;Windows 右键菜单添加以管理员打开 cmd
+&lt;a class="header-anchor" href="#windows-%e5%8f%b3%e9%94%ae%e8%8f%9c%e5%8d%95%e6%b7%bb%e5%8a%a0%e4%bb%a5%e7%ae%a1%e7%90%86%e5%91%98%e6%89%93%e5%bc%80-cmd"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;open_cmd_as_admin.reg 文件内容：&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-10"&gt;&lt;a class="lnlinks" href="#hl-0-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-11"&gt;&lt;a class="lnlinks" href="#hl-0-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-12"&gt;&lt;a class="lnlinks" href="#hl-0-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-13"&gt;&lt;a class="lnlinks" href="#hl-0-13"&gt;13&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-14"&gt;&lt;a class="lnlinks" href="#hl-0-14"&gt;14&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-15"&gt;&lt;a class="lnlinks" href="#hl-0-15"&gt;15&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-ini" data-lang="ini"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="na"&gt;Windows Registry Editor Version 5.00&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;; 以管理员身份打开 CMD&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;; 注册表项的路径必须为 runas ，否则无效。文件编码为 ansi ，使用 utf-8 中文会显示乱码。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;; Extended 表示要 shift+右键 才会显示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;; HasLUAShield 显示管理员图标&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;[HKEY_CLASSES_ROOT\Directory\Background\shell\runas]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="na"&gt;@&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;在此处打开 CMD (管理员)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="na"&gt;&amp;#34;Extended&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="na"&gt;&amp;#34;HasLUAShield&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="na"&gt;&amp;#34;ShowBasedOnVelocityId&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;dword:00639bc8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;[HKEY_CLASSES_ROOT\Directory\Background\shell\runas\command]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="na"&gt;@&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;cmd.exe /s /k pushd \&amp;#34;%V\&amp;#34;&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>Windows 内置工具简介</title><link>/post/windows/windows_tools/</link><pubDate>Fri, 17 Dec 2021 21:39:00 +0800</pubDate><guid>/post/windows/windows_tools/</guid><description>&lt;h1 id="windows-内置工具简介"&gt;Windows 内置工具简介
+&lt;a class="header-anchor" href="#windows-%e5%86%85%e7%bd%ae%e5%b7%a5%e5%85%b7%e7%ae%80%e4%bb%8b"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;Windows 10 之后，操作系统内置了一系列比较实用的工具，此处对这些工具进行梳理介绍。&lt;/p&gt;
+&lt;h2 id="1-file-hash"&gt;1. File Hash
+&lt;a class="header-anchor" href="#1-file-hash"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;可选的算法有： &lt;code&gt;MD2&lt;/code&gt; &lt;code&gt;MD4&lt;/code&gt; &lt;code&gt;MD5&lt;/code&gt; &lt;code&gt;SHA1&lt;/code&gt; &lt;code&gt;SHA256&lt;/code&gt; &lt;code&gt;SHA384&lt;/code&gt; &lt;code&gt;SHA512&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# cmd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;certutil -hashfile filename md5
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# powershell&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Get-FileHash filename -algorithm md5&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-csv-文件格式转换"&gt;2. CSV 文件格式转换
+&lt;a class="header-anchor" href="#2-csv-%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f%e8%bd%ac%e6%8d%a2"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;把 &lt;code&gt;csv&lt;/code&gt; 的文件格式进行标准化，如全部字段加上引号。&lt;/p&gt;</description></item><item><title>安装 Office 2021</title><link>/post/windows/office_2021_install/</link><pubDate>Wed, 24 Nov 2021 16:32:00 +0800</pubDate><guid>/post/windows/office_2021_install/</guid><description>&lt;h1 id="安装-office-2021"&gt;安装 Office 2021
+&lt;a class="header-anchor" href="#%e5%ae%89%e8%a3%85-office-2021"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="下载-office-deployment-tool"&gt;下载 Office Deployment Tool
+&lt;a class="header-anchor" href="#%e4%b8%8b%e8%bd%bd-office-deployment-tool"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;相关工具请查看上一篇 
+&lt;a href="/post/windows/office_2019_install" title="安装 Office 2019" &gt;
+ 安装 Office 2019
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;从 
+&lt;a href="https://www.microsoft.com/en-us/download/details.aspx?id=49117" title="Office Deployment Tool" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Office Deployment Tool
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 下载 Office Deployment Tool ，解压得到 &lt;code&gt;setup.exe&lt;/code&gt; 。&lt;/p&gt;
+&lt;h2 id="准备配置文件"&gt;准备配置文件
+&lt;a class="header-anchor" href="#%e5%87%86%e5%a4%87%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;可以到 
+&lt;a href="https://config.office.com/" title="Office 365 客户端配置" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Office 365 客户端配置
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 生成自定义的安装配置文件。&lt;/p&gt;</description></item><item><title>vlmcsd 安装指南</title><link>/post/software/vlmcsd_install/</link><pubDate>Sun, 27 Jun 2021 15:30:14 +0800</pubDate><guid>/post/software/vlmcsd_install/</guid><description>&lt;h1 id="vlmcsd-安装指南"&gt;vlmcsd 安装指南
+&lt;a class="header-anchor" href="#vlmcsd-%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;这是个好东西，不多做介绍，用途请自行搜索。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://github.com/Wind4/vlmcsd" title="https://github.com/Wind4/vlmcsd" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/Wind4/vlmcsd
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://hub.docker.com/r/mikolatero/vlmcsd" title="https://hub.docker.com/r/mikolatero/vlmcsd" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://hub.docker.com/r/mikolatero/vlmcsd
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-编译安装"&gt;1. 编译安装
+&lt;a class="header-anchor" href="#1-%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/Wind4/vlmcsd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; vlmcsd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make install&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-直接运行"&gt;2. 直接运行
+&lt;a class="header-anchor" href="#2-%e7%9b%b4%e6%8e%a5%e8%bf%90%e8%a1%8c"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;vlmcsd -D -d -t &lt;span class="m"&gt;3&lt;/span&gt; -e -v&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="3-以-systemd-服务方式运行"&gt;3. 以 systemd 服务方式运行
+&lt;a class="header-anchor" href="#3-%e4%bb%a5-systemd-%e6%9c%8d%e5%8a%a1%e6%96%b9%e5%bc%8f%e8%bf%90%e8%a1%8c"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;vi /etc/systemd/system/vlmcsd.service&lt;/code&gt;&lt;/p&gt;</description></item><item><title>安装 Office 2019</title><link>/post/windows/office_2019_install/</link><pubDate>Tue, 12 Nov 2019 13:47:00 +0800</pubDate><guid>/post/windows/office_2019_install/</guid><description>&lt;h1 id="安装-office-2019"&gt;安装 Office 2019
+&lt;a class="header-anchor" href="#%e5%ae%89%e8%a3%85-office-2019"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="下载-office-deployment-tool"&gt;下载 Office Deployment Tool
+&lt;a class="header-anchor" href="#%e4%b8%8b%e8%bd%bd-office-deployment-tool"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Office Deployment Tool 是微软官方的 Office 部署工具，可以直接在官网下载&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://www.microsoft.com/en-us/download/details.aspx?id=49117" title="Office Deployment Tool" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Office Deployment Tool
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://docs.microsoft.com/zh-cn/deployoffice/overview-of-the-office-2016-deployment-tool" title="Office 部署工具概述" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Office 部署工具概述
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;该工具很小，官网下载只有3M不到，运行后会解压出来一个 &lt;code&gt;setup.exe&lt;/code&gt; 和一些 xml 配置文件。 这个 setup.exe 就是今天的主角。&lt;/p&gt;</description></item><item><title>恢复 windows server 和 win10 ltsb 的图片查看功能</title><link>/post/windows/photo_viewer/</link><pubDate>Fri, 08 Nov 2019 18:24:00 +0800</pubDate><guid>/post/windows/photo_viewer/</guid><description>&lt;h1 id="恢复-windows-server-和-win10-ltsb-的图片查看功能"&gt;恢复 windows server 和 win10 ltsb 的图片查看功能
+&lt;a class="header-anchor" href="#%e6%81%a2%e5%a4%8d-windows-server-%e5%92%8c-win10-ltsb-%e7%9a%84%e5%9b%be%e7%89%87%e6%9f%a5%e7%9c%8b%e5%8a%9f%e8%83%bd"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;(参考连接: 
+&lt;a href="https://jingyan.baidu.com/article/14bd256e40e472bb6c26125b.html" title="https://jingyan.baidu.com/article/14bd256e40e472bb6c26125b.html" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://jingyan.baidu.com/article/14bd256e40e472bb6c26125b.html
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;以管理员身份运行命令提示符（cmd.exe）&lt;/p&gt;
+&lt;p&gt;在命令提示符输入以下命令并运行即可：&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;FTYPE Paint.Picture&lt;span class="o"&gt;=&lt;/span&gt;%SystemRoot%&lt;span class="se"&gt;\S&lt;/span&gt;ystem32&lt;span class="se"&gt;\r&lt;/span&gt;undll32.exe &lt;span class="s2"&gt;&amp;#34;%ProgramFiles%\Windows Photo Viewer\PhotoViewer.dll&amp;#34;&lt;/span&gt;, ImageView_Fullscreen %1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;FTYPE &lt;span class="nv"&gt;jpegfile&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;%SystemRoot%&lt;span class="se"&gt;\S&lt;/span&gt;ystem32&lt;span class="se"&gt;\r&lt;/span&gt;undll32.exe &lt;span class="s2"&gt;&amp;#34;%ProgramFiles%\Windows Photo Viewer\PhotoViewer.dll&amp;#34;&lt;/span&gt;, ImageView_Fullscreen %1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;FTYPE &lt;span class="nv"&gt;pngfile&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;%SystemRoot%&lt;span class="se"&gt;\S&lt;/span&gt;ystem32&lt;span class="se"&gt;\r&lt;/span&gt;undll32.exe &lt;span class="s2"&gt;&amp;#34;%ProgramFiles%\Windows Photo Viewer\PhotoViewer.dll&amp;#34;&lt;/span&gt;, ImageView_Fullscreen %1&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>Windows 激活使用说明</title><link>/post/windows/windows_act/</link><pubDate>Thu, 31 Oct 2019 15:35:00 +0800</pubDate><guid>/post/windows/windows_act/</guid><description>&lt;h1 id="windows-激活使用说明"&gt;Windows 激活使用说明
+&lt;a class="header-anchor" href="#windows-%e6%bf%80%e6%b4%bb%e4%bd%bf%e7%94%a8%e8%af%b4%e6%98%8e"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;以管理员的身份打开 cmd&lt;/strong&gt; ，执行下述命令。以下命令中的 &lt;code&gt;&amp;lt;ip&amp;gt;&lt;/code&gt; 需要替换为真实的激活服务器地址。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Windows&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;slmgr.vbs -skms &amp;lt;ip&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;slmgr.vbs -ato
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;slmgr.vbs -dlv&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Office x86&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cd \Program Files (x86)\Microsoft Office\Office16
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cscript ospp.vbs /sethst:&amp;lt;ip&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cscript ospp.vbs /act
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cscript ospp.vbs /dstatusall&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Office x86_64&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>

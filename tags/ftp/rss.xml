@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ftp on 咕噜猫小站</title><link>/tags/ftp/</link><description>Recent content in Ftp on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 31 Oct 2019 13:41:38 +0800</lastBuildDate><atom:link href="/tags/ftp/rss.xml" rel="self" type="application/rss+xml"/><item><title>vsftp 配置说明</title><link>/post/software/vsftp_config/</link><pubDate>Thu, 31 Oct 2019 13:41:38 +0800</pubDate><guid>/post/software/vsftp_config/</guid><description>&lt;h1 id="vsftp-配置说明"&gt;vsftp 配置说明
+&lt;a class="header-anchor" href="#vsftp-%e9%85%8d%e7%bd%ae%e8%af%b4%e6%98%8e"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;vsftp&lt;/code&gt; 是 linux 下非常有名的一个 ftp 服务器程序。不过其配置稍微有点复杂。以下对其配置作简单说明。&lt;/p&gt;
+&lt;p&gt;先贴一段目前在用的配置（已把注释部分去掉了），本配置的效果有：&lt;/p&gt;</description></item></channel></rss>

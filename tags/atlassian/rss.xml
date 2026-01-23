@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Atlassian on 咕噜猫小站</title><link>/tags/atlassian/</link><description>Recent content in Atlassian on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 31 Oct 2019 12:28:19 +0800</lastBuildDate><atom:link href="/tags/atlassian/rss.xml" rel="self" type="application/rss+xml"/><item><title>JIRA 7.3 安装指南 (Ubuntu 16.04)</title><link>/post/software/jira_install/</link><pubDate>Thu, 31 Oct 2019 12:28:19 +0800</pubDate><guid>/post/software/jira_install/</guid><description>&lt;h1 id="jira-73-安装指南-ubuntu-1604"&gt;JIRA 7.3 安装指南 (Ubuntu 16.04)
+&lt;a class="header-anchor" href="#jira-73-%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97-ubuntu-1604"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-下载-jira-738-安装包"&gt;1. 下载 jira 7.3.8 安装包
+&lt;a class="header-anchor" href="#1-%e4%b8%8b%e8%bd%bd-jira-738-%e5%ae%89%e8%a3%85%e5%8c%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;wget https://downloads.atlassian.com/software/jira/downloads/atlassian-jira-software-7.3.8-x64.bin&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-下载-jira-73-破解包"&gt;2. 下载 jira 7.3 破解包
+&lt;a class="header-anchor" href="#2-%e4%b8%8b%e8%bd%bd-jira-73-%e7%a0%b4%e8%a7%a3%e5%8c%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;从以下地址下载破解包：&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 略&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;或者从附件中获取。 (jira7.3-crack.zip)&lt;/p&gt;
+&lt;h2 id="3-安装-mysql--若已安装则跳过"&gt;3. 安装 mysql （若已安装则跳过）
+&lt;a class="header-anchor" href="#3-%e5%ae%89%e8%a3%85-mysql--%e8%8b%a5%e5%b7%b2%e5%ae%89%e8%a3%85%e5%88%99%e8%b7%b3%e8%bf%87"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;安装 mysql :&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-2-1"&gt;&lt;a class="lnlinks" href="#hl-2-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; sudo apt-get install mysql-server&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在 mysql 命令行中运行下面命令:&lt;/p&gt;</description></item><item><title>Crowd 2.7.2 安装指南</title><link>/post/software/crowd_install/</link><pubDate>Thu, 31 Oct 2019 12:17:24 +0800</pubDate><guid>/post/software/crowd_install/</guid><description>&lt;h1 id="crowd-272-安装指南"&gt;Crowd 2.7.2 安装指南
+&lt;a class="header-anchor" href="#crowd-272-%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="安装"&gt;安装
+&lt;a class="header-anchor" href="#%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Crowd 2.7.2 是最后的可以用 jira 的 extras-3.2 包进行破解的版本。 Crowd 2.8 以后的版本变更了部分接口。&lt;/p&gt;
+&lt;h2 id="与各系统集成"&gt;与各系统集成
+&lt;a class="header-anchor" href="#%e4%b8%8e%e5%90%84%e7%b3%bb%e7%bb%9f%e9%9b%86%e6%88%90"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;参考：&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://confluence.atlassian.com/crowd/adding-an-application-18579591.html" title="https://confluence.atlassian.com/crowd/adding-an-application-18579591.html" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://confluence.atlassian.com/crowd/adding-an-application-18579591.html
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="sso-单点登录无法生效"&gt;SSO 单点登录无法生效
+&lt;a class="header-anchor" href="#sso-%e5%8d%95%e7%82%b9%e7%99%bb%e5%bd%95%e6%97%a0%e6%b3%95%e7%94%9f%e6%95%88"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;问题排查：&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://confluence.atlassian.com/crowd/troubleshooting-sso-with-crowd-131466214.html" title="https://confluence.atlassian.com/crowd/troubleshooting-sso-with-crowd-131466214.html" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://confluence.atlassian.com/crowd/troubleshooting-sso-with-crowd-131466214.html
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Confluence 6.3.4 安装指南 (Ubuntu 16.04)</title><link>/post/software/confluence_install/</link><pubDate>Thu, 31 Oct 2019 12:14:01 +0800</pubDate><guid>/post/software/confluence_install/</guid><description>&lt;h1 id="confluence-634-安装指南-ubuntu-1604"&gt;Confluence 6.3.4 安装指南 (Ubuntu 16.04)
+&lt;a class="header-anchor" href="#confluence-634-%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97-ubuntu-1604"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-下载-confluence-634-安装包"&gt;1. 下载 Confluence 6.3.4 安装包
+&lt;a class="header-anchor" href="#1-%e4%b8%8b%e8%bd%bd-confluence-634-%e5%ae%89%e8%a3%85%e5%8c%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;wget https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-6.3.4-x64.bin&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;安装较低版本是为了可以使用 onlyoffice 的插件，该插件 1.1.0 版本只支持到 confluence 6.4。&lt;/p&gt;
+&lt;h2 id="2-获取-confluence-634-破解包"&gt;2. 获取 Confluence 6.3.4 破解包
+&lt;a class="header-anchor" href="#2-%e8%8e%b7%e5%8f%96-confluence-634-%e7%a0%b4%e8%a7%a3%e5%8c%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;从附件中下载
+&lt;img src="/imgs/img-lazy-loading.gif" data-src=":user:ljskr:maintenance:atlassian-extras-decoder-v2-3.2.tgz" alt="atlassian-extras-decoder-v2-3.2.tgz " /&gt;&lt;/p&gt;
+&lt;p&gt;经测试 atlassian-extras-decoder-v2-3.2.jar 可以使用在更高版本的 confluence 。 如 Confluence 6.10，使用的是 atlassian-extras-decoder-v2-3.4.1.jar，替换后同样可用。&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,1069 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on 咕噜猫小站</title><link>/tags/linux/</link><description>Recent content in Linux on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Mon, 27 May 2024 17:46:40 +0800</lastBuildDate><atom:link href="/tags/linux/rss.xml" rel="self" type="application/rss+xml"/><item><title>Debian 图形和文本模式切换方法</title><link>/post/linux/console_mode/</link><pubDate>Mon, 27 May 2024 17:46:40 +0800</pubDate><guid>/post/linux/console_mode/</guid><description>&lt;h1 id="debian-图形和文本模式切换方法"&gt;Debian 图形和文本模式切换方法
+&lt;a class="header-anchor" href="#debian-%e5%9b%be%e5%bd%a2%e5%92%8c%e6%96%87%e6%9c%ac%e6%a8%a1%e5%bc%8f%e5%88%87%e6%8d%a2%e6%96%b9%e6%b3%95"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;查看当前的默认模式。 &lt;code&gt;multi-user&lt;/code&gt; 为多用户命令行模式（文本模式）， &lt;code&gt;graphical&lt;/code&gt; 为图形界面模式。&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;systemctl get-default&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;设置启动时默认为多用户命令行模式（文本模式）：&lt;/p&gt;</description></item><item><title>Linux 下查看 Smart 方法</title><link>/post/linux/smart/</link><pubDate>Mon, 27 May 2024 09:45:32 +0800</pubDate><guid>/post/linux/smart/</guid><description>&lt;h1 id="linux-下查看-smart-方法"&gt;Linux 下查看 Smart 方法
+&lt;a class="header-anchor" href="#linux-%e4%b8%8b%e6%9f%a5%e7%9c%8b-smart-%e6%96%b9%e6%b3%95"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="linux"&gt;Linux
+&lt;a class="header-anchor" href="#linux"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;使用 &lt;code&gt;smartctl&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt;7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt;8&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 显示磁盘信息，查看磁盘是否支持 smart 。结果位于输出信息的后两行。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;smartctl -i /dev/sda
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 显示磁盘健康状态。PASSED 为良好； FAILED 为磁盘有问题，需要尽快更换。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;smartctl -H /dev/sda
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 详细列出 smart 属性和值。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;smartctl -A /dev/sda&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="esxi"&gt;ESXi
+&lt;a class="header-anchor" href="#esxi"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-5"&gt;&lt;a class="lnlinks" href="#hl-1-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-6"&gt;&lt;a class="lnlinks" href="#hl-1-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-7"&gt;&lt;a class="lnlinks" href="#hl-1-7"&gt;7&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 列出 nvme 设备&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;esxcli nvme device list
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 列出磁盘设备&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;esxcli storage core device list
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 列出 smart 属性和值。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;esxcli storage core device smart get -d &amp;lt;device&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>Debian 11 新系统安装配置指南</title><link>/post/linux/debian_11_install/</link><pubDate>Wed, 05 Jul 2023 03:06:37 +0800</pubDate><guid>/post/linux/debian_11_install/</guid><description>&lt;h1 id="debian-11-新系统安装配置指南"&gt;Debian 11 新系统安装配置指南
+&lt;a class="header-anchor" href="#debian-11-%e6%96%b0%e7%b3%bb%e7%bb%9f%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae%e6%8c%87%e5%8d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;以 
+&lt;a href="/post/linux/new_install" title="Linux 新系统安装配置清单" &gt;
+ Linux 新系统安装配置清单
+ 
+&lt;/a&gt; 为蓝本，针对 &lt;code&gt;Debian 11&lt;/code&gt; 系统进行相应的调整。&lt;/p&gt;
+&lt;h2 id="一-bash-配置"&gt;一、 bash 配置
+&lt;a class="header-anchor" href="#%e4%b8%80-bash-%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;/root/.bashrc&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-10"&gt;&lt;a class="lnlinks" href="#hl-0-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-11"&gt;&lt;a class="lnlinks" href="#hl-0-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-12"&gt;&lt;a class="lnlinks" href="#hl-0-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-13"&gt;&lt;a class="lnlinks" href="#hl-0-13"&gt;13&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-14"&gt;&lt;a class="lnlinks" href="#hl-0-14"&gt;14&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-15"&gt;&lt;a class="lnlinks" href="#hl-0-15"&gt;15&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-16"&gt;&lt;a class="lnlinks" href="#hl-0-16"&gt;16&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-17"&gt;&lt;a class="lnlinks" href="#hl-0-17"&gt;17&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-18"&gt;&lt;a class="lnlinks" href="#hl-0-18"&gt;18&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-19"&gt;&lt;a class="lnlinks" href="#hl-0-19"&gt;19&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\n${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# If this is an xterm set the title to user@host:dir&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$TERM&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; in
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;xterm*&lt;span class="p"&gt;|&lt;/span&gt;rxvt*&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nv"&gt;PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;\[\e]0;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;debian_chroot&lt;/span&gt;&lt;span class="p"&gt;:+(&lt;/span&gt;&lt;span class="nv"&gt;$debian_chroot&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;\u@\h \a\]&lt;/span&gt;&lt;span class="nv"&gt;$PS1&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;*&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;esac&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;LS_OPTIONS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--color=auto&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;eval&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;`dircolors`&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;ls&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ls $LS_OPTIONS&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;ll&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ls $LS_OPTIONS -lh&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;rm&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rm -i&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;cp&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cp -i&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;mv&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mv -i&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="二-公共组件"&gt;二、 公共组件
+&lt;a class="header-anchor" href="#%e4%ba%8c-%e5%85%ac%e5%85%b1%e7%bb%84%e4%bb%b6"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-5"&gt;&lt;a class="lnlinks" href="#hl-1-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-6"&gt;&lt;a class="lnlinks" href="#hl-1-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-7"&gt;&lt;a class="lnlinks" href="#hl-1-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-8"&gt;&lt;a class="lnlinks" href="#hl-1-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-9"&gt;&lt;a class="lnlinks" href="#hl-1-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-10"&gt;&lt;a class="lnlinks" href="#hl-1-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-11"&gt;&lt;a class="lnlinks" href="#hl-1-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-12"&gt;&lt;a class="lnlinks" href="#hl-1-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-13"&gt;&lt;a class="lnlinks" href="#hl-1-13"&gt;13&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-14"&gt;&lt;a class="lnlinks" href="#hl-1-14"&gt;14&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-15"&gt;&lt;a class="lnlinks" href="#hl-1-15"&gt;15&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-16"&gt;&lt;a class="lnlinks" href="#hl-1-16"&gt;16&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-17"&gt;&lt;a class="lnlinks" href="#hl-1-17"&gt;17&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-18"&gt;&lt;a class="lnlinks" href="#hl-1-18"&gt;18&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-19"&gt;&lt;a class="lnlinks" href="#hl-1-19"&gt;19&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-20"&gt;&lt;a class="lnlinks" href="#hl-1-20"&gt;20&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-21"&gt;&lt;a class="lnlinks" href="#hl-1-21"&gt;21&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-22"&gt;&lt;a class="lnlinks" href="#hl-1-22"&gt;22&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-23"&gt;&lt;a class="lnlinks" href="#hl-1-23"&gt;23&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-24"&gt;&lt;a class="lnlinks" href="#hl-1-24"&gt;24&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-25"&gt;&lt;a class="lnlinks" href="#hl-1-25"&gt;25&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-26"&gt;&lt;a class="lnlinks" href="#hl-1-26"&gt;26&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-27"&gt;&lt;a class="lnlinks" href="#hl-1-27"&gt;27&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-28"&gt;&lt;a class="lnlinks" href="#hl-1-28"&gt;28&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-29"&gt;&lt;a class="lnlinks" href="#hl-1-29"&gt;29&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-30"&gt;&lt;a class="lnlinks" href="#hl-1-30"&gt;30&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-31"&gt;&lt;a class="lnlinks" href="#hl-1-31"&gt;31&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-32"&gt;&lt;a class="lnlinks" href="#hl-1-32"&gt;32&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-33"&gt;&lt;a class="lnlinks" href="#hl-1-33"&gt;33&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-34"&gt;&lt;a class="lnlinks" href="#hl-1-34"&gt;34&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-35"&gt;&lt;a class="lnlinks" href="#hl-1-35"&gt;35&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 备份原来的 sources.list&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;DATE_TIME_NOW&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +&lt;span class="s2"&gt;&amp;#34;%Y%m%d_%H%M&amp;#34;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mv /etc/apt/sources.list /etc/apt/sources.list.bak_&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;DATE_TIME_NOW&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 设置 sources.list ，使用清华的镜像源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat &lt;span class="s"&gt;&amp;lt;&amp;lt; \EOF &amp;gt; /etc/apt/sources.list
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;deb https://mirrors.tuna.tsinghua.edu.cn/debian bullseye main contrib non-free
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;deb https://mirrors.tuna.tsinghua.edu.cn/debian bullseye-updates main contrib non-free
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 安装常用工具&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt install -y &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; curl &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; gnupg2 &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; vim &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; tmux &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; nfs-common &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; zip &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; unzip &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; unar &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; p7zip-full &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; fonts-noto-cjk &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; fonts-wqy-microhei &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; fonts-wqy-zenhei
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# vim 设置，写到 vimrc.local 中，避免更新时冲突。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat &lt;span class="s"&gt;&amp;lt;&amp;lt; \EOF &amp;gt; /etc/vim/vimrc.local
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;&amp;#34; 显示行号
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;set nu
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;&amp;#34; 设置 yaml 文件缩进
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=&amp;lt;:&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;EOF&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="三-python-环境"&gt;三、 python 环境
+&lt;a class="header-anchor" href="#%e4%b8%89-python-%e7%8e%af%e5%a2%83"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;1. pip 私服&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>弱密码检测</title><link>/post/software/wp_check/</link><pubDate>Fri, 16 Jun 2023 10:51:37 +0800</pubDate><guid>/post/software/wp_check/</guid><description>&lt;h1 id="弱密码检测"&gt;弱密码检测
+&lt;a class="header-anchor" href="#%e5%bc%b1%e5%af%86%e7%a0%81%e6%a3%80%e6%b5%8b"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文主要介绍如何在 Debian 下使用工具检测密码强度。&lt;/p&gt;
+&lt;h2 id="1-使用-cracklib-check"&gt;1. 使用 cracklib-check
+&lt;a class="header-anchor" href="#1-%e4%bd%bf%e7%94%a8-cracklib-check"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;cracklib-check&lt;/code&gt; 是一个弱密码检测工具。如果密码是弱密码，会给出原因；否则返回 OK 。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;若没有命令 &lt;code&gt;cracklib-check&lt;/code&gt;，则先安装 &lt;code&gt;cracklib&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt install libcrack2&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ol start="2"&gt;
+&lt;li&gt;检测是否是弱密码&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-5"&gt;&lt;a class="lnlinks" href="#hl-1-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 交互式。直接运行 cracklib-check ，然后输入一行密码，回车确认。可以多次输入密码，退出按 Ctrl + D 。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cracklib-check
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 非交互式。缺点：在 shell 的历史记录中能看到这条命令，容易泄漏密码。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;123456&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; cracklib-check&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-使用-pwscore"&gt;2. 使用 pwscore
+&lt;a class="header-anchor" href="#2-%e4%bd%bf%e7%94%a8-pwscore"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;pwscore&lt;/code&gt; 是给密码强度打分工具，分值越高，密码强度越强。&lt;/p&gt;</description></item><item><title>Debian KVM 安装与配置</title><link>/post/linux/kvm/</link><pubDate>Fri, 03 Feb 2023 20:44:36 +0800</pubDate><guid>/post/linux/kvm/</guid><description>&lt;h1 id="debian-kvm-安装与配置"&gt;Debian KVM 安装与配置
+&lt;a class="header-anchor" href="#debian-kvm-%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 11 为例，介绍 kvm 的安装与配置方法。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://wiki.debian.org/KVM" title="KVM - Debian Wiki" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ KVM - Debian Wiki
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="一确认支持-kvm"&gt;一、确认支持 kvm
+&lt;a class="header-anchor" href="#%e4%b8%80%e7%a1%ae%e8%ae%a4%e6%94%af%e6%8c%81-kvm"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;运行以下命令，确认可以看到 &lt;code&gt;kvm&lt;/code&gt; 相关的输出&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lsmod &lt;span class="p"&gt;|&lt;/span&gt; grep kvm&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果无结果，需要先在 BIOS 中打开 VT 选项。&lt;/p&gt;</description></item><item><title>curl 用法备忘</title><link>/post/linux/curl/</link><pubDate>Tue, 06 Dec 2022 20:27:40 +0800</pubDate><guid>/post/linux/curl/</guid><description>&lt;h1 id="curl-用法备忘"&gt;curl 用法备忘
+&lt;a class="header-anchor" href="#curl-%e7%94%a8%e6%b3%95%e5%a4%87%e5%bf%98"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-使用指定文件作为请求数据"&gt;1. 使用指定文件作为请求数据
+&lt;a class="header-anchor" href="#1-%e4%bd%bf%e7%94%a8%e6%8c%87%e5%ae%9a%e6%96%87%e4%bb%b6%e4%bd%9c%e4%b8%ba%e8%af%b7%e6%b1%82%e6%95%b0%e6%8d%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -X POST -H &lt;span class="s2"&gt;&amp;#34;Content-Type:text/xml;charset=UTF-8&amp;#34;&lt;/span&gt; -d @test.xml https://url:port/api&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;参数说明:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;X&lt;/strong&gt;: 请求类型，默认为 &lt;code&gt;GET&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;H&lt;/strong&gt;: 自定义请求头&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;d&lt;/strong&gt;: 请求参数。使用 &lt;code&gt;@&lt;/code&gt; 表示把一个文件的内容作为请求参数发送出去。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="2-上传文件"&gt;2. 上传文件
+&lt;a class="header-anchor" href="#2-%e4%b8%8a%e4%bc%a0%e6%96%87%e4%bb%b6"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -X POST -F &lt;span class="s2"&gt;&amp;#34;file=@/home/user/test.jpg&amp;#34;&lt;/span&gt; https://url:port/api&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;参数说明:&lt;/p&gt;</description></item><item><title>dnsmasq 安装与配置</title><link>/post/linux/dnsmasq/</link><pubDate>Mon, 25 Jul 2022 13:12:16 +0800</pubDate><guid>/post/linux/dnsmasq/</guid><description>&lt;h1 id="dnsmasq-安装与配置"&gt;dnsmasq 安装与配置
+&lt;a class="header-anchor" href="#dnsmasq-%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;dnsmasq&lt;/code&gt; 可提供 &lt;code&gt;DNS&lt;/code&gt; 、 &lt;code&gt;DHCP&lt;/code&gt; 、 &lt;code&gt;TFTP&lt;/code&gt; 服务。&lt;/p&gt;
+&lt;p&gt;本文以 Debian 11 为例，介绍 dnsmasq 的安装与配置方法。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://dnsmasq.org" title="dnsmasq 官网" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ dnsmasq 官网
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://dnsmasq.org/docs/dnsmasq-man.html" title="dnsmasq 官网文档" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ dnsmasq 官网文档
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-安装"&gt;1. 安装
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;安装 &lt;code&gt;dnsmasq&lt;/code&gt; 程序包。&lt;/p&gt;</description></item><item><title>Debian 解压 zip 文件名乱码解决方案</title><link>/post/linux/unar/</link><pubDate>Mon, 06 Dec 2021 16:26:47 +0800</pubDate><guid>/post/linux/unar/</guid><description>&lt;h1 id="debian-解压-zip-文件名乱码解决方案"&gt;Debian 解压 zip 文件名乱码解决方案
+&lt;a class="header-anchor" href="#debian-%e8%a7%a3%e5%8e%8b-zip-%e6%96%87%e4%bb%b6%e5%90%8d%e4%b9%b1%e7%a0%81%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;zip 文件对于文件名的编码没有进行统一，因此有可能对于不同编码的系统，解压出来的文件名会产生乱码。&lt;/p&gt;
+&lt;p&gt;对于 Debian 来说，比较方便快捷的一个解决方案是使用 &lt;code&gt;unar&lt;/code&gt; 进行解压。&lt;/p&gt;</description></item><item><title>vlmcsd 安装指南</title><link>/post/software/vlmcsd_install/</link><pubDate>Sun, 27 Jun 2021 15:30:14 +0800</pubDate><guid>/post/software/vlmcsd_install/</guid><description>&lt;h1 id="vlmcsd-安装指南"&gt;vlmcsd 安装指南
+&lt;a class="header-anchor" href="#vlmcsd-%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;这是个好东西，不多做介绍，用途请自行搜索。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://github.com/Wind4/vlmcsd" title="https://github.com/Wind4/vlmcsd" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/Wind4/vlmcsd
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://hub.docker.com/r/mikolatero/vlmcsd" title="https://hub.docker.com/r/mikolatero/vlmcsd" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://hub.docker.com/r/mikolatero/vlmcsd
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-编译安装"&gt;1. 编译安装
+&lt;a class="header-anchor" href="#1-%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/Wind4/vlmcsd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; vlmcsd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make install&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-直接运行"&gt;2. 直接运行
+&lt;a class="header-anchor" href="#2-%e7%9b%b4%e6%8e%a5%e8%bf%90%e8%a1%8c"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;vlmcsd -D -d -t &lt;span class="m"&gt;3&lt;/span&gt; -e -v&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="3-以-systemd-服务方式运行"&gt;3. 以 systemd 服务方式运行
+&lt;a class="header-anchor" href="#3-%e4%bb%a5-systemd-%e6%9c%8d%e5%8a%a1%e6%96%b9%e5%bc%8f%e8%bf%90%e8%a1%8c"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;vi /etc/systemd/system/vlmcsd.service&lt;/code&gt;&lt;/p&gt;</description></item><item><title>远程上传证书并调用更新脚本</title><link>/post/linux/update_certs/</link><pubDate>Fri, 02 Apr 2021 19:29:08 +0800</pubDate><guid>/post/linux/update_certs/</guid><description>&lt;h1 id="远程上传证书并调用更新脚本"&gt;远程上传证书并调用更新脚本
+&lt;a class="header-anchor" href="#%e8%bf%9c%e7%a8%8b%e4%b8%8a%e4%bc%a0%e8%af%81%e4%b9%a6%e5%b9%b6%e8%b0%83%e7%94%a8%e6%9b%b4%e6%96%b0%e8%84%9a%e6%9c%ac"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;背景：&lt;/strong&gt;
+由于有多个服务器需要更新 https 证书，如果每个服务器单独更新自己的证书，在迁移应用的时候，需要把证书也迁移过去，非常麻烦。因此考虑由一台服务器进行更新 https 证书，并通过 ssh 分发和调用更新命令。&lt;/p&gt;</description></item><item><title>ISC KEA 服务器安装与配置</title><link>/post/linux/isc_kea/</link><pubDate>Thu, 04 Feb 2021 20:06:15 +0800</pubDate><guid>/post/linux/isc_kea/</guid><description>&lt;h1 id="isc-kea-服务器安装与配置"&gt;ISC KEA 服务器安装与配置
+&lt;a class="header-anchor" href="#isc-kea-%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10 为例，介绍 Kea 服务器的安装与配置方法。&lt;/p&gt;
+&lt;h2 id="一kea-安装与配置"&gt;一、Kea 安装与配置
+&lt;a class="header-anchor" href="#%e4%b8%80kea-%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;待补充&lt;/p&gt;
+&lt;h2 id="二kea-stork-安装与配置"&gt;二、Kea Stork 安装与配置
+&lt;a class="header-anchor" href="#%e4%ba%8ckea-stork-%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Stork 为 Kea 服务的一个可视化前端。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://stork.readthedocs.io/" title="官方说明文档" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ 官方说明文档
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Stork 分为 Server 和 Agent 两部分。Agent 需要跟 kea 或者 bind9 服务安装在同一台机器上，用于获取这些服务的数据。Server 从 Agent 处获取信息并展示。Server 可以单独安装其他机器上。&lt;/p&gt;</description></item><item><title>DHCP 服务器安装与配置</title><link>/post/linux/isc_dhcp_server/</link><pubDate>Mon, 04 Jan 2021 13:52:00 +0800</pubDate><guid>/post/linux/isc_dhcp_server/</guid><description>&lt;h1 id="dhcp-服务器安装与配置"&gt;DHCP 服务器安装与配置
+&lt;a class="header-anchor" href="#dhcp-%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10 为例，介绍 DHCP 服务器的安装与配置方法。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://wiki.debian.org/DHCP_Server" title="DHCP_Server" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ DHCP_Server
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-安装"&gt;1. 安装
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;安装 &lt;code&gt;isc-dhcp-server&lt;/code&gt; 程序包。&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt install isc-dhcp-server&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-配置"&gt;2. 配置
+&lt;a class="header-anchor" href="#2-%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;h3 id="21-指定监听的网络接口"&gt;2.1 指定监听的网络接口
+&lt;a class="header-anchor" href="#21-%e6%8c%87%e5%ae%9a%e7%9b%91%e5%90%ac%e7%9a%84%e7%bd%91%e7%bb%9c%e6%8e%a5%e5%8f%a3"&gt;&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;编辑 &lt;code&gt;/etc/default/isc-dhcp-server&lt;/code&gt; 文件，修改如下选项，把 eth0 改为自己的网络接口名称&lt;/p&gt;</description></item><item><title>Debian 自动安装配置备忘</title><link>/post/linux/debian_preseed/</link><pubDate>Sat, 02 Jan 2021 16:25:50 +0800</pubDate><guid>/post/linux/debian_preseed/</guid><description>&lt;h1 id="debian-自动安装配置备忘"&gt;Debian 自动安装配置备忘
+&lt;a class="header-anchor" href="#debian-%e8%87%aa%e5%8a%a8%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae%e5%a4%87%e5%bf%98"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://wiki.debian.org/DebianInstaller/Preseed" title="DebianInstaller Preseed" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ DebianInstaller Preseed
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="http://www.debian.org/releases/stable/example-preseed.txt" title="Preseed file example" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Preseed file example
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://www.debian.org/releases/stable/amd64/apb.zh-cn.html" title="使用预置自动进行安装" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ 使用预置自动进行安装
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自用的配置文件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;https://conf.gulucat.com/debian/buster.txt&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;https://conf.gulucat.com/debian/bullseye.txt&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;https://conf.gulucat.com/debian/bookworm.txt&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>tmux 常用命令一览</title><link>/post/linux/tmux/</link><pubDate>Mon, 20 Jul 2020 11:12:59 +0800</pubDate><guid>/post/linux/tmux/</guid><description>&lt;h1 id="tmux-常用命令一览"&gt;tmux 常用命令一览
+&lt;a class="header-anchor" href="#tmux-%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4%e4%b8%80%e8%a7%88"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="一-session-相关"&gt;一、 session 相关
+&lt;a class="header-anchor" href="#%e4%b8%80-session-%e7%9b%b8%e5%85%b3"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;1. 创建新的 session&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 直接运行 tmux ，不指定 session 名字 ，session 名字将会以数字命名，从 0 开始自动递增。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;tmux
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 创建特定名字的 session&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;tmux new -s &amp;lt;name&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 从 session 中脱离 (session 仍会在后台运行)&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Linux 新系统安装配置清单</title><link>/post/linux/new_install/</link><pubDate>Fri, 15 May 2020 21:03:40 +0800</pubDate><guid>/post/linux/new_install/</guid><description>&lt;h1 id="linux-新系统安装配置清单"&gt;Linux 新系统安装配置清单
+&lt;a class="header-anchor" href="#linux-%e6%96%b0%e7%b3%bb%e7%bb%9f%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae%e6%b8%85%e5%8d%95"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;主要以 debian 系统为示例&lt;/p&gt;
+&lt;h2 id="一-bash-配置"&gt;一、 bash 配置
+&lt;a class="header-anchor" href="#%e4%b8%80-bash-%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;/root/.bashrc&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-10"&gt;&lt;a class="lnlinks" href="#hl-0-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-11"&gt;&lt;a class="lnlinks" href="#hl-0-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-12"&gt;&lt;a class="lnlinks" href="#hl-0-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-13"&gt;&lt;a class="lnlinks" href="#hl-0-13"&gt;13&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-14"&gt;&lt;a class="lnlinks" href="#hl-0-14"&gt;14&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-15"&gt;&lt;a class="lnlinks" href="#hl-0-15"&gt;15&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-16"&gt;&lt;a class="lnlinks" href="#hl-0-16"&gt;16&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-17"&gt;&lt;a class="lnlinks" href="#hl-0-17"&gt;17&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-18"&gt;&lt;a class="lnlinks" href="#hl-0-18"&gt;18&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-19"&gt;&lt;a class="lnlinks" href="#hl-0-19"&gt;19&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\n${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# If this is an xterm set the title to user@host:dir&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$TERM&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; in
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;xterm*&lt;span class="p"&gt;|&lt;/span&gt;rxvt*&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nv"&gt;PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;\[\e]0;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;debian_chroot&lt;/span&gt;&lt;span class="p"&gt;:+(&lt;/span&gt;&lt;span class="nv"&gt;$debian_chroot&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;\u@\h \a\]&lt;/span&gt;&lt;span class="nv"&gt;$PS1&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;*&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;esac&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;LS_OPTIONS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--color=auto&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;eval&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;`dircolors`&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;ls&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ls $LS_OPTIONS&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;ll&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ls $LS_OPTIONS -lh&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;rm&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rm -i&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;cp&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cp -i&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;mv&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mv -i&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="二-公共组件"&gt;二、 公共组件
+&lt;a class="header-anchor" href="#%e4%ba%8c-%e5%85%ac%e5%85%b1%e7%bb%84%e4%bb%b6"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-5"&gt;&lt;a class="lnlinks" href="#hl-1-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-6"&gt;&lt;a class="lnlinks" href="#hl-1-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-7"&gt;&lt;a class="lnlinks" href="#hl-1-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-8"&gt;&lt;a class="lnlinks" href="#hl-1-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-9"&gt;&lt;a class="lnlinks" href="#hl-1-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-10"&gt;&lt;a class="lnlinks" href="#hl-1-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-11"&gt;&lt;a class="lnlinks" href="#hl-1-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-12"&gt;&lt;a class="lnlinks" href="#hl-1-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-13"&gt;&lt;a class="lnlinks" href="#hl-1-13"&gt;13&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-14"&gt;&lt;a class="lnlinks" href="#hl-1-14"&gt;14&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-15"&gt;&lt;a class="lnlinks" href="#hl-1-15"&gt;15&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-16"&gt;&lt;a class="lnlinks" href="#hl-1-16"&gt;16&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-17"&gt;&lt;a class="lnlinks" href="#hl-1-17"&gt;17&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-18"&gt;&lt;a class="lnlinks" href="#hl-1-18"&gt;18&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-19"&gt;&lt;a class="lnlinks" href="#hl-1-19"&gt;19&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-20"&gt;&lt;a class="lnlinks" href="#hl-1-20"&gt;20&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-21"&gt;&lt;a class="lnlinks" href="#hl-1-21"&gt;21&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-22"&gt;&lt;a class="lnlinks" href="#hl-1-22"&gt;22&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-23"&gt;&lt;a class="lnlinks" href="#hl-1-23"&gt;23&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-24"&gt;&lt;a class="lnlinks" href="#hl-1-24"&gt;24&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-25"&gt;&lt;a class="lnlinks" href="#hl-1-25"&gt;25&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-26"&gt;&lt;a class="lnlinks" href="#hl-1-26"&gt;26&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-27"&gt;&lt;a class="lnlinks" href="#hl-1-27"&gt;27&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-28"&gt;&lt;a class="lnlinks" href="#hl-1-28"&gt;28&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-29"&gt;&lt;a class="lnlinks" href="#hl-1-29"&gt;29&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-30"&gt;&lt;a class="lnlinks" href="#hl-1-30"&gt;30&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-31"&gt;&lt;a class="lnlinks" href="#hl-1-31"&gt;31&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-32"&gt;&lt;a class="lnlinks" href="#hl-1-32"&gt;32&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-33"&gt;&lt;a class="lnlinks" href="#hl-1-33"&gt;33&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-34"&gt;&lt;a class="lnlinks" href="#hl-1-34"&gt;34&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 备份原来的 sources.list&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;DATE_TIME_NOW&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;date +&lt;span class="s2"&gt;&amp;#34;%Y%m%d_%H%M&amp;#34;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mv /etc/apt/sources.list /etc/apt/sources.list.bak_&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;DATE_TIME_NOW&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 设置 sources.list ，使用清华的镜像源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat &lt;span class="s"&gt;&amp;lt;&amp;lt; \EOF &amp;gt; /etc/apt/sources.list
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;deb https://mirrors.tuna.tsinghua.edu.cn/debian buster main contrib non-free
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;deb https://mirrors.tuna.tsinghua.edu.cn/debian buster-updates main contrib non-free
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;deb https://mirrors.tuna.tsinghua.edu.cn/debian buster-backports main contrib non-free
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;deb https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# libsm6, libxrender1 for opencv&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt install -y &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; curl &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; gnupg2 &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; vim &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; python3-pip &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; libsm6 &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; libxrender1 &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; tmux &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; nfs-common &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; zip &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; unzip
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# vim 设置，写到 vimrc.local 中，避免更新时冲突。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat &lt;span class="s"&gt;&amp;lt;&amp;lt; \EOF &amp;gt; /etc/vim/vimrc.local
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;# 显示行号
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;set nu
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;# 设置 yaml 文件缩进
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=&amp;lt;:&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;EOF&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="三-私有证书集成"&gt;三、 私有证书集成
+&lt;a class="header-anchor" href="#%e4%b8%89-%e7%a7%81%e6%9c%89%e8%af%81%e4%b9%a6%e9%9b%86%e6%88%90"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-2-1"&gt;&lt;a class="lnlinks" href="#hl-2-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-2"&gt;&lt;a class="lnlinks" href="#hl-2-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cp ./my_ca.crt /usr/local/share/ca-certificates/
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;update-ca-certificates&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="四-python-环境"&gt;四、 python 环境
+&lt;a class="header-anchor" href="#%e5%9b%9b-python-%e7%8e%af%e5%a2%83"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;1. pip 私服&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Prometheus 安装指南</title><link>/post/software/prometheus_install/</link><pubDate>Fri, 15 Nov 2019 18:15:09 +0800</pubDate><guid>/post/software/prometheus_install/</guid><description>&lt;h1 id="prometheus-安装指南"&gt;Prometheus 安装指南
+&lt;a class="header-anchor" href="#prometheus-%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-准备工作"&gt;1. 准备工作
+&lt;a class="header-anchor" href="#1-%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;推荐使用一个普通用户运行 prometheus 。&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;useradd -m -s /bin/bash prometheus
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;su - prometheus &lt;span class="c1"&gt;# 切换用户&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-prometheus"&gt;2. Prometheus
+&lt;a class="header-anchor" href="#2-prometheus"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;h3 id="21-下载"&gt;2.1 下载
+&lt;a class="header-anchor" href="#21-%e4%b8%8b%e8%bd%bd"&gt;&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;打开网址 
+&lt;a href="https://prometheus.io/download/" title="https://prometheus.io/download/" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://prometheus.io/download/
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 找到 prometheus 下载那部分，找相应的版本下载。&lt;/p&gt;</description></item><item><title>ssh config 说明</title><link>/post/linux/ssh_config/</link><pubDate>Tue, 12 Nov 2019 12:12:10 +0800</pubDate><guid>/post/linux/ssh_config/</guid><description>&lt;h1 id="ssh-config-说明"&gt;ssh config 说明
+&lt;a class="header-anchor" href="#ssh-config-%e8%af%b4%e6%98%8e"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h3 id="使用说明"&gt;使用说明
+&lt;a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e8%af%b4%e6%98%8e"&gt;&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;使用 ssh 连接时，经常需要输入命令 &lt;code&gt;ssh user@host&lt;/code&gt; 。服务器少的时候还能记在脑中，当服务器多了起来，这就是一个心智负担了。&lt;/p&gt;
+&lt;p&gt;可以通过增加 ssh config 配置，解决这个问题。&lt;/p&gt;</description></item><item><title>Debian 在安全启动模式下如何正确加载模块</title><link>/post/linux/secure_boot/</link><pubDate>Mon, 11 Nov 2019 15:55:06 +0800</pubDate><guid>/post/linux/secure_boot/</guid><description>&lt;h1 id="debian-在安全启动模式下如何正确加载模块"&gt;Debian 在安全启动模式下如何正确加载模块
+&lt;a class="header-anchor" href="#debian-%e5%9c%a8%e5%ae%89%e5%85%a8%e5%90%af%e5%8a%a8%e6%a8%a1%e5%bc%8f%e4%b8%8b%e5%a6%82%e4%bd%95%e6%ad%a3%e7%a1%ae%e5%8a%a0%e8%bd%bd%e6%a8%a1%e5%9d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考资料&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://wiki.debian.org/SecureBoot" title="Debian Secure Boot" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Debian Secure Boot
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://www.rodsbooks.com/efi-bootloaders/secureboot.html#initial_shim" title="Initial Shim" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Initial Shim
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以 nvidia 驱动为例，安装驱动时，安装程序提示现在已经开启了安全启动模式，是否需要对生成的驱动进行签名，这时选择是，并使用合适的密钥进行签名。 相应的密钥记得要保存好。&lt;/p&gt;</description></item><item><title>Debian 10 UEFI 相关</title><link>/post/linux/debian_uefi/</link><pubDate>Mon, 11 Nov 2019 15:38:04 +0800</pubDate><guid>/post/linux/debian_uefi/</guid><description>&lt;h1 id="debian-10-uefi-相关"&gt;Debian 10 UEFI 相关
+&lt;a class="header-anchor" href="#debian-10-uefi-%e7%9b%b8%e5%85%b3"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="bios-未识别出-uefi-分区"&gt;bios 未识别出 uefi 分区
+&lt;a class="header-anchor" href="#bios-%e6%9c%aa%e8%af%86%e5%88%ab%e5%87%ba-uefi-%e5%88%86%e5%8c%ba"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;最近在新磁盘上安装 debian 10 时，出现过安装完成后，bios 未识别出 uefi 分区，从而系统不能正常启动的问题。&lt;/p&gt;
+&lt;p&gt;根据官网(
+&lt;a href="https://wiki.debian.org/UEFI" title="https://wiki.debian.org/UEFI" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.debian.org/UEFI
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;)介绍，正确的 uefi 启动文件的命名路径为：&lt;/p&gt;</description></item><item><title>iptables</title><link>/post/linux/iptables/</link><pubDate>Fri, 08 Nov 2019 19:14:43 +0800</pubDate><guid>/post/linux/iptables/</guid><description>&lt;h1 id="iptables"&gt;iptables
+&lt;a class="header-anchor" href="#iptables"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;下面列出一段比较通用的服务器 iptable 设置&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-10"&gt;&lt;a class="lnlinks" href="#hl-0-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-11"&gt;&lt;a class="lnlinks" href="#hl-0-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-12"&gt;&lt;a class="lnlinks" href="#hl-0-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 允许回环地址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;iptables -A INPUT -i lo -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 允许已建立的连接&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 允许自定义的端口进行 TCP 通讯，按需要增减&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;iptables -A INPUT -p tcp -m multiport --dports 22,443,8388:8400 -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 允许自定义的端口进行 UDP 通讯，按需要增减&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# iptables -A INPUT -p udp -m multiport --dports 53 -j ACCEPT&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 允许 ping 包&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;iptables -A INPUT -p icmp -j ACCEPT
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 其余都禁止&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;iptables -A INPUT -j DROP&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;附一份比较通俗易懂的 iptables 介绍文档。 (
+&lt;a href="http://www.zsythink.net/archives/tag/iptables/" title="http://www.zsythink.net/archives/tag/iptables/" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ http://www.zsythink.net/archives/tag/iptables/
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;)&lt;/p&gt;</description></item><item><title>基于 LDAP 的 PAM 验证</title><link>/post/linux/pam_ldap/</link><pubDate>Thu, 31 Oct 2019 15:29:44 +0800</pubDate><guid>/post/linux/pam_ldap/</guid><description>&lt;h1 id="基于-ldap-的-pam-验证"&gt;基于 LDAP 的 PAM 验证
+&lt;a class="header-anchor" href="#%e5%9f%ba%e4%ba%8e-ldap-%e7%9a%84-pam-%e9%aa%8c%e8%af%81"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://wiki.debian.org/LDAP/PAM" title="https://wiki.debian.org/LDAP/PAM" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.debian.org/LDAP/PAM
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://wiki.debian.org/LDAP/NSS" title="https://wiki.debian.org/LDAP/NSS" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.debian.org/LDAP/NSS
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://wiki.samba.org/index.php/Nslcd" title="https://wiki.samba.org/index.php/Nslcd" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.samba.org/index.php/Nslcd
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://uit.stanford.edu/service/directory/pam/local-home" title="https://uit.stanford.edu/service/directory/pam/local-home" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://uit.stanford.edu/service/directory/pam/local-home
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema" title="https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/" title="https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="一前言"&gt;一、前言
+&lt;a class="header-anchor" href="#%e4%b8%80%e5%89%8d%e8%a8%80"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Linux 可以通过 &lt;code&gt;PAM&lt;/code&gt; (Pluggable Authentication Modules, 可插入认证模块)来提供认证功能，不少系统服务认证是通过 pam 来进行。 pam 的配置文件放在 &lt;code&gt;/etc/pam.d/&lt;/code&gt; 目录下， 其中以 common 开关的配置文件是通用认证，里面通过 &lt;code&gt;pam_unix.so&lt;/code&gt; 模块来进行认证，该模块读取 /etc/passwd 、 /etc/shadow 等系统配置信息，做到与系统账号同步。&lt;/p&gt;</description></item><item><title>Linux 常用系统命令列表</title><link>/post/linux/linux_commands/</link><pubDate>Thu, 31 Oct 2019 14:48:08 +0800</pubDate><guid>/post/linux/linux_commands/</guid><description>&lt;h1 id="linux-常用系统命令列表"&gt;Linux 常用系统命令列表
+&lt;a class="header-anchor" href="#linux-%e5%b8%b8%e7%94%a8%e7%b3%bb%e7%bb%9f%e5%91%bd%e4%bb%a4%e5%88%97%e8%a1%a8"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="系统信息"&gt;系统信息
+&lt;a class="header-anchor" href="#%e7%b3%bb%e7%bb%9f%e4%bf%a1%e6%81%af"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-10"&gt;&lt;a class="lnlinks" href="#hl-0-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;uname -a &lt;span class="c1"&gt;# 查看内核和操作系统信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hostname &lt;span class="c1"&gt;# 查看计算机名。修改可编辑 /etc/hostname&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat /proc/cpuinfo &lt;span class="c1"&gt;# 查看 CPU 信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;env &lt;span class="c1"&gt;# 查看环境变量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lsmod &lt;span class="c1"&gt;# 列出加载的内核模块&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;uptime &lt;span class="c1"&gt;# 查看系统运行时间、用户数、负载&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ps -ef &lt;span class="c1"&gt;# 查看所有进程&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;crontab -l &lt;span class="c1"&gt;# 查看当前用户的计划任务服务&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="硬件设备"&gt;硬件设备
+&lt;a class="header-anchor" href="#%e7%a1%ac%e4%bb%b6%e8%ae%be%e5%a4%87"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lspci &lt;span class="c1"&gt;# 列出所有 PCI 设备 (可加参数 -t 或 -v)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lsusb &lt;span class="c1"&gt;# 列出所有 USB 设备 (可加参数 -t 或 -v)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo dmidecode &lt;span class="c1"&gt;# 显示服务器硬件和 BIOS 信息 (可查询到内存条信息)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="内存和交换分区"&gt;内存和交换分区
+&lt;a class="header-anchor" href="#%e5%86%85%e5%ad%98%e5%92%8c%e4%ba%a4%e6%8d%a2%e5%88%86%e5%8c%ba"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-2-1"&gt;&lt;a class="lnlinks" href="#hl-2-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-2"&gt;&lt;a class="lnlinks" href="#hl-2-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-3"&gt;&lt;a class="lnlinks" href="#hl-2-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-4"&gt;&lt;a class="lnlinks" href="#hl-2-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;free &lt;span class="c1"&gt;# 查看内存使用量和交换区使用量 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat /proc/meminfo &lt;span class="c1"&gt;# 查看内存信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;swapon &lt;span class="c1"&gt;# 查看所有交换分区&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="磁盘和占用空间"&gt;磁盘和占用空间
+&lt;a class="header-anchor" href="#%e7%a3%81%e7%9b%98%e5%92%8c%e5%8d%a0%e7%94%a8%e7%a9%ba%e9%97%b4"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-3-1"&gt;&lt;a class="lnlinks" href="#hl-3-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-3-2"&gt;&lt;a class="lnlinks" href="#hl-3-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-3-3"&gt;&lt;a class="lnlinks" href="#hl-3-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-3-4"&gt;&lt;a class="lnlinks" href="#hl-3-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-3-5"&gt;&lt;a class="lnlinks" href="#hl-3-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-3-6"&gt;&lt;a class="lnlinks" href="#hl-3-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;df -h &lt;span class="c1"&gt;# 查看各分区使用情况&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;du -sh &amp;lt;目录名&amp;gt; &lt;span class="c1"&gt;# 查看指定目录的大小&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mount &lt;span class="c1"&gt;# 查看挂载的分区&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo fdisk -l &lt;span class="c1"&gt;# 查看所有磁盘&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="网络"&gt;网络
+&lt;a class="header-anchor" href="#%e7%bd%91%e7%bb%9c"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-4-1"&gt;&lt;a class="lnlinks" href="#hl-4-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-4-2"&gt;&lt;a class="lnlinks" href="#hl-4-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-4-3"&gt;&lt;a class="lnlinks" href="#hl-4-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ip addr &lt;span class="c1"&gt;# 查看本机 ip 地址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo iptables -L &lt;span class="c1"&gt;# 查看防火墙设置 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lsof -i:port &lt;span class="c1"&gt;# 查看端口占用&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="用户登录日志"&gt;用户登录日志
+&lt;a class="header-anchor" href="#%e7%94%a8%e6%88%b7%e7%99%bb%e5%bd%95%e6%97%a5%e5%bf%97"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-5-1"&gt;&lt;a class="lnlinks" href="#hl-5-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-5-2"&gt;&lt;a class="lnlinks" href="#hl-5-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-5-3"&gt;&lt;a class="lnlinks" href="#hl-5-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-5-4"&gt;&lt;a class="lnlinks" href="#hl-5-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-5-5"&gt;&lt;a class="lnlinks" href="#hl-5-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-5-6"&gt;&lt;a class="lnlinks" href="#hl-5-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-5-7"&gt;&lt;a class="lnlinks" href="#hl-5-7"&gt;7&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;id &amp;lt;用户名&amp;gt; &lt;span class="c1"&gt;# 查看指定用户信息 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;w &lt;span class="c1"&gt;# 查看当前活动用户（详细）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;users &lt;span class="c1"&gt;# 查看当前活动用户（只显示用户名）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;last &lt;span class="c1"&gt;# 查看用户登录日志。二进制日志: /var/log/wtmp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lastlog &lt;span class="c1"&gt;# 查看用户最后一次的登录信息。二进制日志: /var/log/lastlog&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>xrdp 远程桌面配置备注</title><link>/post/software/xrdp_config/</link><pubDate>Thu, 31 Oct 2019 13:48:34 +0800</pubDate><guid>/post/software/xrdp_config/</guid><description>&lt;h1 id="xrdp-远程桌面配置备注"&gt;xrdp 远程桌面配置备注
+&lt;a class="header-anchor" href="#xrdp-%e8%bf%9c%e7%a8%8b%e6%a1%8c%e9%9d%a2%e9%85%8d%e7%bd%ae%e5%a4%87%e6%b3%a8"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考 
+&lt;a href="https://wiki.archlinux.org/index.php/Xrdp" title="https://wiki.archlinux.org/index.php/Xrdp" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.archlinux.org/index.php/Xrdp
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="1-安装-xrdp"&gt;1. 安装 xrdp
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85-xrdp"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt install xrdp&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-配置"&gt;2. 配置
+&lt;a class="header-anchor" href="#2-%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;安装完成后，可以直接使用。如果远程连接时，客户端出现黑屏，则可以修改&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-5"&gt;&lt;a class="lnlinks" href="#hl-1-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-6"&gt;&lt;a class="lnlinks" href="#hl-1-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo vi /etc/X11/Xwrapper.config
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Change from&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;allowed_users&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;console
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# to&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;allowed_users&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;anybody&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;然后重启 Xorg， 此时远程连接可以正常显示。&lt;/p&gt;</description></item><item><title>zenity 使用方法备忘</title><link>/post/linux/zenity/</link><pubDate>Mon, 28 Oct 2019 12:28:45 +0800</pubDate><guid>/post/linux/zenity/</guid><description>&lt;h1 id="zenity-使用方法备忘"&gt;zenity 使用方法备忘
+&lt;a class="header-anchor" href="#zenity-%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95%e5%a4%87%e5%bf%98"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;zenity&lt;/code&gt; 可以帮助你使用脚本创建常用的 gtk+ 对话框。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1、使用日历控件&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;szDate&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;zenity --calendar --text &lt;span class="s2"&gt;&amp;#34;Pick a day&amp;#34;&lt;/span&gt; --title &lt;span class="s2"&gt;&amp;#34;Medical Leave&amp;#34;&lt;/span&gt; --day &lt;span class="m"&gt;13&lt;/span&gt; --month &lt;span class="m"&gt;5&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;--year 2010&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$szDate&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2、创建一个Entry对话框&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;szAnswer&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;zenity --entry --text &lt;span class="s2"&gt;&amp;#34;where are you?&amp;#34;&lt;/span&gt; --entry-text &lt;span class="s2"&gt;&amp;#34;at home&amp;#34;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$szAnswer&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;3、创建一个错误对话框&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>wget 用法备忘</title><link>/post/linux/wget/</link><pubDate>Mon, 28 Oct 2019 12:17:52 +0800</pubDate><guid>/post/linux/wget/</guid><description>&lt;h1 id="wget-用法备忘"&gt;wget 用法备忘
+&lt;a class="header-anchor" href="#wget-%e7%94%a8%e6%b3%95%e5%a4%87%e5%bf%98"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="wget-常用命令"&gt;wget 常用命令
+&lt;a class="header-anchor" href="#wget-%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;wget -b -c -o wget.log url&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;参数说明:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;b&lt;/strong&gt;: 后台下载&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;c&lt;/strong&gt;: 支持断点续传&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-o logfile&lt;/strong&gt;: 下载日志&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>使用 zenity 制作 shell 版提醒工具</title><link>/post/linux/zenity_reminder/</link><pubDate>Mon, 28 Oct 2019 12:15:31 +0800</pubDate><guid>/post/linux/zenity_reminder/</guid><description>&lt;h1 id="使用-zenity-制作-shell-版提醒工具"&gt;使用 zenity 制作 shell 版提醒工具
+&lt;a class="header-anchor" href="#%e4%bd%bf%e7%94%a8-zenity-%e5%88%b6%e4%bd%9c-shell-%e7%89%88%e6%8f%90%e9%86%92%e5%b7%a5%e5%85%b7"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;点击
+&lt;a href="/post/linux/zenity" title="这里" &gt;
+ 这里
+ 
+&lt;/a&gt;查看 &lt;code&gt;zenity&lt;/code&gt; 的基本用法。&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-10"&gt;&lt;a class="lnlinks" href="#hl-0-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-11"&gt;&lt;a class="lnlinks" href="#hl-0-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-12"&gt;&lt;a class="lnlinks" href="#hl-0-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-13"&gt;&lt;a class="lnlinks" href="#hl-0-13"&gt;13&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-14"&gt;&lt;a class="lnlinks" href="#hl-0-14"&gt;14&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-15"&gt;&lt;a class="lnlinks" href="#hl-0-15"&gt;15&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-16"&gt;&lt;a class="lnlinks" href="#hl-0-16"&gt;16&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-17"&gt;&lt;a class="lnlinks" href="#hl-0-17"&gt;17&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-18"&gt;&lt;a class="lnlinks" href="#hl-0-18"&gt;18&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-19"&gt;&lt;a class="lnlinks" href="#hl-0-19"&gt;19&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-20"&gt;&lt;a class="lnlinks" href="#hl-0-20"&gt;20&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-21"&gt;&lt;a class="lnlinks" href="#hl-0-21"&gt;21&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-22"&gt;&lt;a class="lnlinks" href="#hl-0-22"&gt;22&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-23"&gt;&lt;a class="lnlinks" href="#hl-0-23"&gt;23&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-24"&gt;&lt;a class="lnlinks" href="#hl-0-24"&gt;24&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-25"&gt;&lt;a class="lnlinks" href="#hl-0-25"&gt;25&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# This will wait one second and then steal focus and make the Zenity dialog box always-on-top (aka. &amp;#39;above&amp;#39;).&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 一秒后运行wmctrl，把zenity的窗口置顶，注意title要一致&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;(&lt;/span&gt;sleep &lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; wmctrl -F -a &lt;span class="s2"&gt;&amp;#34;take a rest :)&amp;#34;&lt;/span&gt; -b add,above&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="p"&gt;&amp;amp;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 显示提示框&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# zenity --info --title=&amp;#34;take a rest :)&amp;#34; --width=800 --height=600 --text=&amp;#34;休息时间到了，活动一下筋骨吧！&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 显示时间进度条&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 提示文字要加#号&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;rest_time&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;120&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1&lt;span class="p"&gt;;&lt;/span&gt;i&amp;lt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;rest_time&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;i++&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;# 休息时间到了，活动一下筋骨吧！剩余时间 &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;rest_time-i&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; s&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;i*100/rest_time&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; sleep &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;zenity --progress &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --title&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;take a rest :)&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --width&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;800&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --height&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;600&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --percentage&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --text&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;休息时间到了，活动一下筋骨吧！&amp;#34;&lt;/span&gt; &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>cron 用法</title><link>/post/linux/cron/</link><pubDate>Mon, 28 Oct 2019 12:09:08 +0800</pubDate><guid>/post/linux/cron/</guid><description>&lt;h1 id="cron-用法"&gt;cron 用法
+&lt;a class="header-anchor" href="#cron-%e7%94%a8%e6%b3%95"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="一-cron-简介"&gt;一、 cron 简介
+&lt;a class="header-anchor" href="#%e4%b8%80-cron-%e7%ae%80%e4%bb%8b"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;crond&lt;/code&gt; 是 linux 下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与 windows 下的计划任务类似。&lt;/p&gt;
+&lt;p&gt;linux 默认会安装此服务工具，并自动启动 crond 进程。&lt;/p&gt;</description></item></channel></rss>

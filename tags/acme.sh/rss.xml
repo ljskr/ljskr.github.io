@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Acme.sh on 咕噜猫小站</title><link>/tags/acme.sh/</link><description>Recent content in Acme.sh on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sat, 26 Jun 2021 16:24:19 +0800</lastBuildDate><atom:link href="/tags/acme.sh/rss.xml" rel="self" type="application/rss+xml"/><item><title>远程上传证书并调用更新脚本</title><link>/post/linux/update_certs/</link><pubDate>Fri, 02 Apr 2021 19:29:08 +0800</pubDate><guid>/post/linux/update_certs/</guid><description>&lt;h1 id="远程上传证书并调用更新脚本"&gt;远程上传证书并调用更新脚本
+&lt;a class="header-anchor" href="#%e8%bf%9c%e7%a8%8b%e4%b8%8a%e4%bc%a0%e8%af%81%e4%b9%a6%e5%b9%b6%e8%b0%83%e7%94%a8%e6%9b%b4%e6%96%b0%e8%84%9a%e6%9c%ac"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;背景：&lt;/strong&gt;
+由于有多个服务器需要更新 https 证书，如果每个服务器单独更新自己的证书，在迁移应用的时候，需要把证书也迁移过去，非常麻烦。因此考虑由一台服务器进行更新 https 证书，并通过 ssh 分发和调用更新命令。&lt;/p&gt;</description></item><item><title>acme.sh 使用备注</title><link>/post/software/acme_sh/</link><pubDate>Sat, 08 Feb 2020 21:38:47 +0800</pubDate><guid>/post/software/acme_sh/</guid><description>&lt;h1 id="acmesh-使用备注"&gt;acme.sh 使用备注
+&lt;a class="header-anchor" href="#acmesh-%e4%bd%bf%e7%94%a8%e5%a4%87%e6%b3%a8"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;官方网站： 
+&lt;a href="https://github.com/acmesh-official/acme.sh" title="https://github.com/acmesh-official/acme.sh" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/acmesh-official/acme.sh
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="1-使用-aliyun-直接注册证书"&gt;1. 使用 aliyun 直接注册证书
+&lt;a class="header-anchor" href="#1-%e4%bd%bf%e7%94%a8-aliyun-%e7%9b%b4%e6%8e%a5%e6%b3%a8%e5%86%8c%e8%af%81%e4%b9%a6"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;使用 ecc 算法&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;Ali_Key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;Ali_Secret&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;acme.sh --issue -d example.com --keylength ec-256 --dns dns_ali&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-使用别名方式注册证书"&gt;2. 使用别名方式注册证书
+&lt;a class="header-anchor" href="#2-%e4%bd%bf%e7%94%a8%e5%88%ab%e5%90%8d%e6%96%b9%e5%bc%8f%e6%b3%a8%e5%86%8c%e8%af%81%e4%b9%a6"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;使用 ecc 算法&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;Ali_Key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;Ali_Secret&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;acme.sh --issue -d example.com --keylength ec-256 --dns dns_ali --challenge-alias example2.com&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="3-安装到-nginx"&gt;3. 安装到 nginx
+&lt;a class="header-anchor" href="#3-%e5%ae%89%e8%a3%85%e5%88%b0-nginx"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-2-1"&gt;&lt;a class="lnlinks" href="#hl-2-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-2"&gt;&lt;a class="lnlinks" href="#hl-2-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-3"&gt;&lt;a class="lnlinks" href="#hl-2-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-4"&gt;&lt;a class="lnlinks" href="#hl-2-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;acme.sh --install-cert --ecc -d example.com &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --key-file /path/to/keyfile/in/nginx/key.pem &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --fullchain-file /path/to/fullchain/nginx/cert.pem &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --reloadcmd &lt;span class="s2"&gt;&amp;#34;service nginx force-reload&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="4-删除证书"&gt;4. 删除证书
+&lt;a class="header-anchor" href="#4-%e5%88%a0%e9%99%a4%e8%af%81%e4%b9%a6"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-3-1"&gt;&lt;a class="lnlinks" href="#hl-3-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;acme.sh --remove --ecc -d example.com&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item></channel></rss>

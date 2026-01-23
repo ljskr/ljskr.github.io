@@ -1,0 +1,164 @@
+<!doctype html><html lang=zh-CN data-theme=light><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: light)"><meta name=generator content="Hugo 0.154.2"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/logo.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/logo.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/logo.png><meta itemprop=name content="Kubernetes Dashboard 安装"><meta itemprop=description content="分享知识，分享生活"><meta name=description content="分享知识，分享生活"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=keywords content="kubernetes"><meta property="og:type" content="article"><meta property="og:title" content="Kubernetes Dashboard 安装"><meta property="og:description" content="分享知识，分享生活"><meta property="og:image" content="/imgs/icons/logo.svg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="/post/kubernetes/dashboard/"><meta property="og:site_name" content="咕噜猫小站"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="gulucat"><meta property="article:published_time" content="2020-10-22 13:42:00 +0800 +0800"><meta property="article:modified_time" content="2021-06-24 20:47:00 +0800 +0800"><link type=text/css rel=stylesheet href=/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.min.css?=1769186648"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>Kubernetes Dashboard 安装 - 咕噜猫小站</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>咕噜猫小站</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>do it, do it right, do it right now</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-archives"><a href=/archives/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>114</span></a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#1-部署-kubernetes-dashboard>1. 部署 Kubernetes Dashboard</a></li><li><a href=#2-配置-dashboard-服务的访问模式为-nodeport>2. 配置 Dashboard 服务的访问模式为 NodePort</a></li><li><a href=#3-创建账号>3. 创建账号</a><ul><li><a href=#31-创建-serviceaccount>3.1 创建 ServiceAccount</a></li><li><a href=#32-创建-clusterrolebinding>3.2 创建 ClusterRoleBinding</a></li></ul></li><li><a href=#4-访问-dashboard>4. 访问 Dashboard</a></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=gulucat src=/imgs/img-lazy-loading.gif data-src=/imgs/icons/logo.svg><p class=site-author-name itemprop=name>gulucat</p><div class=site-description itemprop=description>分享知识，分享生活</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>114</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>11</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>98</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/small/by_nc_sa.svg alt=共享知识></a></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2019-10-28 11:31:00 +0800 +0800"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=51909></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=169></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2024-05-27 17:46:40 +0800 +0800"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-comments class="button goto-comments" title=直达评论><i class="fas fa-comments"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=/post/kubernetes/dashboard/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=name content="gulucat"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="gulucat"><meta itemprop=description content="分享知识，分享生活"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="Kubernetes Dashboard 安装"><meta itemprop=description content="Kubernetes Dashboard 安装
+
+本文以 Debian 10 , kubernetes 1.19 为例。 kubernetes 安装参考站内另一篇文章 
+
+    Kubernetes 安装
+    
+
+参考资料：
+
+官方文档: 
+
+    Web UI (Dashboard)
+    
+    
+    
+
+创建示例用户: 
+
+    Creating sample user
+    
+    
+    
+
+
+站内相关资料："></span><header class=post-header><h1 class=post-title itemprop="name headline">Kubernetes Dashboard 安装</h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2020-10-22 13:42:00 +08:00" itemprop="dateCreated datePublished" datetime="2020-10-22 13:42:00 +0800 +0800">2020-10-22
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar-check"></i>
+</span><span class=post-meta-item-text title=更新于>更新于：
+</span><time title="修改时间：2021-06-24 20:47:00 +08:00" itemprop="dateModified dateLastmod" datetime="2021-06-24 20:47:00 +0800 +0800">2021-06-24
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/kubernetes/ itemprop=url rel=index><span itemprop=name>kubernetes</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>619</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>2分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/post/kubernetes/dashboard/><i class="fa fa-sync fa-spin"></i>
+</span></span><span class=post-meta-item title><span class=post-meta-item-icon><i class="fas fa-solid fa-comments"></i>
+</span><span class=post-meta-item-text title=评论>评论：
+</span><span id=comments-count data-path=/post/kubernetes/dashboard/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><h1 id=kubernetes-dashboard-安装>Kubernetes Dashboard 安装
+<a class=header-anchor href=#kubernetes-dashboard-%e5%ae%89%e8%a3%85></a></h1><p>本文以 Debian 10 , kubernetes 1.19 为例。 kubernetes 安装参考站内另一篇文章
+<a href=/post/kubernetes/install title="Kubernetes 安装">Kubernetes 安装</a></p><p>参考资料：</p><ul><li>官方文档:
+<a href=https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/ title="Web UI (Dashboard)" rel="noopener external nofollow noreferrer" target=_blank class=exturl>Web UI (Dashboard)
+<i class="fa fa-external-link-alt"></i></a></li><li>创建示例用户:
+<a href=https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md title="Creating sample user" rel="noopener external nofollow noreferrer" target=_blank class=exturl>Creating sample user
+<i class="fa fa-external-link-alt"></i></a></li></ul><p>站内相关资料：</p><a id=more></a><ul><li><a href=/post/kubernetes/install title="Kubernetes 安装">Kubernetes 安装</a></li><li><a href=/post/kubernetes/rbac title="kubernetes RBAC 鉴权简单介绍">kubernetes RBAC 鉴权简单介绍</a></li></ul><h2 id=1-部署-kubernetes-dashboard>1. 部署 Kubernetes Dashboard
+<a class=header-anchor href=#1-%e9%83%a8%e7%bd%b2-kubernetes-dashboard></a></h2><p>部署</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a class=lnlinks href=#hl-0-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml</span></span></code></pre></td></tr></table></div></div><p>通过以下命令查看服务运行情况</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a class=lnlinks href=#hl-1-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl get pods -n kuberenetes-dashboard</span></span></code></pre></td></tr></table></div></div><h2 id=2-配置-dashboard-服务的访问模式为-nodeport>2. 配置 Dashboard 服务的访问模式为 NodePort
+<a class=header-anchor href=#2-%e9%85%8d%e7%bd%ae-dashboard-%e6%9c%8d%e5%8a%a1%e7%9a%84%e8%ae%bf%e9%97%ae%e6%a8%a1%e5%bc%8f%e4%b8%ba-nodeport></a></h2><p>使用以下命令编辑服务，这里将使用vi编辑器打开服务的yaml定义。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a class=lnlinks href=#hl-2-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl edit service kubernetes-dashboard -n kubernetes-dashboard</span></span></code></pre></td></tr></table></div></div><p>找到 <code>spec</code> 定义，修改其中两处地方，以下是示例</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a class=lnlinks href=#hl-3-1>1</a>
+</span><span class=lnt id=hl-3-2><a class=lnlinks href=#hl-3-2>2</a>
+</span><span class=lnt id=hl-3-3><a class=lnlinks href=#hl-3-3>3</a>
+</span><span class=lnt id=hl-3-4><a class=lnlinks href=#hl-3-4>4</a>
+</span><span class=lnt id=hl-3-5><a class=lnlinks href=#hl-3-5>5</a>
+</span><span class=lnt id=hl-3-6><a class=lnlinks href=#hl-3-6>6</a>
+</span><span class=lnt id=hl-3-7><a class=lnlinks href=#hl-3-7>7</a>
+</span><span class=lnt id=hl-3-8><a class=lnlinks href=#hl-3-8>8</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>NodePort             </span><span class=w> </span><span class=c># type 从 ClusterIP 改为 NodePort</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>port</span><span class=p>:</span><span class=w> </span><span class=m>443</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>targetPort</span><span class=p>:</span><span class=w> </span><span class=m>8443</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>nodePort</span><span class=p>:</span><span class=w> </span><span class=m>38080</span><span class=w>         </span><span class=c># 增加该项，定义对外暴露的端口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>selector</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>k8s-app</span><span class=p>:</span><span class=w> </span><span class=l>kubernetes-dashboard</span></span></span></code></pre></td></tr></table></div></div><h2 id=3-创建账号>3. 创建账号
+<a class=header-anchor href=#3-%e5%88%9b%e5%bb%ba%e8%b4%a6%e5%8f%b7></a></h2><p>按照
+<a href=https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md title="Creating sample user" rel="noopener external nofollow noreferrer" target=_blank class=exturl>Creating sample user
+<i class="fa fa-external-link-alt"></i>
+</a>中的示例创建账号。（注意，官方声明这个账号权限过大，仅作为演示使用，风险自担。如果了解规则的话，可以自己创建自己的账号）</p><p>认证方面的内容可以参考站内另一篇文章
+<a href=/post/kubernetes/rbac title="kubernetes RBAC 鉴权简单介绍">kubernetes RBAC 鉴权简单介绍</a></p><h3 id=31-创建-serviceaccount>3.1 创建 ServiceAccount
+<a class=header-anchor href=#31-%e5%88%9b%e5%bb%ba-serviceaccount></a></h3><p>在命名空间 <code>kubernetes-dashboard</code> 下创建一个名为 <code>admin-user</code> 的 <code>ServiceAccount</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a class=lnlinks href=#hl-4-1>1</a>
+</span><span class=lnt id=hl-4-2><a class=lnlinks href=#hl-4-2>2</a>
+</span><span class=lnt id=hl-4-3><a class=lnlinks href=#hl-4-3>3</a>
+</span><span class=lnt id=hl-4-4><a class=lnlinks href=#hl-4-4>4</a>
+</span><span class=lnt id=hl-4-5><a class=lnlinks href=#hl-4-5>5</a>
+</span><span class=lnt id=hl-4-6><a class=lnlinks href=#hl-4-6>6</a>
+</span><span class=lnt id=hl-4-7><a class=lnlinks href=#hl-4-7>7</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat <span class=s>&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span class=line><span class=cl><span class=s>apiVersion: v1
+</span></span></span><span class=line><span class=cl><span class=s>kind: ServiceAccount
+</span></span></span><span class=line><span class=cl><span class=s>metadata:
+</span></span></span><span class=line><span class=cl><span class=s>  name: admin-user
+</span></span></span><span class=line><span class=cl><span class=s>  namespace: kubernetes-dashboard
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span></span></span></code></pre></td></tr></table></div></div><h3 id=32-创建-clusterrolebinding>3.2 创建 ClusterRoleBinding
+<a class=header-anchor href=#32-%e5%88%9b%e5%bb%ba-clusterrolebinding></a></h3><p>把上一步创建的 <code>admin-user</code> 绑定到名字为 <code>cluster-admin</code> 的 <code>ClusterRole</code> 中。这样，<code>admin-user</code> 就具有了 <code>cluster-admin</code> 角色所定义的权限。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a class=lnlinks href=#hl-5-1> 1</a>
+</span><span class=lnt id=hl-5-2><a class=lnlinks href=#hl-5-2> 2</a>
+</span><span class=lnt id=hl-5-3><a class=lnlinks href=#hl-5-3> 3</a>
+</span><span class=lnt id=hl-5-4><a class=lnlinks href=#hl-5-4> 4</a>
+</span><span class=lnt id=hl-5-5><a class=lnlinks href=#hl-5-5> 5</a>
+</span><span class=lnt id=hl-5-6><a class=lnlinks href=#hl-5-6> 6</a>
+</span><span class=lnt id=hl-5-7><a class=lnlinks href=#hl-5-7> 7</a>
+</span><span class=lnt id=hl-5-8><a class=lnlinks href=#hl-5-8> 8</a>
+</span><span class=lnt id=hl-5-9><a class=lnlinks href=#hl-5-9> 9</a>
+</span><span class=lnt id=hl-5-10><a class=lnlinks href=#hl-5-10>10</a>
+</span><span class=lnt id=hl-5-11><a class=lnlinks href=#hl-5-11>11</a>
+</span><span class=lnt id=hl-5-12><a class=lnlinks href=#hl-5-12>12</a>
+</span><span class=lnt id=hl-5-13><a class=lnlinks href=#hl-5-13>13</a>
+</span><span class=lnt id=hl-5-14><a class=lnlinks href=#hl-5-14>14</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat <span class=s>&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span class=line><span class=cl><span class=s>apiVersion: rbac.authorization.k8s.io/v1
+</span></span></span><span class=line><span class=cl><span class=s>kind: ClusterRoleBinding
+</span></span></span><span class=line><span class=cl><span class=s>metadata:
+</span></span></span><span class=line><span class=cl><span class=s>  name: admin-user
+</span></span></span><span class=line><span class=cl><span class=s>roleRef:
+</span></span></span><span class=line><span class=cl><span class=s>  apiGroup: rbac.authorization.k8s.io
+</span></span></span><span class=line><span class=cl><span class=s>  kind: ClusterRole
+</span></span></span><span class=line><span class=cl><span class=s>  name: cluster-admin
+</span></span></span><span class=line><span class=cl><span class=s>subjects:
+</span></span></span><span class=line><span class=cl><span class=s>- kind: ServiceAccount
+</span></span></span><span class=line><span class=cl><span class=s>  name: admin-user
+</span></span></span><span class=line><span class=cl><span class=s>  namespace: kubernetes-dashboard
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span></span></span></code></pre></td></tr></table></div></div><h2 id=4-访问-dashboard>4. 访问 Dashboard
+<a class=header-anchor href=#4-%e8%ae%bf%e9%97%ae-dashboard></a></h2><p>经过第2步之后，就可以通过 <code>https://node-ip:node-port</code> 的方式打开 <code>Dashboard</code> 管理页面。这里需要有 Token 才能登录。</p><p>使用以下命令获取登录 Token</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a class=lnlinks href=#hl-6-1>1</a>
+</span><span class=lnt id=hl-6-2><a class=lnlinks href=#hl-6-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 这里 grep admin-user 需要跟你的实际账号名一致</span>
+</span></span><span class=line><span class=cl>kubectl -n kubernetes-dashboard describe secret <span class=k>$(</span>kubectl -n kubernetes-dashboard get secret <span class=p>|</span> grep admin-user <span class=p>|</span> awk <span class=s1>&#39;{print $1}&#39;</span><span class=k>)</span></span></span></code></pre></td></tr></table></div></div><p>此命令会输出类似以下的信息</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a class=lnlinks href=#hl-7-1> 1</a>
+</span><span class=lnt id=hl-7-2><a class=lnlinks href=#hl-7-2> 2</a>
+</span><span class=lnt id=hl-7-3><a class=lnlinks href=#hl-7-3> 3</a>
+</span><span class=lnt id=hl-7-4><a class=lnlinks href=#hl-7-4> 4</a>
+</span><span class=lnt id=hl-7-5><a class=lnlinks href=#hl-7-5> 5</a>
+</span><span class=lnt id=hl-7-6><a class=lnlinks href=#hl-7-6> 6</a>
+</span><span class=lnt id=hl-7-7><a class=lnlinks href=#hl-7-7> 7</a>
+</span><span class=lnt id=hl-7-8><a class=lnlinks href=#hl-7-8> 8</a>
+</span><span class=lnt id=hl-7-9><a class=lnlinks href=#hl-7-9> 9</a>
+</span><span class=lnt id=hl-7-10><a class=lnlinks href=#hl-7-10>10</a>
+</span><span class=lnt id=hl-7-11><a class=lnlinks href=#hl-7-11>11</a>
+</span><span class=lnt id=hl-7-12><a class=lnlinks href=#hl-7-12>12</a>
+</span><span class=lnt id=hl-7-13><a class=lnlinks href=#hl-7-13>13</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Name:         admin-user-token-v57nw
+</span></span><span class=line><span class=cl>Namespace:    kubernetes-dashboard
+</span></span><span class=line><span class=cl>Labels:       &lt;none&gt;
+</span></span><span class=line><span class=cl>Annotations:  kubernetes.io/service-account.name: admin-user
+</span></span><span class=line><span class=cl>              kubernetes.io/service-account.uid: 0303243c-4040-4a58-8a47-849ee9ba79c1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Type:  kubernetes.io/service-account-token
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Data
+</span></span><span class=line><span class=cl>====
+</span></span><span class=line><span class=cl>ca.crt:     1066 bytes
+</span></span><span class=line><span class=cl>namespace:  20 bytes
+</span></span><span class=line><span class=cl>token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLXY1N253Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIwMzAzMjQzYy00MDQwLTRhNTgtOGE0Ny04NDllZTliYTc5YzEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZXJuZXRlcy1kYXNoYm9hcmQ6YWRtaW4tdXNlciJ9.Z2JrQlitASVwWbc-s6deLRFVk5DWD3P_vjUFXsqVSY10pbjFLG4njoZwh8p3tLxnX_VBsr7_6bwxhWSYChp9hwxznemD5x5HLtjb16kI9Z7yFWLtohzkTwuFbqmQaMoget_nYcQBUC5fDmBHRfFvNKePh_vSSb2h_aYXa8GV5AcfPQpY7r461itme1EXHQJqv-SN-zUnguDguCTjD80pFZ_CmnSE1z9QdMHPB8hoB4V68gtswR1VLa6mSYdgPwCHauuOobojALSaMc3RH7MmFUumAgguhqAkX3Omqd3rJbYOMRuMjhANqd08piDC3aIabINX6gP5-Tuuw2svnV6NYQ</span></span></code></pre></td></tr></table></div></div><p>复制最后 token 的内容，粘贴到 Dashboard 登录页面上，就能成功登录进去了。</p></div><footer class=post-footer><div class=post-tags><a href=/tags/kubernetes/>kubernetes</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_24 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+Kubernetes Dashboard 安装</li><li class=post-copyright-author><strong>本文作者： </strong>gulucat</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=/post/kubernetes/dashboard/ title="Kubernetes Dashboard 安装">/post/kubernetes/dashboard/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/post/kubernetes/rook_ceph/ rel=next title="Kubernetes 安装 rook ceph"><i class="fa fa-chevron-left"></i> Kubernetes 安装 rook ceph</a></div><div class="post-nav-prev post-nav-item"><a href=/post/kubernetes/rbac/ rel=prev title="kubernetes RBAC 鉴权简单介绍">kubernetes RBAC 鉴权简单介绍
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div><div id=comments class=post-comments><div class=comment-head><div class=comment-headline><i class="fas fa-comments fa-fw"></i>
+<span>评论交流</span></div></div><div class=comment-wrap><div><div class=comment-loading><i class="fa fa-sync fa-spin"></i></div><div class=waline3-container></div></div></div></div></div></main><footer class=footer><div class=footer-inner><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>Gulucat.com</span></div></div></footer><script class=next-config data-name=page type=application/json>{"clipboard":{"js":{"alias":"clipboard","file":"dist/clipboard.min.js","name":"clipboard.js","version":"2.0.11"}},"comments":true,"expired":false,"isHome":false,"isPage":true,"path":"dashboard","permalink":"/post/kubernetes/dashboard/","title":"Kubernetes Dashboard 安装","toc":true,"waline3":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"3.5.7"}}}</script><script type=text/javascript src=/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":false,"hostname":"/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":false,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline3"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"/js/3rd"}},"version":"4.8.3","waline3":{"cfg":{"emoji":true,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"search":true,"serverurl":"https://comment.gulucat.com","sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"3.5.7"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"3.5.7"}}}</script><script type=text/javascript src="/js/main.min.js?=1769186648" defer></script><script type=text/javascript src="/js/clipboard.min.js?=1769186648" defer></script></body></html>

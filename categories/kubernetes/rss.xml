@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernetes on 咕噜猫小站</title><link>/categories/kubernetes/</link><description>Recent content in Kubernetes on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 24 Jun 2021 20:48:00 +0800</lastBuildDate><atom:link href="/categories/kubernetes/rss.xml" rel="self" type="application/rss+xml"/><item><title>Kubernetes 配置节点支持 GPU</title><link>/post/kubernetes/config_gpu_support/</link><pubDate>Tue, 27 Oct 2020 13:51:00 +0800</pubDate><guid>/post/kubernetes/config_gpu_support/</guid><description>&lt;h1 id="kubernetes-配置节点支持-gpu"&gt;Kubernetes 配置节点支持 GPU
+&lt;a class="header-anchor" href="#kubernetes-%e9%85%8d%e7%bd%ae%e8%8a%82%e7%82%b9%e6%94%af%e6%8c%81-gpu"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10, kubernetes 1.19.3 为例，进行配置 GPU 支持。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html" title="nvidia-runtime install" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ nvidia-runtime install
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="public:linux:new_install" title="docker 添加 nvidia 运行环境" &gt;
+ docker 添加 nvidia 运行环境
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/" title="Schedule GPUs" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Schedule GPUs
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://github.com/NVIDIA/k8s-device-plugin" title="https://github.com/NVIDIA/k8s-device-plugin" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/NVIDIA/k8s-device-plugin
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://www.kubeflow.org/docs/notebooks/setup/" title="https://www.kubeflow.org/docs/notebooks/setup/" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://www.kubeflow.org/docs/notebooks/setup/
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-前提条件"&gt;1. 前提条件
+&lt;a class="header-anchor" href="#1-%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;节点上已经安装了 nvidia 显卡驱动。驱动版本必须大于 384.81 。&lt;/li&gt;
+&lt;li&gt;节点上已经安装了 &lt;code&gt;nvidia-docker 2.0&lt;/code&gt; 插件。安装过程见 
+&lt;a href="/post/linux/new_install" title="docker 添加 nvidia 运行环境" &gt;
+ docker 添加 nvidia 运行环境
+ 
+&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nvidia-container-runtime&lt;/code&gt; 作为默认的 runtime 。 即在 /etc/docker/daemon.json 中设置 &lt;code&gt;&amp;quot;default-runtime&amp;quot;: &amp;quot;nvidia&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="2-安装插件"&gt;2. 安装插件
+&lt;a class="header-anchor" href="#2-%e5%ae%89%e8%a3%85%e6%8f%92%e4%bb%b6"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.7.0/nvidia-device-plugin.yml&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="3-查看节点-gpu-数量"&gt;3. 查看节点 gpu 数量
+&lt;a class="header-anchor" href="#3-%e6%9f%a5%e7%9c%8b%e8%8a%82%e7%82%b9-gpu-%e6%95%b0%e9%87%8f"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl get nodes &lt;span class="s2"&gt;&amp;#34;-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable.nvidia\.com/gpu&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>Kubernetes 安装 Kubeflow</title><link>/post/kubernetes/install_kubeflow/</link><pubDate>Mon, 26 Oct 2020 19:59:00 +0800</pubDate><guid>/post/kubernetes/install_kubeflow/</guid><description>&lt;h1 id="kubernetes-安装-kubeflow"&gt;Kubernetes 安装 Kubeflow
+&lt;a class="header-anchor" href="#kubernetes-%e5%ae%89%e8%a3%85-kubeflow"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10, kubernetes 1.19.3 为例，进行 Kubeflow 1.1.0 的安装讲解。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://www.kubeflow.org/docs/started/k8s/kfctl-k8s-istio" title="Kubeflow Deployment with kfctl_k8s_istio" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Kubeflow Deployment with kfctl_k8s_istio
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 基础版本&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://www.kubeflow.org/docs/started/k8s/kfctl-istio-dex/" title="Multi-user, auth-enabled Kubeflow with kfctl_istio_dex" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Multi-user, auth-enabled Kubeflow with kfctl_istio_dex
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 多用户认证版本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-准备环境"&gt;1. 准备环境
+&lt;a class="header-anchor" href="#1-%e5%87%86%e5%a4%87%e7%8e%af%e5%a2%83"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;h3 id="11-配置动态卷供应"&gt;1.1 配置动态卷供应
+&lt;a class="header-anchor" href="#11-%e9%85%8d%e7%bd%ae%e5%8a%a8%e6%80%81%e5%8d%b7%e4%be%9b%e5%ba%94"&gt;&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;Kubernetes 里需要配置了一个默认的动态卷供应 dynamic volume provisioner （&lt;strong&gt;重要&lt;/strong&gt;，一些应用需要这个来存储数据） 。可通过此文档 
+&lt;a href="/post/kubernetes/configure_storageclass_nfs" title="Kubernetes 配置 NFS StorageClass" &gt;
+ Kubernetes 配置 NFS StorageClass
+ 
+&lt;/a&gt; 配置一个 NFS StorageClass 。&lt;/p&gt;</description></item><item><title>Kubernetes 配置 NFS StorageClass</title><link>/post/kubernetes/configure_storageclass_nfs/</link><pubDate>Mon, 26 Oct 2020 18:07:00 +0800</pubDate><guid>/post/kubernetes/configure_storageclass_nfs/</guid><description>&lt;h1 id="kubernetes-配置-nfs-storageclass"&gt;Kubernetes 配置 NFS StorageClass
+&lt;a class="header-anchor" href="#kubernetes-%e9%85%8d%e7%bd%ae-nfs-storageclass"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;前置条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="/post/kubernetes/install_helm" title="安装 Helm" &gt;
+ 安装 Helm
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-安装-nfs-client-provisioner"&gt;1. 安装 nfs-client-provisioner
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85-nfs-client-provisioner"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;helm install nfs-provisioner stable/nfs-client-provisioner --set nfs.server&lt;span class="o"&gt;=&lt;/span&gt;192.168.1.100 --set nfs.path&lt;span class="o"&gt;=&lt;/span&gt;/nfs/your_path&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-配置为默认的-storageclass"&gt;2. 配置为默认的 StorageClass
+&lt;a class="header-anchor" href="#2-%e9%85%8d%e7%bd%ae%e4%b8%ba%e9%bb%98%e8%ae%a4%e7%9a%84-storageclass"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;当 pvc 没有指定 StorageClass 时，使用该 nfs 作为默认存储&lt;/p&gt;
+&lt;p&gt;设置为默认 StorageClass&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 设置 default class 为 true 。 其中 nfs-client 为上一步创建的 nfs storageclass 的名称。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;kubectl patch storageclass nfs-client -p &lt;span class="s1"&gt;&amp;#39;{&amp;#34;metadata&amp;#34;: {&amp;#34;annotations&amp;#34;:{&amp;#34;storageclass.kubernetes.io/is-default-class&amp;#34;:&amp;#34;true&amp;#34;}}}&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;解除指定默认 StorageClass&lt;/p&gt;</description></item><item><title>Helm 安装</title><link>/post/kubernetes/install_helm/</link><pubDate>Mon, 26 Oct 2020 17:47:00 +0800</pubDate><guid>/post/kubernetes/install_helm/</guid><description>&lt;h1 id="helm-安装"&gt;Helm 安装
+&lt;a class="header-anchor" href="#helm-%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://helm.sh/docs/intro/quickstart/" title="Helm Quick Start" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Helm Quick Start
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://helm.sh/docs/intro/install/" title="Installing Helm" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Installing Helm
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-安装"&gt;1. 安装
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;对于 debian/ubuntu 来说，可以直接通过 apt 安装。&lt;/p&gt;
+&lt;p&gt;这里使用手动下载二进制文件的方式。&lt;/p&gt;
+&lt;p&gt;打开 
+&lt;a href="https://github.com/helm/helm/releases" title="https://github.com/helm/helm/releases" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/helm/helm/releases
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 网页，找到适合自己平台的版本，下载。&lt;/p&gt;</description></item><item><title>Kubernetes 安装 rook ceph</title><link>/post/kubernetes/rook_ceph/</link><pubDate>Thu, 22 Oct 2020 17:26:00 +0800</pubDate><guid>/post/kubernetes/rook_ceph/</guid><description>&lt;h1 id="kubernetes-安装-rook-ceph"&gt;Kubernetes 安装 rook ceph
+&lt;a class="header-anchor" href="#kubernetes-%e5%ae%89%e8%a3%85-rook-ceph"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10 , kubernetes 1.19 为例。 kubernetes 安装参考站内另一篇文章 
+&lt;a href="/post/kubernetes/install" title="Kubernetes 安装" &gt;
+ Kubernetes 安装
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;官方文档: 
+&lt;a href="https://rook.io/docs/rook/v1.4/ceph-quickstart.html" title="Ceph Storage Quickstart" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Ceph Storage Quickstart
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ceph-Toolbox: 
+&lt;a href="https://rook.io/docs/rook/v1.4/ceph-toolbox.html" title="Rook Ceph Toolbox" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Rook Ceph Toolbox
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;由于实验环境中没有足够的空闲磁盘空间，最终实验未完成。这里仅记录前面的实验步骤，作为备忘笔记，最终过程待补充。&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Kubernetes Dashboard 安装</title><link>/post/kubernetes/dashboard/</link><pubDate>Thu, 22 Oct 2020 13:42:00 +0800</pubDate><guid>/post/kubernetes/dashboard/</guid><description>&lt;h1 id="kubernetes-dashboard-安装"&gt;Kubernetes Dashboard 安装
+&lt;a class="header-anchor" href="#kubernetes-dashboard-%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10 , kubernetes 1.19 为例。 kubernetes 安装参考站内另一篇文章 
+&lt;a href="/post/kubernetes/install" title="Kubernetes 安装" &gt;
+ Kubernetes 安装
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;官方文档: 
+&lt;a href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/" title="Web UI (Dashboard)" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Web UI (Dashboard)
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;创建示例用户: 
+&lt;a href="https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md" title="Creating sample user" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Creating sample user
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;站内相关资料：&lt;/p&gt;</description></item><item><title>kubernetes RBAC 鉴权简单介绍</title><link>/post/kubernetes/rbac/</link><pubDate>Wed, 21 Oct 2020 13:27:00 +0800</pubDate><guid>/post/kubernetes/rbac/</guid><description>&lt;h1 id="kubernetes-rbac-鉴权简单介绍"&gt;kubernetes RBAC 鉴权简单介绍
+&lt;a class="header-anchor" href="#kubernetes-rbac-%e9%89%b4%e6%9d%83%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文内容截取自官方文档，用于备忘与快速理解，完整信息请参考官方文档。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/" title="kubernetes 使用 RBAC 鉴权" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ kubernetes 使用 RBAC 鉴权
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-简介"&gt;1. 简介
+&lt;a class="header-anchor" href="#1-%e7%ae%80%e4%bb%8b"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;基于角色（Role）的访问控制（RBAC）是一种基于企业中用户的角色来调节控制对计算机或网络资源的访问方法。&lt;/p&gt;</description></item><item><title>Kubernetes 安装</title><link>/post/kubernetes/install/</link><pubDate>Sun, 14 Jun 2020 17:55:00 +0800</pubDate><guid>/post/kubernetes/install/</guid><description>&lt;h1 id="kubernetes-安装"&gt;Kubernetes 安装
+&lt;a class="header-anchor" href="#kubernetes-%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10 为例，进行 Kubernetes 的安装讲解。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://zhuanlan.zhihu.com/p/46341911" title="kubernetes安装（国内环境）" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ kubernetes安装（国内环境）
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://www.cnblogs.com/CloudMan6/tag/Kubernetes/" title="每天5分钟玩转 Docker 容器技术" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ 每天5分钟玩转 Docker 容器技术
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-安装-docker-和-kubernetes"&gt;1. 安装 docker 和 kubernetes
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85-docker-%e5%92%8c-kubernetes"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;每台电脑都需要安装。参考本篇文章 
+&lt;a href="/post/linux/new_install" title="Linux 新系统安装配置清单" &gt;
+ Linux 新系统安装配置清单
+ 
+&lt;/a&gt; 里安装 docker 和 kubernetes 的步骤。&lt;/p&gt;</description></item></channel></rss>

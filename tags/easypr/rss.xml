@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Easypr on 咕噜猫小站</title><link>/tags/easypr/</link><description>Recent content in Easypr on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 31 Oct 2019 16:47:24 +0800</lastBuildDate><atom:link href="/tags/easypr/rss.xml" rel="self" type="application/rss+xml"/><item><title>EasyPR 编译使用说明 (Debian)</title><link>/post/software/easypr/</link><pubDate>Thu, 31 Oct 2019 16:47:24 +0800</pubDate><guid>/post/software/easypr/</guid><description>&lt;h1 id="easypr-编译使用说明-debian"&gt;EasyPR 编译使用说明 (Debian)
+&lt;a class="header-anchor" href="#easypr-%e7%bc%96%e8%af%91%e4%bd%bf%e7%94%a8%e8%af%b4%e6%98%8e-debian"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;EasyPR 是一个车牌识别库，识别率高，功能齐全，非常适合直接拿来使用。 官方地址： 
+&lt;a href="https://github.com/liuruoze/EasyPR" title="https://github.com/liuruoze/EasyPR" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/liuruoze/EasyPR
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这里记录一下 EasyPR 在 Linux 底下编译及再次封装供 Python 使用的过程。&lt;/p&gt;</description></item></channel></rss>

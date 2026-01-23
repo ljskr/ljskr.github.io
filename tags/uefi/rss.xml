@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Uefi on 咕噜猫小站</title><link>/tags/uefi/</link><description>Recent content in Uefi on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sat, 26 Jun 2021 16:05:12 +0800</lastBuildDate><atom:link href="/tags/uefi/rss.xml" rel="self" type="application/rss+xml"/><item><title>Debian 10 UEFI 相关</title><link>/post/linux/debian_uefi/</link><pubDate>Mon, 11 Nov 2019 15:38:04 +0800</pubDate><guid>/post/linux/debian_uefi/</guid><description>&lt;h1 id="debian-10-uefi-相关"&gt;Debian 10 UEFI 相关
+&lt;a class="header-anchor" href="#debian-10-uefi-%e7%9b%b8%e5%85%b3"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="bios-未识别出-uefi-分区"&gt;bios 未识别出 uefi 分区
+&lt;a class="header-anchor" href="#bios-%e6%9c%aa%e8%af%86%e5%88%ab%e5%87%ba-uefi-%e5%88%86%e5%8c%ba"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;最近在新磁盘上安装 debian 10 时，出现过安装完成后，bios 未识别出 uefi 分区，从而系统不能正常启动的问题。&lt;/p&gt;
+&lt;p&gt;根据官网(
+&lt;a href="https://wiki.debian.org/UEFI" title="https://wiki.debian.org/UEFI" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.debian.org/UEFI
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;)介绍，正确的 uefi 启动文件的命名路径为：&lt;/p&gt;</description></item></channel></rss>

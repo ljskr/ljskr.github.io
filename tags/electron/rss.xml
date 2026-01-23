@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Electron on 咕噜猫小站</title><link>/tags/electron/</link><description>Recent content in Electron on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sat, 19 Mar 2022 11:43:00 +0800</lastBuildDate><atom:link href="/tags/electron/rss.xml" rel="self" type="application/rss+xml"/><item><title>Node.js 安装说明</title><link>/post/nodejs/install/</link><pubDate>Fri, 20 Dec 2019 12:04:00 +0800</pubDate><guid>/post/nodejs/install/</guid><description>&lt;h1 id="nodejs-安装说明"&gt;Node.js 安装说明
+&lt;a class="header-anchor" href="#nodejs-%e5%ae%89%e8%a3%85%e8%af%b4%e6%98%8e"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="安装"&gt;安装
+&lt;a class="header-anchor" href="#%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://nodejs.org/en/" title="https://nodejs.org/en/" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://nodejs.org/en/
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://github.com/nodesource/distributions/blob/master/README.md" title="https://github.com/nodesource/distributions/blob/master/README.md" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/nodesource/distributions/blob/master/README.md
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;For Debian / Ubuntu&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Node.js LTS (v16.x)&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -fsSL https://deb.nodesource.com/setup_lts.x &lt;span class="p"&gt;|&lt;/span&gt; bash -
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt-get install nodejs&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Node.js v13.x:&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -sL https://deb.nodesource.com/setup_13.x &lt;span class="p"&gt;|&lt;/span&gt; sudo -E bash -
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt-get install nodejs&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Node.js v12.x:&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-2-1"&gt;&lt;a class="lnlinks" href="#hl-2-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-2-2"&gt;&lt;a class="lnlinks" href="#hl-2-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -sL https://deb.nodesource.com/setup_12.x &lt;span class="p"&gt;|&lt;/span&gt; sudo -E bash -
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt-get install nodejs&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="设置-npm-代理"&gt;设置 npm 代理
+&lt;a class="header-anchor" href="#%e8%ae%be%e7%bd%ae-npm-%e4%bb%a3%e7%90%86"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;国内使用 npm 速度很慢，你可以使用淘宝的代理服务器来加速下载。&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dhcp on 咕噜猫小站</title><link>/tags/dhcp/</link><description>Recent content in Dhcp on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Mon, 25 Jul 2022 13:12:16 +0800</lastBuildDate><atom:link href="/tags/dhcp/rss.xml" rel="self" type="application/rss+xml"/><item><title>dnsmasq 安装与配置</title><link>/post/linux/dnsmasq/</link><pubDate>Mon, 25 Jul 2022 13:12:16 +0800</pubDate><guid>/post/linux/dnsmasq/</guid><description>&lt;h1 id="dnsmasq-安装与配置"&gt;dnsmasq 安装与配置
+&lt;a class="header-anchor" href="#dnsmasq-%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;dnsmasq&lt;/code&gt; 可提供 &lt;code&gt;DNS&lt;/code&gt; 、 &lt;code&gt;DHCP&lt;/code&gt; 、 &lt;code&gt;TFTP&lt;/code&gt; 服务。&lt;/p&gt;
+&lt;p&gt;本文以 Debian 11 为例，介绍 dnsmasq 的安装与配置方法。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://dnsmasq.org" title="dnsmasq 官网" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ dnsmasq 官网
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://dnsmasq.org/docs/dnsmasq-man.html" title="dnsmasq 官网文档" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ dnsmasq 官网文档
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-安装"&gt;1. 安装
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;安装 &lt;code&gt;dnsmasq&lt;/code&gt; 程序包。&lt;/p&gt;</description></item><item><title>DHCP 服务器安装与配置</title><link>/post/linux/isc_dhcp_server/</link><pubDate>Mon, 04 Jan 2021 13:52:00 +0800</pubDate><guid>/post/linux/isc_dhcp_server/</guid><description>&lt;h1 id="dhcp-服务器安装与配置"&gt;DHCP 服务器安装与配置
+&lt;a class="header-anchor" href="#dhcp-%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10 为例，介绍 DHCP 服务器的安装与配置方法。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://wiki.debian.org/DHCP_Server" title="DHCP_Server" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ DHCP_Server
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-安装"&gt;1. 安装
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;安装 &lt;code&gt;isc-dhcp-server&lt;/code&gt; 程序包。&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt install isc-dhcp-server&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-配置"&gt;2. 配置
+&lt;a class="header-anchor" href="#2-%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;h3 id="21-指定监听的网络接口"&gt;2.1 指定监听的网络接口
+&lt;a class="header-anchor" href="#21-%e6%8c%87%e5%ae%9a%e7%9b%91%e5%90%ac%e7%9a%84%e7%bd%91%e7%bb%9c%e6%8e%a5%e5%8f%a3"&gt;&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;编辑 &lt;code&gt;/etc/default/isc-dhcp-server&lt;/code&gt; 文件，修改如下选项，把 eth0 改为自己的网络接口名称&lt;/p&gt;</description></item></channel></rss>

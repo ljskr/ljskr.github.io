@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Trojan on 咕噜猫小站</title><link>/tags/trojan/</link><description>Recent content in Trojan on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 23 Mar 2023 17:23:55 +0800</lastBuildDate><atom:link href="/tags/trojan/rss.xml" rel="self" type="application/rss+xml"/><item><title>Trojan-go 安装指南</title><link>/post/software/trojan_go_install/</link><pubDate>Sun, 16 Jan 2022 23:45:50 +0800</pubDate><guid>/post/software/trojan_go_install/</guid><description>&lt;h1 id="trojan-go-安装指南"&gt;Trojan-go 安装指南
+&lt;a class="header-anchor" href="#trojan-go-%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 11 为例。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://p4gefau1t.github.io/trojan-go" title="官方文档" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ 官方文档
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://github.com/p4gefau1t/trojan-go" title="github" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ github
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://github.com/p4gefau1t/trojan-go/releases" title="github release" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ github release
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-安装-trojan-go"&gt;1. 安装 Trojan-go
+&lt;a class="header-anchor" href="#1-%e5%ae%89%e8%a3%85-trojan-go"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;h3 id="11-二进制安装方式"&gt;1.1 二进制安装方式
+&lt;a class="header-anchor" href="#11-%e4%ba%8c%e8%bf%9b%e5%88%b6%e5%ae%89%e8%a3%85%e6%96%b9%e5%bc%8f"&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt;7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt;8&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;wget https://github.com/p4gefau1t/trojan-go/releases/download/v0.10.6/trojan-go-linux-amd64.zip
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;unzip trojan-go-linux-amd64.zip
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cp trojan-go /usr/local/bin/
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir /etc/trojan-go
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cp *.dat /etc/trojan-go&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;相关文件路径为：&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Portainer on 咕噜猫小站</title><link>/tags/portainer/</link><description>Recent content in Portainer on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Tue, 15 Aug 2023 01:04:00 +0800</lastBuildDate><atom:link href="/tags/portainer/rss.xml" rel="self" type="application/rss+xml"/><item><title>docker 部署 portainer</title><link>/post/docker/app/portainer/</link><pubDate>Tue, 15 Aug 2023 01:04:00 +0800</pubDate><guid>/post/docker/app/portainer/</guid><description>&lt;h1 id="docker-部署-portainer"&gt;docker 部署 portainer
+&lt;a class="header-anchor" href="#docker-%e9%83%a8%e7%bd%b2-portainer"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;官网： 
+&lt;a href="https://www.portainer.io" title="https://www.portainer.io" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://www.portainer.io
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://hub.docker.com/r/portainer/portainer" title="https://hub.docker.com/r/portainer/portainer" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://hub.docker.com/r/portainer/portainer
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;docker 管理工具 web 版，管理员通过浏览器访问 9000 端口进行控制 docker 。&lt;/p&gt;
+&lt;p&gt;单机版通过 socket 跟主机 docker 进行通信获取信息，运行和挂载命令如下：&lt;/p&gt;</description></item></channel></rss>

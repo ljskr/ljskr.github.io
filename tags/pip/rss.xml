@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pip on 咕噜猫小站</title><link>/tags/pip/</link><description>Recent content in Pip on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Nov 2019 16:09:00 +0800</lastBuildDate><atom:link href="/tags/pip/rss.xml" rel="self" type="application/rss+xml"/><item><title>Python 设置 PYPI 私服说明</title><link>/post/python/pip_setting/</link><pubDate>Mon, 04 Nov 2019 16:09:00 +0800</pubDate><guid>/post/python/pip_setting/</guid><description>&lt;h1 id="python-设置-pypi-私服说明"&gt;Python 设置 PYPI 私服说明
+&lt;a class="header-anchor" href="#python-%e8%ae%be%e7%bd%ae-pypi-%e7%a7%81%e6%9c%8d%e8%af%b4%e6%98%8e"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="私服设置"&gt;私服设置
+&lt;a class="header-anchor" href="#%e7%a7%81%e6%9c%8d%e8%ae%be%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Linux 下编辑文件 &lt;code&gt;/etc/pip.conf&lt;/code&gt; 或者 &lt;code&gt;~/.pip/pip.conf&lt;/code&gt; ， Windows 下编辑文件 &lt;code&gt;C:\ProgramData\pip\pip.ini&lt;/code&gt; 或者 &lt;code&gt;%USERPROFILE%\pip\pip.ini&lt;/code&gt; 或者 &lt;code&gt;%APPDATA%\pip\pip.ini&lt;/code&gt;， &lt;del&gt;添加 extra-index-url&lt;/del&gt; 修改 index-url&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;私服在找不到包时，会替我们到外面找包，因此只需要一个 index-url 即可&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tensorflow on 咕噜猫小站</title><link>/tags/tensorflow/</link><description>Recent content in Tensorflow on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 31 Oct 2019 15:49:00 +0800</lastBuildDate><atom:link href="/tags/tensorflow/rss.xml" rel="self" type="application/rss+xml"/><item><title>slim库中的预处理方法分析</title><link>/post/tensorflow/slim_preprocessing/</link><pubDate>Thu, 31 Oct 2019 15:49:00 +0800</pubDate><guid>/post/tensorflow/slim_preprocessing/</guid><description>&lt;h1 id="slim库中的预处理方法分析"&gt;slim库中的预处理方法分析
+&lt;a class="header-anchor" href="#slim%e5%ba%93%e4%b8%ad%e7%9a%84%e9%a2%84%e5%a4%84%e7%90%86%e6%96%b9%e6%b3%95%e5%88%86%e6%9e%90"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;research/slim/preprocessing/cifarnet_preprocessing.py&lt;/strong&gt;
+
+&lt;a href="https://github.com/tensorflow/models/blob/master/research/slim/preprocessing/cifarnet_preprocessing.py" title="源码" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ 源码
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;对图片的预处理过程为：&lt;/p&gt;
+&lt;p&gt;训练数据集：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对图片进行填充。（tf.pad）&lt;/li&gt;
+&lt;li&gt;按指定大小随机裁剪图像。（tf.random_crop）&lt;/li&gt;
+&lt;li&gt;随机水平翻转。（tf.image.random_flip_left_right）&lt;/li&gt;
+&lt;li&gt;随机亮度。（tf.image.random_brightness）&lt;/li&gt;
+&lt;li&gt;随机对比度。 （tf.image.random_contrast）&lt;/li&gt;
+&lt;li&gt;图像标准化。 （tf.image.per_image_standardization）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;验证数据集:&lt;/p&gt;</description></item><item><title>06 - Tensorflow Serving 使用说明</title><link>/post/tensorflow/06_serving/</link><pubDate>Thu, 31 Oct 2019 15:46:00 +0800</pubDate><guid>/post/tensorflow/06_serving/</guid><description>&lt;h1 id="06---tensorflow-serving-使用说明"&gt;06 - Tensorflow Serving 使用说明
+&lt;a class="header-anchor" href="#06---tensorflow-serving-%e4%bd%bf%e7%94%a8%e8%af%b4%e6%98%8e"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文大部分是对官网的描述做些备注和个人理解。如有需要，请直接查看官网原文。&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://tensorflow.google.cn/serving/serving_basic?hl=zh-CN" title="https://tensorflow.google.cn/serving/serving_basic?hl=zh-CN" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://tensorflow.google.cn/serving/serving_basic?hl=zh-CN
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; (官方网址)&lt;/p&gt;
+&lt;p&gt;前置知识： 建议阅读 
+&lt;a href="/post/tensorflow/05_saved_model" title="05 - Tensorflow 模型保存与恢复" &gt;
+ 05 - Tensorflow 模型保存与恢复
+ 
+&lt;/a&gt;&lt;/p&gt;</description></item><item><title>05 - Tensorflow 模型保存与恢复</title><link>/post/tensorflow/05_saved_model/</link><pubDate>Thu, 31 Oct 2019 15:45:00 +0800</pubDate><guid>/post/tensorflow/05_saved_model/</guid><description>&lt;h1 id="05---tensorflow-模型保存与恢复"&gt;05 - Tensorflow 模型保存与恢复
+&lt;a class="header-anchor" href="#05---tensorflow-%e6%a8%a1%e5%9e%8b%e4%bf%9d%e5%ad%98%e4%b8%8e%e6%81%a2%e5%a4%8d"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文大部分是对官网的描述做些&lt;strong&gt;备注和个人理解&lt;/strong&gt;。如有需要，请直接查看官网原文。&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://tensorflow.google.cn/programmers_guide/saved_model" title="https://tensorflow.google.cn/programmers_guide/saved_model" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://tensorflow.google.cn/programmers_guide/saved_model
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; (英文原版)&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://tensorflow.google.cn/programmers_guide/saved_model?hl=zh-CN" title="https://tensorflow.google.cn/programmers_guide/saved_model?hl=zh-CN" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://tensorflow.google.cn/programmers_guide/saved_model?hl=zh-CN
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; (中文原版)&lt;/p&gt;
+&lt;h2 id="1-保存与恢复变量-即-checkpoint"&gt;1. 保存与恢复变量 （即 Checkpoint）
+&lt;a class="header-anchor" href="#1-%e4%bf%9d%e5%ad%98%e4%b8%8e%e6%81%a2%e5%a4%8d%e5%8f%98%e9%87%8f-%e5%8d%b3-checkpoint"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;h3 id="11-保存变量"&gt;1.1 保存变量
+&lt;a class="header-anchor" href="#11-%e4%bf%9d%e5%ad%98%e5%8f%98%e9%87%8f"&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt; 1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt; 2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt; 3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt; 4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt; 5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt; 6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt; 7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt; 8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt; 9&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-10"&gt;&lt;a class="lnlinks" href="#hl-0-10"&gt;10&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-11"&gt;&lt;a class="lnlinks" href="#hl-0-11"&gt;11&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-12"&gt;&lt;a class="lnlinks" href="#hl-0-12"&gt;12&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-13"&gt;&lt;a class="lnlinks" href="#hl-0-13"&gt;13&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-14"&gt;&lt;a class="lnlinks" href="#hl-0-14"&gt;14&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tensorflow&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;tf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# build network&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# define checkpoint saver&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;saver&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Saver&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Session&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;sess&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# init variables&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;sess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;global_variables_initializer&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# 保存 checkpoint&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;saver&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sess&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;save_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;/path/to/save/checkpoints&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;global_step&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_global_step&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;说明： save_path 是到文件名层面的。若保存路径设为&amp;quot;/data/model&amp;quot;，则 checkpoint 的文件以&amp;quot;/data/model-{global_step}&amp;ldquo;开头。一次会生成三个文件，分别以&amp;quot;data-00000-of-00001&amp;rdquo;、&amp;ldquo;index&amp;rdquo;、&amp;ldquo;meta&amp;quot;为扩展名。&lt;/p&gt;</description></item><item><title>02 - Tensorflow Object Detection 环境快速安装及更新脚本</title><link>/post/tensorflow/02_preinstall_models_for_object_detection/</link><pubDate>Thu, 31 Oct 2019 15:42:00 +0800</pubDate><guid>/post/tensorflow/02_preinstall_models_for_object_detection/</guid><description>&lt;h1 id="02---tensorflow-object-detection-环境快速安装及更新脚本"&gt;02 - Tensorflow Object Detection 环境快速安装及更新脚本
+&lt;a class="header-anchor" href="#02---tensorflow-object-detection-%e7%8e%af%e5%a2%83%e5%bf%ab%e9%80%9f%e5%ae%89%e8%a3%85%e5%8f%8a%e6%9b%b4%e6%96%b0%e8%84%9a%e6%9c%ac"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;该脚本用于快速准备好 object detection 所需要的代码环境。&lt;/p&gt;
+&lt;p&gt;如脚本运行出错，则确保已安装 &lt;code&gt;git&lt;/code&gt;, &lt;code&gt;protobuf-compiler&lt;/code&gt;, &lt;code&gt;make&lt;/code&gt;, &lt;code&gt;python3&lt;/code&gt; 以及 python 下的 &lt;code&gt;cython&lt;/code&gt;, &lt;code&gt;matplotlib&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;更多说明请参考:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md" title="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;quick_install_models.sh 文件内容：&lt;/p&gt;</description></item></channel></rss>

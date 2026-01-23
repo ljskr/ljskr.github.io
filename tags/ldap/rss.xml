@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ldap on 咕噜猫小站</title><link>/tags/ldap/</link><description>Recent content in Ldap on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sat, 26 Jun 2021 16:23:21 +0800</lastBuildDate><atom:link href="/tags/ldap/rss.xml" rel="self" type="application/rss+xml"/><item><title>基于 LDAP 的 PAM 验证</title><link>/post/linux/pam_ldap/</link><pubDate>Thu, 31 Oct 2019 15:29:44 +0800</pubDate><guid>/post/linux/pam_ldap/</guid><description>&lt;h1 id="基于-ldap-的-pam-验证"&gt;基于 LDAP 的 PAM 验证
+&lt;a class="header-anchor" href="#%e5%9f%ba%e4%ba%8e-ldap-%e7%9a%84-pam-%e9%aa%8c%e8%af%81"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://wiki.debian.org/LDAP/PAM" title="https://wiki.debian.org/LDAP/PAM" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.debian.org/LDAP/PAM
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://wiki.debian.org/LDAP/NSS" title="https://wiki.debian.org/LDAP/NSS" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.debian.org/LDAP/NSS
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://wiki.samba.org/index.php/Nslcd" title="https://wiki.samba.org/index.php/Nslcd" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://wiki.samba.org/index.php/Nslcd
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://uit.stanford.edu/service/directory/pam/local-home" title="https://uit.stanford.edu/service/directory/pam/local-home" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://uit.stanford.edu/service/directory/pam/local-home
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema" title="https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;a href="https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/" title="https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="一前言"&gt;一、前言
+&lt;a class="header-anchor" href="#%e4%b8%80%e5%89%8d%e8%a8%80"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Linux 可以通过 &lt;code&gt;PAM&lt;/code&gt; (Pluggable Authentication Modules, 可插入认证模块)来提供认证功能，不少系统服务认证是通过 pam 来进行。 pam 的配置文件放在 &lt;code&gt;/etc/pam.d/&lt;/code&gt; 目录下， 其中以 common 开关的配置文件是通用认证，里面通过 &lt;code&gt;pam_unix.so&lt;/code&gt; 模块来进行认证，该模块读取 /etc/passwd 、 /etc/shadow 等系统配置信息，做到与系统账号同步。&lt;/p&gt;</description></item><item><title>各内部系统连接 ldaps 而导入可信根证书的操作步骤</title><link>/post/ssl/trusted_certs_config/</link><pubDate>Thu, 31 Oct 2019 14:38:00 +0800</pubDate><guid>/post/ssl/trusted_certs_config/</guid><description>&lt;h1 id="各内部系统连接-ldaps-而导入可信根证书的操作步骤"&gt;各内部系统连接 ldaps 而导入可信根证书的操作步骤
+&lt;a class="header-anchor" href="#%e5%90%84%e5%86%85%e9%83%a8%e7%b3%bb%e7%bb%9f%e8%bf%9e%e6%8e%a5-ldaps-%e8%80%8c%e5%af%bc%e5%85%a5%e5%8f%af%e4%bf%a1%e6%a0%b9%e8%af%81%e4%b9%a6%e7%9a%84%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="前言"&gt;前言
+&lt;a class="header-anchor" href="#%e5%89%8d%e8%a8%80"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;由于使用了自签署证书，如果系统间连接需要使用 ssl ，难免会产生证书是否可信的问题。内部系统中主要是使用了 &lt;code&gt;ldaps&lt;/code&gt; 进行账号验证，因此需要指明可信根证书的位置。&lt;/p&gt;</description></item></channel></rss>

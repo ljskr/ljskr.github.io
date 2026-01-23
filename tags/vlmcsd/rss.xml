@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vlmcsd on 咕噜猫小站</title><link>/tags/vlmcsd/</link><description>Recent content in Vlmcsd on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 27 Jun 2021 15:30:14 +0800</lastBuildDate><atom:link href="/tags/vlmcsd/rss.xml" rel="self" type="application/rss+xml"/><item><title>vlmcsd 安装指南</title><link>/post/software/vlmcsd_install/</link><pubDate>Sun, 27 Jun 2021 15:30:14 +0800</pubDate><guid>/post/software/vlmcsd_install/</guid><description>&lt;h1 id="vlmcsd-安装指南"&gt;vlmcsd 安装指南
+&lt;a class="header-anchor" href="#vlmcsd-%e5%ae%89%e8%a3%85%e6%8c%87%e5%8d%97"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;这是个好东西，不多做介绍，用途请自行搜索。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://github.com/Wind4/vlmcsd" title="https://github.com/Wind4/vlmcsd" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://github.com/Wind4/vlmcsd
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://hub.docker.com/r/mikolatero/vlmcsd" title="https://hub.docker.com/r/mikolatero/vlmcsd" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://hub.docker.com/r/mikolatero/vlmcsd
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-编译安装"&gt;1. 编译安装
+&lt;a class="header-anchor" href="#1-%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/Wind4/vlmcsd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; vlmcsd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make install&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-直接运行"&gt;2. 直接运行
+&lt;a class="header-anchor" href="#2-%e7%9b%b4%e6%8e%a5%e8%bf%90%e8%a1%8c"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;vlmcsd -D -d -t &lt;span class="m"&gt;3&lt;/span&gt; -e -v&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="3-以-systemd-服务方式运行"&gt;3. 以 systemd 服务方式运行
+&lt;a class="header-anchor" href="#3-%e4%bb%a5-systemd-%e6%9c%8d%e5%8a%a1%e6%96%b9%e5%bc%8f%e8%bf%90%e8%a1%8c"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;vi /etc/systemd/system/vlmcsd.service&lt;/code&gt;&lt;/p&gt;</description></item></channel></rss>

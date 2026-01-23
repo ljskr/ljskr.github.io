@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Curl on 咕噜猫小站</title><link>/tags/curl/</link><description>Recent content in Curl on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 08 Nov 2023 18:16:54 +0800</lastBuildDate><atom:link href="/tags/curl/rss.xml" rel="self" type="application/rss+xml"/><item><title>curl 用法备忘</title><link>/post/linux/curl/</link><pubDate>Tue, 06 Dec 2022 20:27:40 +0800</pubDate><guid>/post/linux/curl/</guid><description>&lt;h1 id="curl-用法备忘"&gt;curl 用法备忘
+&lt;a class="header-anchor" href="#curl-%e7%94%a8%e6%b3%95%e5%a4%87%e5%bf%98"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="1-使用指定文件作为请求数据"&gt;1. 使用指定文件作为请求数据
+&lt;a class="header-anchor" href="#1-%e4%bd%bf%e7%94%a8%e6%8c%87%e5%ae%9a%e6%96%87%e4%bb%b6%e4%bd%9c%e4%b8%ba%e8%af%b7%e6%b1%82%e6%95%b0%e6%8d%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -X POST -H &lt;span class="s2"&gt;&amp;#34;Content-Type:text/xml;charset=UTF-8&amp;#34;&lt;/span&gt; -d @test.xml https://url:port/api&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;参数说明:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;X&lt;/strong&gt;: 请求类型，默认为 &lt;code&gt;GET&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;H&lt;/strong&gt;: 自定义请求头&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;d&lt;/strong&gt;: 请求参数。使用 &lt;code&gt;@&lt;/code&gt; 表示把一个文件的内容作为请求参数发送出去。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="2-上传文件"&gt;2. 上传文件
+&lt;a class="header-anchor" href="#2-%e4%b8%8a%e4%bc%a0%e6%96%87%e4%bb%b6"&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -X POST -F &lt;span class="s2"&gt;&amp;#34;file=@/home/user/test.jpg&amp;#34;&lt;/span&gt; https://url:port/api&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;参数说明:&lt;/p&gt;</description></item></channel></rss>

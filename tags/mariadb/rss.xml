@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mariadb on 咕噜猫小站</title><link>/tags/mariadb/</link><description>Recent content in Mariadb on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 27 Jun 2021 15:49:00 +0800</lastBuildDate><atom:link href="/tags/mariadb/rss.xml" rel="self" type="application/rss+xml"/><item><title>docker 部署 mysql</title><link>/post/docker/app/mysql/</link><pubDate>Wed, 30 Oct 2019 17:22:00 +0800</pubDate><guid>/post/docker/app/mysql/</guid><description>&lt;h1 id="docker-部署-mysql"&gt;docker 部署 mysql
+&lt;a class="header-anchor" href="#docker-%e9%83%a8%e7%bd%b2-mysql"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;运行 mysql&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;# 2019-01-07 修改&lt;/strong&gt;： &lt;code&gt;mysql&lt;/code&gt; 修改成 &lt;code&gt;mariadb&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -itd --name mysql-test -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;123456&lt;/span&gt; mariadb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如果需要docker外的程序连接，则暴露端口：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -itd --name mysql-test -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;123456&lt;/span&gt; -p 3306:3306 mariadb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如果需要把数据保存在外面：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -itd --name mysql-test -v /local/dir:/var/lib/mysql -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;123456&lt;/span&gt; -p 3306:3306 mariadb&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;运行 phpmyadmin&lt;/p&gt;</description></item></channel></rss>

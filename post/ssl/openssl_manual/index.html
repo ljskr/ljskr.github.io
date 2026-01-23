@@ -1,0 +1,266 @@
+<!doctype html><html lang=zh-CN data-theme=light><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: light)"><meta name=generator content="Hugo 0.154.2"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/logo.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/logo.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/logo.png><meta itemprop=name content="使用 openssl 生成证书"><meta itemprop=description content="分享知识，分享生活"><meta name=description content="分享知识，分享生活"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=keywords content="ssl,openssl"><meta property="og:type" content="article"><meta property="og:title" content="使用 openssl 生成证书"><meta property="og:description" content="分享知识，分享生活"><meta property="og:image" content="/imgs/icons/logo.svg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="/post/ssl/openssl_manual/"><meta property="og:site_name" content="咕噜猫小站"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="gulucat"><meta property="article:published_time" content="2019-10-31 13:56:00 +0800 +0800"><meta property="article:modified_time" content="2019-10-31 13:56:00 +0800 +0800"><link type=text/css rel=stylesheet href=/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.min.css?=1769186649"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>使用 openssl 生成证书 - 咕噜猫小站</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>咕噜猫小站</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>do it, do it right, do it right now</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-archives"><a href=/archives/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>114</span></a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#1-前置知识>1. 前置知识</a></li><li><a href=#2-生成一份-ca-根证书>2. 生成一份 CA 根证书</a><ul><li><a href=#1-创建私钥>1) 创建私钥</a></li><li><a href=#2-生成证书请求文件csr>2) 生成证书请求文件(CSR)</a></li><li><a href=#3-自签署证书>3) 自签署证书</a></li></ul></li><li><a href=#3-颁发服务器证书>3. 颁发服务器证书</a><ul><li><a href=#1-创建服务器私钥>1) 创建服务器私钥</a></li><li><a href=#2-生成证书请求文件csr-1>2) 生成证书请求文件(CSR)</a></li><li><a href=#3-使用-ca-证书进行签署生成-crt-文件>3) 使用 CA 证书进行签署，生成 crt 文件</a></li></ul></li><li><a href=#4-实践总结>4. 实践总结</a></li><li><a href=#5-对于-iis-的设置>5. 对于 IIS 的设置</a></li><li><a href=#6-解决-chrome-报-missing_subjectaltname-的问题>6. 解决 Chrome 报 missing_subjectAltName 的问题</a></li><li><a href=#7-更多用法>7. 更多用法</a><ul><li><a href=#1-通过配置文件非交互式生成证书请求文件csr>1) 通过配置文件，非交互式生成证书请求文件(CSR)</a></li><li><a href=#2-一句话生成-key-和-crt-文件>2) 一句话生成 key 和 crt 文件</a></li></ul></li><li><a href=#8-格式转换2019-08-01-补充>8. 格式转换(2019-08-01 补充)</a></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=gulucat src=/imgs/img-lazy-loading.gif data-src=/imgs/icons/logo.svg><p class=site-author-name itemprop=name>gulucat</p><div class=site-description itemprop=description>分享知识，分享生活</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>114</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>11</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>98</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/small/by_nc_sa.svg alt=共享知识></a></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2019-10-28 11:31:00 +0800 +0800"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=51909></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=169></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2024-05-27 17:46:40 +0800 +0800"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-comments class="button goto-comments" title=直达评论><i class="fas fa-comments"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=/post/ssl/openssl_manual/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=name content="gulucat"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="gulucat"><meta itemprop=description content="分享知识，分享生活"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="使用 openssl 生成证书"><meta itemprop=description content="使用 openssl 生成证书
+
+1. 前置知识
+
+KEY 通常指私钥。
+CSR 是 Certificate Signing Request 的缩写，即证书签名请求，这不是证书，只是包含申请证书的基本信息。生成证书时要把这个提交给权威的证书颁发机构，颁发机构审核通过之后，再根据这些申请信息生成相应的证书。"></span><header class=post-header><h1 class=post-title itemprop="name headline">使用 openssl 生成证书</h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2019-10-31 13:56:00 +08:00" itemprop="dateCreated datePublished" datetime="2019-10-31 13:56:00 +0800 +0800">2019-10-31
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/ssl/ itemprop=url rel=index><span itemprop=name>ssl</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>2563</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>6分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/post/ssl/openssl_manual/><i class="fa fa-sync fa-spin"></i>
+</span></span><span class=post-meta-item title><span class=post-meta-item-icon><i class="fas fa-solid fa-comments"></i>
+</span><span class=post-meta-item-text title=评论>评论：
+</span><span id=comments-count data-path=/post/ssl/openssl_manual/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><h1 id=使用-openssl-生成证书>使用 openssl 生成证书
+<a class=header-anchor href=#%e4%bd%bf%e7%94%a8-openssl-%e7%94%9f%e6%88%90%e8%af%81%e4%b9%a6></a></h1><h2 id=1-前置知识>1. 前置知识
+<a class=header-anchor href=#1-%e5%89%8d%e7%bd%ae%e7%9f%a5%e8%af%86></a></h2><p><strong>KEY</strong> 通常指私钥。</p><p><strong>CSR</strong> 是 Certificate Signing Request 的缩写，即证书签名请求，这不是证书，只是包含申请证书的基本信息。生成证书时要把这个提交给权威的证书颁发机构，颁发机构审核通过之后，再根据这些申请信息生成相应的证书。</p><a id=more></a><p><strong>CRT</strong> 即 certificate的缩写，即证书。</p><p><strong>X.509</strong> 是一种证书格式.对X.509证书来说，认证者总是CA或由CA指定的人，一份X.509证书是一些标准字段的集合，这些字段包含有关用户或设备及其相应公钥的信息。</p><p>X.509的证书文件，一般以.crt结尾，根据该文件的内容编码格式，可以分为以下二种格式：</p><ul><li><p><strong>PEM</strong> - Privacy Enhanced Mail，打开看文本格式，以"&mdash;&ndash;BEGIN&mldr;&ldquo;开头，&rdquo;&mdash;&ndash;END&mldr;&ldquo;结尾，内容是 BASE64 编码。Apache 和 *NIX 服务器偏向于使用这种编码格式。</p></li><li><p><strong>DER</strong> - Distinguished Encoding Rules，打开看是二进制格式，不可读。Java 和 Windows 服务器偏向于使用这种编码格式。</p></li></ul><h2 id=2-生成一份-ca-根证书>2. 生成一份 CA 根证书
+<a class=header-anchor href=#2-%e7%94%9f%e6%88%90%e4%b8%80%e4%bb%bd-ca-%e6%a0%b9%e8%af%81%e4%b9%a6></a></h2><h3 id=1-创建私钥>1) 创建私钥
+<a class=header-anchor href=#1-%e5%88%9b%e5%bb%ba%e7%a7%81%e9%92%a5></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a class=lnlinks href=#hl-0-1>1</a>
+</span><span class=lnt id=hl-0-2><a class=lnlinks href=#hl-0-2>2</a>
+</span><span class=lnt id=hl-0-3><a class=lnlinks href=#hl-0-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 输出 key 密钥文件。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl genrsa -des3 -out ca.key 2048   // 长度为2048</span></span></code></pre></td></tr></table></div></div><p>参数说明：</p><ul><li><strong>genras</strong> 使用 rsa 算法生成密钥。</li><li><strong>-des3</strong> （可选）加密密钥，此时需要设置密码，后续使用该密钥时需要验证密码才能使用。</li><li><strong>-out</strong> 生成私钥文件。</li></ul><h3 id=2-生成证书请求文件csr>2) 生成证书请求文件(CSR)
+<a class=header-anchor href=#2-%e7%94%9f%e6%88%90%e8%af%81%e4%b9%a6%e8%af%b7%e6%b1%82%e6%96%87%e4%bb%b6csr></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a class=lnlinks href=#hl-1-1>1</a>
+</span><span class=lnt id=hl-1-2><a class=lnlinks href=#hl-1-2>2</a>
+</span><span class=lnt id=hl-1-3><a class=lnlinks href=#hl-1-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 输入 key 文件， 输出 csr 请求文件。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl req -new -key ca.key -out ca.csr</span></span></code></pre></td></tr></table></div></div><p>参数说明：</p><ul><li><strong>req</strong> 产生证书签发申请命令。</li><li><strong>-new</strong> 新的申请。</li><li><strong>-key</strong> 输入的 key 文件，由第一步生成。</li><li><strong>-out</strong> 输出为 CSR 文件，这是一个请求文件。</li></ul><p>运行此命令后进入交互模式，需要输入一些证书信息。</p><p>一般需要输入的信息如下：</p><ul><li><strong>C</strong> 国家</li><li><strong>ST</strong> 省份</li><li><strong>L</strong> 市</li><li><strong>O</strong> 机构</li><li><strong>OU</strong> 部门</li><li><strong>CN</strong> (Common Name) 一般是域名</li><li><strong>emailAddress</strong> 邮箱</li></ul><h3 id=3-自签署证书>3) 自签署证书
+<a class=header-anchor href=#3-%e8%87%aa%e7%ad%be%e7%bd%b2%e8%af%81%e4%b9%a6></a></h3><p>正常的证书是你把上面生成的请求文件(.CSR)发送给可信机构(<strong>CA</strong>)，让可信机构根据你的请求去生成和签署证书，再给你发回来。这里是自己给自己签署。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a class=lnlinks href=#hl-2-1>1</a>
+</span><span class=lnt id=hl-2-2><a class=lnlinks href=#hl-2-2>2</a>
+</span><span class=lnt id=hl-2-3><a class=lnlinks href=#hl-2-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 输入 csr 请求文件，指定签署的 key，输出证书 crt 文件。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl x509 -req -sha256 -days 3650 -in ca.csr -signkey ca.key -out ca.crt</span></span></code></pre></td></tr></table></div></div><p>参数说明：</p><ul><li><strong>x509</strong> 签发X.509格式证书命令。</li><li><strong>-req</strong> 证书输入请求。</li><li><strong>-days</strong> 证书有效天数。</li><li><strong>-in</strong> 输入文件，这里是上一步生成的请求文件(.CSR)</li><li><strong>-signkey</strong> 签名密钥(key)文件，由第一步生成。</li><li><strong>-out</strong> 输出文件，生成证书文件(.CRT)。</li></ul><p><strong>以上 2、3 两步可以合成一步来执行：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a class=lnlinks href=#hl-3-1>1</a>
+</span><span class=lnt id=hl-3-2><a class=lnlinks href=#hl-3-2>2</a>
+</span><span class=lnt id=hl-3-3><a class=lnlinks href=#hl-3-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 输入 key 文件，输出证书 crt 文件。（自签署）
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl req -new -x509 -sha256 -days 3650 -key ca.key -out ca.crt</span></span></code></pre></td></tr></table></div></div><p>省去生成请求文件的步骤。</p><p>此时 CA 证书生成完成。</p><p><strong>一般情况下，上面的 key 和 crt 可以直接拿来应用了。以下演示把当前的证书当成 CA 给其他的请求进行颁发证书。</strong></p><h2 id=3-颁发服务器证书>3. 颁发服务器证书
+<a class=header-anchor href=#3-%e9%a2%81%e5%8f%91%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%af%81%e4%b9%a6></a></h2><h3 id=1-创建服务器私钥>1) 创建服务器私钥
+<a class=header-anchor href=#1-%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%a7%81%e9%92%a5></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a class=lnlinks href=#hl-4-1>1</a>
+</span><span class=lnt id=hl-4-2><a class=lnlinks href=#hl-4-2>2</a>
+</span><span class=lnt id=hl-4-3><a class=lnlinks href=#hl-4-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 输出 key 密钥文件。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl genrsa -out server.key 2048   // 长度为2048</span></span></code></pre></td></tr></table></div></div><p>参数说明：</p><ul><li><strong>genras</strong> 使用 rsa 算法生成密钥。</li><li><strong>-out</strong> 生成私钥文件。</li></ul><h3 id=2-生成证书请求文件csr-1>2) 生成证书请求文件(CSR)
+<a class=header-anchor href=#2-%e7%94%9f%e6%88%90%e8%af%81%e4%b9%a6%e8%af%b7%e6%b1%82%e6%96%87%e4%bb%b6csr-1></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a class=lnlinks href=#hl-5-1>1</a>
+</span><span class=lnt id=hl-5-2><a class=lnlinks href=#hl-5-2>2</a>
+</span><span class=lnt id=hl-5-3><a class=lnlinks href=#hl-5-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 输入 key 文件， 输出 csr 请求文件。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl req -new -key server.key -out server.csr</span></span></code></pre></td></tr></table></div></div><p>参数说明同上一节。</p><h3 id=3-使用-ca-证书进行签署生成-crt-文件>3) 使用 CA 证书进行签署，生成 crt 文件
+<a class=header-anchor href=#3-%e4%bd%bf%e7%94%a8-ca-%e8%af%81%e4%b9%a6%e8%bf%9b%e8%a1%8c%e7%ad%be%e7%bd%b2%e7%94%9f%e6%88%90-crt-%e6%96%87%e4%bb%b6></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a class=lnlinks href=#hl-6-1>1</a>
+</span><span class=lnt id=hl-6-2><a class=lnlinks href=#hl-6-2>2</a>
+</span><span class=lnt id=hl-6-3><a class=lnlinks href=#hl-6-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 输入服务器给的 csr 请求文件，使用指定 CA 的私钥和证书来签署，输出服务器证书 crt。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl x509 -req -sha256 -days 3650 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt</span></span></code></pre></td></tr></table></div></div><h2 id=4-实践总结>4. 实践总结
+<a class=header-anchor href=#4-%e5%ae%9e%e8%b7%b5%e6%80%bb%e7%bb%93></a></h2><ul><li><strong>CA 证书和服务器证书的区别只有最后签署时，是自己给自己签署，还是让别人给你签署。</strong></li><li><strong>实际应用时需要的是私钥(key)和证书(crt)文件。其中私钥文件很重要，不要公开出去。证书文件可以随意分发。</strong></li><li><strong>把 crt 证书文件加入可信任的根机构中，则该证书和其签署的所有证书都会被信任。那么在一个机构内部可以自建一个 CA 证书，CA 证书加入可信列表，然后机构内部的所有其他证书都使用该证书来签署，则只需要信任一次就够了。</strong></li></ul><p>nginx 中使用 ssl 的方式是，在配置文件中加入以下语句：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a class=lnlinks href=#hl-7-1>1</a>
+</span><span class=lnt id=hl-7-2><a class=lnlinks href=#hl-7-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>ssl_certificate     /path/to/your.crt;
+</span></span><span class=line><span class=cl>ssl_certificate_key /path/to/your.key;</span></span></code></pre></td></tr></table></div></div><h2 id=5-对于-iis-的设置>5. 对于 IIS 的设置
+<a class=header-anchor href=#5-%e5%af%b9%e4%ba%8e-iis-%e7%9a%84%e8%ae%be%e7%bd%ae></a></h2><p>在 IIS 中，需要的是一个 PFX 文件，这个文件需要包含 key 和 crt。生成方法如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a class=lnlinks href=#hl-8-1>1</a>
+</span><span class=lnt id=hl-8-2><a class=lnlinks href=#hl-8-2>2</a>
+</span><span class=lnt id=hl-8-3><a class=lnlinks href=#hl-8-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=o>//</span> <span class=err>输入</span> <span class=n>key</span> <span class=err>和</span> <span class=n>crt</span> <span class=err>文件，输出</span> <span class=n>pfx</span> <span class=err>文件。</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>openssl</span> <span class=n>pkcs12</span> <span class=o>-</span><span class=k>export</span> <span class=o>-</span><span class=n>inkey</span> <span class=n>server</span><span class=o>.</span><span class=n>key</span> <span class=o>-</span><span class=ow>in</span> <span class=n>server</span><span class=o>.</span><span class=n>crt</span> <span class=o>-</span><span class=n>out</span> <span class=n>server</span><span class=o>.</span><span class=n>pfx</span></span></span></code></pre></td></tr></table></div></div><p>执行上述命令时，会要求输入一个 export 密码。 该密码在导入 pfx 文件时需要。</p><p>在 IIS 中选择“导入证书”，文件选择该 pfx 文件，密码填写导出时的密码，导入位置选择“个人”。</p><p>如要修改证书的 friendly name ，则在证书管理中修改（需要从 mmc 中打开计算机级别的证书管理器）。</p><h2 id=6-解决-chrome-报-missing_subjectaltname-的问题>6. 解决 Chrome 报 missing_subjectAltName 的问题
+<a class=header-anchor href=#6-%e8%a7%a3%e5%86%b3-chrome-%e6%8a%a5-missing_subjectaltname-%e7%9a%84%e9%97%ae%e9%a2%98></a></h2><p>chrome 会查看当前域名是否在证书中声明，该声明由 subjectAltName 字段设置。上述的生成步骤默认未设置该字段。</p><p>解决方法如下：</p><p>新建一个文件，起名为 v3.ext (名字自定)，编辑内容如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a class=lnlinks href=#hl-9-1>1</a>
+</span><span class=lnt id=hl-9-2><a class=lnlinks href=#hl-9-2>2</a>
+</span><span class=lnt id=hl-9-3><a class=lnlinks href=#hl-9-3>3</a>
+</span><span class=lnt id=hl-9-4><a class=lnlinks href=#hl-9-4>4</a>
+</span><span class=lnt id=hl-9-5><a class=lnlinks href=#hl-9-5>5</a>
+</span><span class=lnt id=hl-9-6><a class=lnlinks href=#hl-9-6>6</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>subjectAltName = @alt_names
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[alt_names]
+</span></span><span class=line><span class=cl>DNS.1 = www.company.com
+</span></span><span class=line><span class=cl>DNS.2 = company.com
+</span></span><span class=line><span class=cl>DNS.3 = *.company.net</span></span></code></pre></td></tr></table></div></div><p>域名要与你的证书实际绑定的域名一致。如有多个域名，按示例写多个。</p><p>在签署时，额外增加一个参数： <strong>-extfile v3.ext</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a class=lnlinks href=#hl-10-1>1</a>
+</span><span class=lnt id=hl-10-2><a class=lnlinks href=#hl-10-2>2</a>
+</span><span class=lnt id=hl-10-3><a class=lnlinks href=#hl-10-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 这是上面服务器签署的示例，在最后增加一个参数，指定扩展字段设置文件。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl x509 -req -sha256 -days 3650 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -extfile v3.ext</span></span></code></pre></td></tr></table></div></div><h2 id=7-更多用法>7. 更多用法
+<a class=header-anchor href=#7-%e6%9b%b4%e5%a4%9a%e7%94%a8%e6%b3%95></a></h2><h3 id=1-通过配置文件非交互式生成证书请求文件csr>1) 通过配置文件，非交互式生成证书请求文件(CSR)
+<a class=header-anchor href=#1-%e9%80%9a%e8%bf%87%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e9%9d%9e%e4%ba%a4%e4%ba%92%e5%bc%8f%e7%94%9f%e6%88%90%e8%af%81%e4%b9%a6%e8%af%b7%e6%b1%82%e6%96%87%e4%bb%b6csr></a></h3><p>新建一个文件，如 csr.cnf ，相应字段按自己需求修改：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a class=lnlinks href=#hl-11-1> 1</a>
+</span><span class=lnt id=hl-11-2><a class=lnlinks href=#hl-11-2> 2</a>
+</span><span class=lnt id=hl-11-3><a class=lnlinks href=#hl-11-3> 3</a>
+</span><span class=lnt id=hl-11-4><a class=lnlinks href=#hl-11-4> 4</a>
+</span><span class=lnt id=hl-11-5><a class=lnlinks href=#hl-11-5> 5</a>
+</span><span class=lnt id=hl-11-6><a class=lnlinks href=#hl-11-6> 6</a>
+</span><span class=lnt id=hl-11-7><a class=lnlinks href=#hl-11-7> 7</a>
+</span><span class=lnt id=hl-11-8><a class=lnlinks href=#hl-11-8> 8</a>
+</span><span class=lnt id=hl-11-9><a class=lnlinks href=#hl-11-9> 9</a>
+</span><span class=lnt id=hl-11-10><a class=lnlinks href=#hl-11-10>10</a>
+</span><span class=lnt id=hl-11-11><a class=lnlinks href=#hl-11-11>11</a>
+</span><span class=lnt id=hl-11-12><a class=lnlinks href=#hl-11-12>12</a>
+</span><span class=lnt id=hl-11-13><a class=lnlinks href=#hl-11-13>13</a>
+</span><span class=lnt id=hl-11-14><a class=lnlinks href=#hl-11-14>14</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[req]
+</span></span><span class=line><span class=cl>default_bits = 2048
+</span></span><span class=line><span class=cl>prompt = no
+</span></span><span class=line><span class=cl>default_md = sha256
+</span></span><span class=line><span class=cl>distinguished_name = req_distinguished_name
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[req_distinguished_name]
+</span></span><span class=line><span class=cl>C  = CN
+</span></span><span class=line><span class=cl>ST = GuangDong
+</span></span><span class=line><span class=cl>L  = ShenZhen
+</span></span><span class=line><span class=cl>O  = Company.inc
+</span></span><span class=line><span class=cl>OU = ou
+</span></span><span class=line><span class=cl>CN = *.myserver.net
+</span></span><span class=line><span class=cl>emailAddress = admin@myserver.net</span></span></code></pre></td></tr></table></div></div><p>在生成请求文件时，额外增加参数： <strong>-config cat csr.cnf</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a class=lnlinks href=#hl-12-1>1</a>
+</span><span class=lnt id=hl-12-2><a class=lnlinks href=#hl-12-2>2</a>
+</span><span class=lnt id=hl-12-3><a class=lnlinks href=#hl-12-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 指定配置文件，此时不会出现交互模式，相交信息自动设置。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl req -new -sha256 -key server.key -out server.csr -config csr.cnf </span></span></code></pre></td></tr></table></div></div><h3 id=2-一句话生成-key-和-crt-文件>2) 一句话生成 key 和 crt 文件
+<a class=header-anchor href=#2-%e4%b8%80%e5%8f%a5%e8%af%9d%e7%94%9f%e6%88%90-key-%e5%92%8c-crt-%e6%96%87%e4%bb%b6></a></h3><p>该情形适合于自签署证书时。</p><p>请求的配置和 ext 的配置可以写在一起，如下</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a class=lnlinks href=#hl-13-1> 1</a>
+</span><span class=lnt id=hl-13-2><a class=lnlinks href=#hl-13-2> 2</a>
+</span><span class=lnt id=hl-13-3><a class=lnlinks href=#hl-13-3> 3</a>
+</span><span class=lnt id=hl-13-4><a class=lnlinks href=#hl-13-4> 4</a>
+</span><span class=lnt id=hl-13-5><a class=lnlinks href=#hl-13-5> 5</a>
+</span><span class=lnt id=hl-13-6><a class=lnlinks href=#hl-13-6> 6</a>
+</span><span class=lnt id=hl-13-7><a class=lnlinks href=#hl-13-7> 7</a>
+</span><span class=lnt id=hl-13-8><a class=lnlinks href=#hl-13-8> 8</a>
+</span><span class=lnt id=hl-13-9><a class=lnlinks href=#hl-13-9> 9</a>
+</span><span class=lnt id=hl-13-10><a class=lnlinks href=#hl-13-10>10</a>
+</span><span class=lnt id=hl-13-11><a class=lnlinks href=#hl-13-11>11</a>
+</span><span class=lnt id=hl-13-12><a class=lnlinks href=#hl-13-12>12</a>
+</span><span class=lnt id=hl-13-13><a class=lnlinks href=#hl-13-13>13</a>
+</span><span class=lnt id=hl-13-14><a class=lnlinks href=#hl-13-14>14</a>
+</span><span class=lnt id=hl-13-15><a class=lnlinks href=#hl-13-15>15</a>
+</span><span class=lnt id=hl-13-16><a class=lnlinks href=#hl-13-16>16</a>
+</span><span class=lnt id=hl-13-17><a class=lnlinks href=#hl-13-17>17</a>
+</span><span class=lnt id=hl-13-18><a class=lnlinks href=#hl-13-18>18</a>
+</span><span class=lnt id=hl-13-19><a class=lnlinks href=#hl-13-19>19</a>
+</span><span class=lnt id=hl-13-20><a class=lnlinks href=#hl-13-20>20</a>
+</span><span class=lnt id=hl-13-21><a class=lnlinks href=#hl-13-21>21</a>
+</span><span class=lnt id=hl-13-22><a class=lnlinks href=#hl-13-22>22</a>
+</span><span class=lnt id=hl-13-23><a class=lnlinks href=#hl-13-23>23</a>
+</span><span class=lnt id=hl-13-24><a class=lnlinks href=#hl-13-24>24</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[req]
+</span></span><span class=line><span class=cl>default_bits = 2048
+</span></span><span class=line><span class=cl>prompt = no
+</span></span><span class=line><span class=cl>default_md = sha256
+</span></span><span class=line><span class=cl>distinguished_name = req_distinguished_name
+</span></span><span class=line><span class=cl>x509_extensions = v3_req
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[req_distinguished_name]
+</span></span><span class=line><span class=cl>C  = CN
+</span></span><span class=line><span class=cl>ST = GuangDong
+</span></span><span class=line><span class=cl>L  = ShenZhen
+</span></span><span class=line><span class=cl>O  = Company.inc
+</span></span><span class=line><span class=cl>OU = ou
+</span></span><span class=line><span class=cl>CN = *.myserver.net
+</span></span><span class=line><span class=cl>emailAddress = admin@myserver.net
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[v3_req]
+</span></span><span class=line><span class=cl>keyUsage = critical, digitalSignature, keyAgreement
+</span></span><span class=line><span class=cl>extendedKeyUsage = serverAuth
+</span></span><span class=line><span class=cl>subjectAltName = @alt_names
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[alt_names]
+</span></span><span class=line><span class=cl>DNS.1 = myserver.net
+</span></span><span class=line><span class=cl>DNS.2 = *.myserver.net</span></span></code></pre></td></tr></table></div></div><p>然后运行如下命令：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a class=lnlinks href=#hl-14-1>1</a>
+</span><span class=lnt id=hl-14-2><a class=lnlinks href=#hl-14-2>2</a>
+</span><span class=lnt id=hl-14-3><a class=lnlinks href=#hl-14-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 一句命令，输入配置文件 my.conf， 输出 key 和 crt 文件。适合于自签署证书。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:1024 -keyout app.key -out app.crt  -config my.conf</span></span></code></pre></td></tr></table></div></div><h2 id=8-格式转换2019-08-01-补充>8. 格式转换(2019-08-01 补充)
+<a class=header-anchor href=#8-%e6%a0%bc%e5%bc%8f%e8%bd%ac%e6%8d%a22019-08-01-%e8%a1%a5%e5%85%85></a></h2><p>关于 private key 和 public key 的一些补充。</p><p>在用程序读取密钥并进行加密、解密、签名、验签时，会遇到一些库只支持某种类型的密钥文件的问题。</p><p>比较普遍的有两种格式： <code>PKCS#1</code> 和 <code>PKCS#8</code> 。</p><p>它们的区别是：</p><p><code>PKCS#1</code> 密钥</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a class=lnlinks href=#hl-15-1>1</a>
+</span><span class=lnt id=hl-15-2><a class=lnlinks href=#hl-15-2>2</a>
+</span><span class=lnt id=hl-15-3><a class=lnlinks href=#hl-15-3>3</a>
+</span><span class=lnt id=hl-15-4><a class=lnlinks href=#hl-15-4>4</a>
+</span><span class=lnt id=hl-15-5><a class=lnlinks href=#hl-15-5>5</a>
+</span><span class=lnt id=hl-15-6><a class=lnlinks href=#hl-15-6>6</a>
+</span><span class=lnt id=hl-15-7><a class=lnlinks href=#hl-15-7>7</a>
+</span><span class=lnt id=hl-15-8><a class=lnlinks href=#hl-15-8>8</a>
+</span><span class=lnt id=hl-15-9><a class=lnlinks href=#hl-15-9>9</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 公钥
+</span></span><span class=line><span class=cl>-----BEGIN RSA PUBLIC KEY-----
+</span></span><span class=line><span class=cl>BASE64 ENCODED DATA
+</span></span><span class=line><span class=cl>-----END RSA PUBLIC KEY-----
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>// 私钥
+</span></span><span class=line><span class=cl>-----BEGIN RSA PRIVATE KEY-----
+</span></span><span class=line><span class=cl>BASE64 ENCODED DATA
+</span></span><span class=line><span class=cl>-----END RSA PRIVATE KEY-----</span></span></code></pre></td></tr></table></div></div><p><code>PKCS#8</code> 密钥</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-16-1><a class=lnlinks href=#hl-16-1>1</a>
+</span><span class=lnt id=hl-16-2><a class=lnlinks href=#hl-16-2>2</a>
+</span><span class=lnt id=hl-16-3><a class=lnlinks href=#hl-16-3>3</a>
+</span><span class=lnt id=hl-16-4><a class=lnlinks href=#hl-16-4>4</a>
+</span><span class=lnt id=hl-16-5><a class=lnlinks href=#hl-16-5>5</a>
+</span><span class=lnt id=hl-16-6><a class=lnlinks href=#hl-16-6>6</a>
+</span><span class=lnt id=hl-16-7><a class=lnlinks href=#hl-16-7>7</a>
+</span><span class=lnt id=hl-16-8><a class=lnlinks href=#hl-16-8>8</a>
+</span><span class=lnt id=hl-16-9><a class=lnlinks href=#hl-16-9>9</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 公钥
+</span></span><span class=line><span class=cl>-----BEGIN PUBLIC KEY-----
+</span></span><span class=line><span class=cl>BASE64 ENCODED DATA
+</span></span><span class=line><span class=cl>-----END PUBLIC KEY-----
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>// 私钥
+</span></span><span class=line><span class=cl>-----BEGIN PRIVATE KEY-----
+</span></span><span class=line><span class=cl>BASE64 ENCODED DATA
+</span></span><span class=line><span class=cl>-----END PRIVATE KEY-----</span></span></code></pre></td></tr></table></div></div><p>参考资料：
+<a href=https://tls.mbed.org/kb/cryptography/asn1-key-structures-in-der-and-pem title=https://tls.mbed.org/kb/cryptography/asn1-key-structures-in-der-and-pem rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://tls.mbed.org/kb/cryptography/asn1-key-structures-in-der-and-pem
+<i class="fa fa-external-link-alt"></i></a></p><p>经实验，使用以下命令生成的 private key 都是 <code>PKCS#1</code> 格式的</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-17-1><a class=lnlinks href=#hl-17-1>1</a>
+</span><span class=lnt id=hl-17-2><a class=lnlinks href=#hl-17-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 生成的key以 -----BEGIN RSA PRIVATE KEY----- 开头</span>
+</span></span><span class=line><span class=cl>openssl genrsa -out server.key <span class=m>2048</span></span></span></code></pre></td></tr></table></div></div><p>生成 public key 的方式有以下几种，注意格式</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-18-1><a class=lnlinks href=#hl-18-1>1</a>
+</span><span class=lnt id=hl-18-2><a class=lnlinks href=#hl-18-2>2</a>
+</span><span class=lnt id=hl-18-3><a class=lnlinks href=#hl-18-3>3</a>
+</span><span class=lnt id=hl-18-4><a class=lnlinks href=#hl-18-4>4</a>
+</span><span class=lnt id=hl-18-5><a class=lnlinks href=#hl-18-5>5</a>
+</span><span class=lnt id=hl-18-6><a class=lnlinks href=#hl-18-6>6</a>
+</span><span class=lnt id=hl-18-7><a class=lnlinks href=#hl-18-7>7</a>
+</span><span class=lnt id=hl-18-8><a class=lnlinks href=#hl-18-8>8</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 通过 private key 导出 public key。 格式为 PKCS#8</span>
+</span></span><span class=line><span class=cl>openssl rsa -pubout -in server.key -out server.pub
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 通过 cert 证书导出 public key 。 格式为 PKCS#8</span>
+</span></span><span class=line><span class=cl>openssl x509 -pubkey -in server.crt -noout &gt; server.pub
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 通过 private key 导出 public key。 格式为 PKCS#1 ，注意只是最后增加一个参数。</span>
+</span></span><span class=line><span class=cl>openssl rsa -pubout -in server.key -out server.pub -RSAPublicKey_out</span></span></code></pre></td></tr></table></div></div><p>如何转换两种格式的 public key 呢？ 参考资料：
+<a href=https://stackoverflow.com/questions/18039401/how-can-i-transform-between-the-two-styles-of-public-key-format-one-begin-rsa title=https://stackoverflow.com/questions/18039401/how-can-i-transform-between-the-two-styles-of-public-key-format-one-begin-rsa rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://stackoverflow.com/questions/18039401/how-can-i-transform-between-the-two-styles-of-public-key-format-one-begin-rsa
+<i class="fa fa-external-link-alt"></i></a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-19-1><a class=lnlinks href=#hl-19-1>1</a>
+</span><span class=lnt id=hl-19-2><a class=lnlinks href=#hl-19-2>2</a>
+</span><span class=lnt id=hl-19-3><a class=lnlinks href=#hl-19-3>3</a>
+</span><span class=lnt id=hl-19-4><a class=lnlinks href=#hl-19-4>4</a>
+</span><span class=lnt id=hl-19-5><a class=lnlinks href=#hl-19-5>5</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># convert from PKCS#8 to PKCS#1:</span>
+</span></span><span class=line><span class=cl>openssl rsa -pubin -in &lt;filename&gt; -RSAPublicKey_out
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># convert from PKCS#1 to PKCS#8:</span>
+</span></span><span class=line><span class=cl>openssl rsa -RSAPublicKey_in -in &lt;filename&gt; -pubout</span></span></code></pre></td></tr></table></div></div></div><footer class=post-footer><div class=post-tags><a href=/tags/ssl/>ssl
+</a><a href=/tags/openssl/>openssl</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_24 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+使用 openssl 生成证书</li><li class=post-copyright-author><strong>本文作者： </strong>gulucat</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=/post/ssl/openssl_manual/ title="使用 openssl 生成证书">/post/ssl/openssl_manual/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/post/ssl/trusted_certs_config/ rel=next title="各内部系统连接 ldaps 而导入可信根证书的操作步骤"><i class="fa fa-chevron-left"></i> 各内部系统连接 ldaps 而导入可信根证书的操作步骤</a></div><div class="post-nav-prev post-nav-item"><a href=/post/ssl/nginx_config/ rel=prev title="Nginx SSL 优化配置方法">Nginx SSL 优化配置方法
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div><div id=comments class=post-comments><div class=comment-head><div class=comment-headline><i class="fas fa-comments fa-fw"></i>
+<span>评论交流</span></div></div><div class=comment-wrap><div><div class=comment-loading><i class="fa fa-sync fa-spin"></i></div><div class=waline3-container></div></div></div></div></div></main><footer class=footer><div class=footer-inner><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>Gulucat.com</span></div></div></footer><script class=next-config data-name=page type=application/json>{"clipboard":{"js":{"alias":"clipboard","file":"dist/clipboard.min.js","name":"clipboard.js","version":"2.0.11"}},"comments":true,"expired":false,"isHome":false,"isPage":true,"path":"openssl_manual","permalink":"/post/ssl/openssl_manual/","title":"使用 openssl 生成证书","toc":true,"waline3":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"3.5.7"}}}</script><script type=text/javascript src=/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":false,"hostname":"/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":false,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline3"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"/js/3rd"}},"version":"4.8.3","waline3":{"cfg":{"emoji":true,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"search":true,"serverurl":"https://comment.gulucat.com","sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"3.5.7"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"3.5.7"}}}</script><script type=text/javascript src="/js/main.min.js?=1769186648" defer></script><script type=text/javascript src="/js/clipboard.min.js?=1769186649" defer></script></body></html>

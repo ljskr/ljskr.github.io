@@ -1,0 +1,161 @@
+<!doctype html><html lang=zh-CN data-theme=light><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: light)"><meta name=generator content="Hugo 0.154.2"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/logo.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/logo.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/logo.png><meta itemprop=name content="DHCP 服务器安装与配置"><meta itemprop=description content="分享知识，分享生活"><meta name=description content="分享知识，分享生活"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=keywords content="linux,debian,dhcp"><meta property="og:type" content="article"><meta property="og:title" content="DHCP 服务器安装与配置"><meta property="og:description" content="分享知识，分享生活"><meta property="og:image" content="/imgs/icons/logo.svg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="/post/linux/isc_dhcp_server/"><meta property="og:site_name" content="咕噜猫小站"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="gulucat"><meta property="article:published_time" content="2021-01-04 13:52:00 +0800 +0800"><meta property="article:modified_time" content="2021-06-26 16:14:39 +0800 +0800"><link type=text/css rel=stylesheet href=/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.min.css?=1769186648"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>DHCP 服务器安装与配置 - 咕噜猫小站</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>咕噜猫小站</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>do it, do it right, do it right now</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-archives"><a href=/archives/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>114</span></a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#1-安装>1. 安装</a></li><li><a href=#2-配置>2. 配置</a><ul><li><a href=#21-指定监听的网络接口>2.1 指定监听的网络接口</a></li><li><a href=#22-基本配置>2.2 基本配置</a></li></ul></li><li><a href=#3-查看已分配的客户端列表>3. 查看已分配的客户端列表</a></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=gulucat src=/imgs/img-lazy-loading.gif data-src=/imgs/icons/logo.svg><p class=site-author-name itemprop=name>gulucat</p><div class=site-description itemprop=description>分享知识，分享生活</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>114</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>11</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>98</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/small/by_nc_sa.svg alt=共享知识></a></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2019-10-28 11:31:00 +0800 +0800"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=51909></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=169></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2024-05-27 17:46:40 +0800 +0800"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-comments class="button goto-comments" title=直达评论><i class="fas fa-comments"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=/post/linux/isc_dhcp_server/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=name content="gulucat"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="gulucat"><meta itemprop=description content="分享知识，分享生活"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="DHCP 服务器安装与配置"><meta itemprop=description content="DHCP 服务器安装与配置
+
+本文以 Debian 10 为例，介绍 DHCP 服务器的安装与配置方法。
+参考资料：
+
+
+
+    DHCP_Server
+    
+    
+    
+
+
+1. 安装
+
+安装 isc-dhcp-server 程序包。
+
+
+
+1
+
+
+sudo apt install isc-dhcp-server
+
+
+
+2. 配置
+
+2.1 指定监听的网络接口
+
+编辑 /etc/default/isc-dhcp-server 文件，修改如下选项，把 eth0 改为自己的网络接口名称"></span><header class=post-header><h1 class=post-title itemprop="name headline">DHCP 服务器安装与配置</h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2021-01-04 13:52:00 +08:00" itemprop="dateCreated datePublished" datetime="2021-01-04 13:52:00 +0800 +0800">2021-01-04
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar-check"></i>
+</span><span class=post-meta-item-text title=更新于>更新于：
+</span><time title="修改时间：2021-06-26 16:14:39 +08:00" itemprop="dateModified dateLastmod" datetime="2021-06-26 16:14:39 +0800 +0800">2021-06-26
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/linux/ itemprop=url rel=index><span itemprop=name>linux</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>387</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>1分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/post/linux/isc_dhcp_server/><i class="fa fa-sync fa-spin"></i>
+</span></span><span class=post-meta-item title><span class=post-meta-item-icon><i class="fas fa-solid fa-comments"></i>
+</span><span class=post-meta-item-text title=评论>评论：
+</span><span id=comments-count data-path=/post/linux/isc_dhcp_server/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><h1 id=dhcp-服务器安装与配置>DHCP 服务器安装与配置
+<a class=header-anchor href=#dhcp-%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae></a></h1><p>本文以 Debian 10 为例，介绍 DHCP 服务器的安装与配置方法。</p><p>参考资料：</p><ul><li><a href=https://wiki.debian.org/DHCP_Server title=DHCP_Server rel="noopener external nofollow noreferrer" target=_blank class=exturl>DHCP_Server
+<i class="fa fa-external-link-alt"></i></a></li></ul><h2 id=1-安装>1. 安装
+<a class=header-anchor href=#1-%e5%ae%89%e8%a3%85></a></h2><p>安装 <code>isc-dhcp-server</code> 程序包。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a class=lnlinks href=#hl-0-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install isc-dhcp-server</span></span></code></pre></td></tr></table></div></div><h2 id=2-配置>2. 配置
+<a class=header-anchor href=#2-%e9%85%8d%e7%bd%ae></a></h2><h3 id=21-指定监听的网络接口>2.1 指定监听的网络接口
+<a class=header-anchor href=#21-%e6%8c%87%e5%ae%9a%e7%9b%91%e5%90%ac%e7%9a%84%e7%bd%91%e7%bb%9c%e6%8e%a5%e5%8f%a3></a></h3><p>编辑 <code>/etc/default/isc-dhcp-server</code> 文件，修改如下选项，把 eth0 改为自己的网络接口名称</p><a id=more></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a class=lnlinks href=#hl-1-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>INTERFACESv4</span><span class=o>=</span><span class=s>&#34;eth0&#34;</span></span></span></code></pre></td></tr></table></div></div><h3 id=22-基本配置>2.2 基本配置
+<a class=header-anchor href=#22-%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae></a></h3><p>编辑 <code>/etc/dhcp/dhcpd.conf</code> 文件，选项说明如下</p><p><strong>全局配置</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a class=lnlinks href=#hl-2-1> 1</a>
+</span><span class=lnt id=hl-2-2><a class=lnlinks href=#hl-2-2> 2</a>
+</span><span class=lnt id=hl-2-3><a class=lnlinks href=#hl-2-3> 3</a>
+</span><span class=lnt id=hl-2-4><a class=lnlinks href=#hl-2-4> 4</a>
+</span><span class=lnt id=hl-2-5><a class=lnlinks href=#hl-2-5> 5</a>
+</span><span class=lnt id=hl-2-6><a class=lnlinks href=#hl-2-6> 6</a>
+</span><span class=lnt id=hl-2-7><a class=lnlinks href=#hl-2-7> 7</a>
+</span><span class=lnt id=hl-2-8><a class=lnlinks href=#hl-2-8> 8</a>
+</span><span class=lnt id=hl-2-9><a class=lnlinks href=#hl-2-9> 9</a>
+</span><span class=lnt id=hl-2-10><a class=lnlinks href=#hl-2-10>10</a>
+</span><span class=lnt id=hl-2-11><a class=lnlinks href=#hl-2-11>11</a>
+</span><span class=lnt id=hl-2-12><a class=lnlinks href=#hl-2-12>12</a>
+</span><span class=lnt id=hl-2-13><a class=lnlinks href=#hl-2-13>13</a>
+</span><span class=lnt id=hl-2-14><a class=lnlinks href=#hl-2-14>14</a>
+</span><span class=lnt id=hl-2-15><a class=lnlinks href=#hl-2-15>15</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=c1># 域名</span>
+</span></span><span class=line><span class=cl><span class=na>option domain-name &#34;example.com&#34;;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 自定义 DNS 服务器</span>
+</span></span><span class=line><span class=cl><span class=na>option domain-name-servers 1.1.1.1, 114.114.114.114, 233.5.5.5, dns.example.com;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 网关</span>
+</span></span><span class=line><span class=cl><span class=na>option routers 192.168.1.1;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 租约时间，单位秒</span>
+</span></span><span class=line><span class=cl><span class=na>default-lease-time 3600;</span>
+</span></span><span class=line><span class=cl><span class=na>max-lease-time 7200;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 授权服务器 (视情况配置，这里暂不配置)</span>
+</span></span><span class=line><span class=cl><span class=c1># authoritative;</span></span></span></code></pre></td></tr></table></div></div><p><strong>定义子网</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a class=lnlinks href=#hl-3-1> 1</a>
+</span><span class=lnt id=hl-3-2><a class=lnlinks href=#hl-3-2> 2</a>
+</span><span class=lnt id=hl-3-3><a class=lnlinks href=#hl-3-3> 3</a>
+</span><span class=lnt id=hl-3-4><a class=lnlinks href=#hl-3-4> 4</a>
+</span><span class=lnt id=hl-3-5><a class=lnlinks href=#hl-3-5> 5</a>
+</span><span class=lnt id=hl-3-6><a class=lnlinks href=#hl-3-6> 6</a>
+</span><span class=lnt id=hl-3-7><a class=lnlinks href=#hl-3-7> 7</a>
+</span><span class=lnt id=hl-3-8><a class=lnlinks href=#hl-3-8> 8</a>
+</span><span class=lnt id=hl-3-9><a class=lnlinks href=#hl-3-9> 9</a>
+</span><span class=lnt id=hl-3-10><a class=lnlinks href=#hl-3-10>10</a>
+</span><span class=lnt id=hl-3-11><a class=lnlinks href=#hl-3-11>11</a>
+</span><span class=lnt id=hl-3-12><a class=lnlinks href=#hl-3-12>12</a>
+</span><span class=lnt id=hl-3-13><a class=lnlinks href=#hl-3-13>13</a>
+</span><span class=lnt id=hl-3-14><a class=lnlinks href=#hl-3-14>14</a>
+</span><span class=lnt id=hl-3-15><a class=lnlinks href=#hl-3-15>15</a>
+</span><span class=lnt id=hl-3-16><a class=lnlinks href=#hl-3-16>16</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>subnet 192.168.1.0 netmask 255.255.255.0 {</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 全局的配置可以在子网里重定义</span>
+</span></span><span class=line><span class=cl>    <span class=c1># option domain-name &#34;sub.example.com&#34;;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># option domain-name-servers 192.168.1.1;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># option routers 192.168.1.1;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># default-lease-time 3600;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># max-lease-time 7200;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 其他选项</span>
+</span></span><span class=line><span class=cl>    <span class=c1># option subnet-mask 255.255.255.0;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># option broadcast-address 192.168.1.255;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 定义可分配的地址范围</span>
+</span></span><span class=line><span class=cl>    <span class=na>range 192.168.1.100 192.168.1.200;</span>
+</span></span><span class=line><span class=cl>    <span class=na>range 192.168.1.210 192.168.1.220;</span>
+</span></span><span class=line><span class=cl><span class=na>}</span></span></span></code></pre></td></tr></table></div></div><p><strong>静态地址分配</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a class=lnlinks href=#hl-4-1> 1</a>
+</span><span class=lnt id=hl-4-2><a class=lnlinks href=#hl-4-2> 2</a>
+</span><span class=lnt id=hl-4-3><a class=lnlinks href=#hl-4-3> 3</a>
+</span><span class=lnt id=hl-4-4><a class=lnlinks href=#hl-4-4> 4</a>
+</span><span class=lnt id=hl-4-5><a class=lnlinks href=#hl-4-5> 5</a>
+</span><span class=lnt id=hl-4-6><a class=lnlinks href=#hl-4-6> 6</a>
+</span><span class=lnt id=hl-4-7><a class=lnlinks href=#hl-4-7> 7</a>
+</span><span class=lnt id=hl-4-8><a class=lnlinks href=#hl-4-8> 8</a>
+</span><span class=lnt id=hl-4-9><a class=lnlinks href=#hl-4-9> 9</a>
+</span><span class=lnt id=hl-4-10><a class=lnlinks href=#hl-4-10>10</a>
+</span><span class=lnt id=hl-4-11><a class=lnlinks href=#hl-4-11>11</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=c1># MAC 地址与 IP 进行静态绑定。</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=na>host server-1 {</span>
+</span></span><span class=line><span class=cl>  <span class=na>hardware ethernet 00:0D:87:B3:AE:A1;</span>
+</span></span><span class=line><span class=cl>  <span class=na>fixed-address 192.168.1.11;</span>
+</span></span><span class=line><span class=cl><span class=na>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=na>host server-2 {</span>
+</span></span><span class=line><span class=cl>  <span class=na>hardware ethernet 00:0D:87:B3:AE:A2;</span>
+</span></span><span class=line><span class=cl>  <span class=na>fixed-address 192.168.1.12;</span>
+</span></span><span class=line><span class=cl><span class=na>}</span></span></span></code></pre></td></tr></table></div></div><p>配置完成后重启 dhcp 服务</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a class=lnlinks href=#hl-5-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo systemctl restart isc-dhcp-server.service</span></span></code></pre></td></tr></table></div></div><h2 id=3-查看已分配的客户端列表>3. 查看已分配的客户端列表
+<a class=header-anchor href=#3-%e6%9f%a5%e7%9c%8b%e5%b7%b2%e5%88%86%e9%85%8d%e7%9a%84%e5%ae%a2%e6%88%b7%e7%ab%af%e5%88%97%e8%a1%a8></a></h2><p>客户端列表保存在 <code>/var/lib/dhcp/dhcpd.leases</code> 文件中。</p><p>可以通过命令 <code>dhcp-lease-list</code> 查看格式化后的信息列表。</p></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>linux
+</a><a href=/tags/debian/>debian
+</a><a href=/tags/dhcp/>dhcp</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_24 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+DHCP 服务器安装与配置</li><li class=post-copyright-author><strong>本文作者： </strong>gulucat</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=/post/linux/isc_dhcp_server/ title="DHCP 服务器安装与配置">/post/linux/isc_dhcp_server/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/post/linux/isc_kea/ rel=next title="ISC KEA 服务器安装与配置"><i class="fa fa-chevron-left"></i> ISC KEA 服务器安装与配置</a></div><div class="post-nav-prev post-nav-item"><a href=/post/linux/debian_preseed/ rel=prev title="Debian 自动安装配置备忘">Debian 自动安装配置备忘
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div><div id=comments class=post-comments><div class=comment-head><div class=comment-headline><i class="fas fa-comments fa-fw"></i>
+<span>评论交流</span></div></div><div class=comment-wrap><div><div class=comment-loading><i class="fa fa-sync fa-spin"></i></div><div class=waline3-container></div></div></div></div></div></main><footer class=footer><div class=footer-inner><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>Gulucat.com</span></div></div></footer><script class=next-config data-name=page type=application/json>{"clipboard":{"js":{"alias":"clipboard","file":"dist/clipboard.min.js","name":"clipboard.js","version":"2.0.11"}},"comments":true,"expired":false,"isHome":false,"isPage":true,"path":"isc_dhcp_server","permalink":"/post/linux/isc_dhcp_server/","title":"DHCP 服务器安装与配置","toc":true,"waline3":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"3.5.7"}}}</script><script type=text/javascript src=/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":false,"hostname":"/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":false,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline3"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"/js/3rd"}},"version":"4.8.3","waline3":{"cfg":{"emoji":true,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"search":true,"serverurl":"https://comment.gulucat.com","sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"3.5.7"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"3.5.7"}}}</script><script type=text/javascript src="/js/main.min.js?=1769186648" defer></script><script type=text/javascript src="/js/clipboard.min.js?=1769186648" defer></script></body></html>

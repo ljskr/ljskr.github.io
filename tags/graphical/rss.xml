@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Graphical on 咕噜猫小站</title><link>/tags/graphical/</link><description>Recent content in Graphical on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Mon, 27 May 2024 17:46:40 +0800</lastBuildDate><atom:link href="/tags/graphical/rss.xml" rel="self" type="application/rss+xml"/><item><title>Debian 图形和文本模式切换方法</title><link>/post/linux/console_mode/</link><pubDate>Mon, 27 May 2024 17:46:40 +0800</pubDate><guid>/post/linux/console_mode/</guid><description>&lt;h1 id="debian-图形和文本模式切换方法"&gt;Debian 图形和文本模式切换方法
+&lt;a class="header-anchor" href="#debian-%e5%9b%be%e5%bd%a2%e5%92%8c%e6%96%87%e6%9c%ac%e6%a8%a1%e5%bc%8f%e5%88%87%e6%8d%a2%e6%96%b9%e6%b3%95"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;查看当前的默认模式。 &lt;code&gt;multi-user&lt;/code&gt; 为多用户命令行模式（文本模式）， &lt;code&gt;graphical&lt;/code&gt; 为图形界面模式。&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;systemctl get-default&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;设置启动时默认为多用户命令行模式（文本模式）：&lt;/p&gt;</description></item></channel></rss>

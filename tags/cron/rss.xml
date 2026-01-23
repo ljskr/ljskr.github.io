@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cron on 咕噜猫小站</title><link>/tags/cron/</link><description>Recent content in Cron on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sat, 26 Jun 2021 16:12:01 +0800</lastBuildDate><atom:link href="/tags/cron/rss.xml" rel="self" type="application/rss+xml"/><item><title>cron 用法</title><link>/post/linux/cron/</link><pubDate>Mon, 28 Oct 2019 12:09:08 +0800</pubDate><guid>/post/linux/cron/</guid><description>&lt;h1 id="cron-用法"&gt;cron 用法
+&lt;a class="header-anchor" href="#cron-%e7%94%a8%e6%b3%95"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="一-cron-简介"&gt;一、 cron 简介
+&lt;a class="header-anchor" href="#%e4%b8%80-cron-%e7%ae%80%e4%bb%8b"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;crond&lt;/code&gt; 是 linux 下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与 windows 下的计划任务类似。&lt;/p&gt;
+&lt;p&gt;linux 默认会安装此服务工具，并自动启动 crond 进程。&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,373 @@
+<!doctype html><html lang=zh-CN data-theme=light><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: light)"><meta name=generator content="Hugo 0.154.2"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/logo.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/logo.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/logo.png><meta itemprop=name content="EasyPR 编译使用说明 (Debian)"><meta itemprop=description content="分享知识，分享生活"><meta name=description content="分享知识，分享生活"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=keywords content="easypr,opencv"><meta property="og:type" content="article"><meta property="og:title" content="EasyPR 编译使用说明 (Debian)"><meta property="og:description" content="分享知识，分享生活"><meta property="og:image" content="/imgs/icons/logo.svg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="/post/software/easypr/"><meta property="og:site_name" content="咕噜猫小站"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="gulucat"><meta property="article:published_time" content="2019-10-31 16:47:24 +0800 +0800"><meta property="article:modified_time" content="2019-10-31 16:47:24 +0800 +0800"><link type=text/css rel=stylesheet href=/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.min.css?=1769186648"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>EasyPR 编译使用说明 (Debian) - 咕噜猫小站</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>咕噜猫小站</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>do it, do it right, do it right now</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-archives"><a href=/archives/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>114</span></a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#一准备工作>一、准备工作</a></li><li><a href=#二编译-opencv>二、编译 OpenCV</a><ul><li><a href=#21-下载>2.1 下载</a></li><li><a href=#22-编译>2.2 编译</a></li></ul></li><li><a href=#三编译-easypr-动态库>三、编译 EasyPR （动态库）</a><ul><li><a href=#31-下载>3.1 下载</a></li><li><a href=#32-修改配置>3.2 修改配置</a></li><li><a href=#33-编译>3.3 编译</a></li></ul></li><li><a href=#四python-封装>四、python 封装</a></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=gulucat src=/imgs/img-lazy-loading.gif data-src=/imgs/icons/logo.svg><p class=site-author-name itemprop=name>gulucat</p><div class=site-description itemprop=description>分享知识，分享生活</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>114</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>11</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>98</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/small/by_nc_sa.svg alt=共享知识></a></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2019-10-28 11:31:00 +0800 +0800"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=51909></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=169></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2024-05-27 17:46:40 +0800 +0800"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-comments class="button goto-comments" title=直达评论><i class="fas fa-comments"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=/post/software/easypr/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=name content="gulucat"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="gulucat"><meta itemprop=description content="分享知识，分享生活"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="EasyPR 编译使用说明 (Debian)"><meta itemprop=description content="EasyPR 编译使用说明 (Debian)
+
+EasyPR 是一个车牌识别库，识别率高，功能齐全，非常适合直接拿来使用。 官方地址： 
+
+    https://github.com/liuruoze/EasyPR
+    
+    
+    
+
+这里记录一下 EasyPR 在 Linux 底下编译及再次封装供 Python 使用的过程。"></span><header class=post-header><h1 class=post-title itemprop="name headline">EasyPR 编译使用说明 (Debian)</h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2019-10-31 16:47:24 +08:00" itemprop="dateCreated datePublished" datetime="2019-10-31 16:47:24 +0800 +0800">2019-10-31
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/software/ itemprop=url rel=index><span itemprop=name>software</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>1294</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>3分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/post/software/easypr/><i class="fa fa-sync fa-spin"></i>
+</span></span><span class=post-meta-item title><span class=post-meta-item-icon><i class="fas fa-solid fa-comments"></i>
+</span><span class=post-meta-item-text title=评论>评论：
+</span><span id=comments-count data-path=/post/software/easypr/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><h1 id=easypr-编译使用说明-debian>EasyPR 编译使用说明 (Debian)
+<a class=header-anchor href=#easypr-%e7%bc%96%e8%af%91%e4%bd%bf%e7%94%a8%e8%af%b4%e6%98%8e-debian></a></h1><p>EasyPR 是一个车牌识别库，识别率高，功能齐全，非常适合直接拿来使用。 官方地址：
+<a href=https://github.com/liuruoze/EasyPR title=https://github.com/liuruoze/EasyPR rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://github.com/liuruoze/EasyPR
+<i class="fa fa-external-link-alt"></i></a></p><p>这里记录一下 EasyPR 在 Linux 底下编译及再次封装供 Python 使用的过程。</p><a id=more></a><h2 id=一准备工作>一、准备工作
+<a class=header-anchor href=#%e4%b8%80%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c></a></h2><p>安装相应的编译工具包</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a class=lnlinks href=#hl-0-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install build-essential cmake</span></span></code></pre></td></tr></table></div></div><h2 id=二编译-opencv>二、编译 OpenCV
+<a class=header-anchor href=#%e4%ba%8c%e7%bc%96%e8%af%91-opencv></a></h2><p>EasyPR 依赖于 OpenCV ，且其官方未提供 Linux 版本的 OpenCV 二进制库，因此需要自行编译。对于 EasyPR 项目，最新测试通过的 OpenCV 版本为 3.4.8， 下面以 <strong>OpenCV 3.4.8</strong> 版本为例。</p><h3 id=21-下载>2.1 下载
+<a class=header-anchor href=#21-%e4%b8%8b%e8%bd%bd></a></h3><p>方法1. 从 OpenCV 官方
+<a href=https://www.opencv.org/releases.html title=下载页面 rel="noopener external nofollow noreferrer" target=_blank class=exturl>下载页面
+<i class="fa fa-external-link-alt"></i>
+</a>找到 3.4.8 版本的 Source 包，并下载解压。</p><p>方法2. 从 github 上签出所有源码。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a class=lnlinks href=#hl-1-1>1</a>
+</span><span class=lnt id=hl-1-2><a class=lnlinks href=#hl-1-2>2</a>
+</span><span class=lnt id=hl-1-3><a class=lnlinks href=#hl-1-3>3</a>
+</span><span class=lnt id=hl-1-4><a class=lnlinks href=#hl-1-4>4</a>
+</span><span class=lnt id=hl-1-5><a class=lnlinks href=#hl-1-5>5</a>
+</span><span class=lnt id=hl-1-6><a class=lnlinks href=#hl-1-6>6</a>
+</span><span class=lnt id=hl-1-7><a class=lnlinks href=#hl-1-7>7</a>
+</span><span class=lnt id=hl-1-8><a class=lnlinks href=#hl-1-8>8</a>
+</span><span class=lnt id=hl-1-9><a class=lnlinks href=#hl-1-9>9</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 下载</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/opencv/opencv.git
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> opencv
+</span></span><span class=line><span class=cl><span class=c1># 查看 tag 列表</span>
+</span></span><span class=line><span class=cl>git tag
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=c1># 签出特定版本。</span>
+</span></span><span class=line><span class=cl>git checkout 3.4.8</span></span></code></pre></td></tr></table></div></div><h3 id=22-编译>2.2 编译
+<a class=header-anchor href=#22-%e7%bc%96%e8%af%91></a></h3><p>这里假设把源码放在了 <strong>~/src/opencv</strong> 目录下，路径按自己实际路径。</p><p>编译方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a class=lnlinks href=#hl-2-1> 1</a>
+</span><span class=lnt id=hl-2-2><a class=lnlinks href=#hl-2-2> 2</a>
+</span><span class=lnt id=hl-2-3><a class=lnlinks href=#hl-2-3> 3</a>
+</span><span class=lnt id=hl-2-4><a class=lnlinks href=#hl-2-4> 4</a>
+</span><span class=lnt id=hl-2-5><a class=lnlinks href=#hl-2-5> 5</a>
+</span><span class=lnt id=hl-2-6><a class=lnlinks href=#hl-2-6> 6</a>
+</span><span class=lnt id=hl-2-7><a class=lnlinks href=#hl-2-7> 7</a>
+</span><span class=lnt id=hl-2-8><a class=lnlinks href=#hl-2-8> 8</a>
+</span><span class=lnt id=hl-2-9><a class=lnlinks href=#hl-2-9> 9</a>
+</span><span class=lnt id=hl-2-10><a class=lnlinks href=#hl-2-10>10</a>
+</span><span class=lnt id=hl-2-11><a class=lnlinks href=#hl-2-11>11</a>
+</span><span class=lnt id=hl-2-12><a class=lnlinks href=#hl-2-12>12</a>
+</span><span class=lnt id=hl-2-13><a class=lnlinks href=#hl-2-13>13</a>
+</span><span class=lnt id=hl-2-14><a class=lnlinks href=#hl-2-14>14</a>
+</span><span class=lnt id=hl-2-15><a class=lnlinks href=#hl-2-15>15</a>
+</span><span class=lnt id=hl-2-16><a class=lnlinks href=#hl-2-16>16</a>
+</span><span class=lnt id=hl-2-17><a class=lnlinks href=#hl-2-17>17</a>
+</span><span class=lnt id=hl-2-18><a class=lnlinks href=#hl-2-18>18</a>
+</span><span class=lnt id=hl-2-19><a class=lnlinks href=#hl-2-19>19</a>
+</span><span class=lnt id=hl-2-20><a class=lnlinks href=#hl-2-20>20</a>
+</span><span class=lnt id=hl-2-21><a class=lnlinks href=#hl-2-21>21</a>
+</span><span class=lnt id=hl-2-22><a class=lnlinks href=#hl-2-22>22</a>
+</span><span class=lnt id=hl-2-23><a class=lnlinks href=#hl-2-23>23</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 进入 opencv 源码的上层路径。</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ~/src
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 在 opencv 源码的同级目录下创建一个 opencv-build-3.4.8 目录。 没有在 opencv 里面创建 build 目录，是方便后续 checkout 其他版本时，还保留当前编译好的版本。</span>
+</span></span><span class=line><span class=cl>mkdir opencv-build-3.4.8
+</span></span><span class=line><span class=cl><span class=nb>cd</span> opencv-build-3.4.8
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=c1># cmake</span>
+</span></span><span class=line><span class=cl><span class=c1># 1. 由于是跟 opencv 同级，所以源码路径为 ../opencv 。</span>
+</span></span><span class=line><span class=cl><span class=c1># 2. 安装目录设置为自己的 home 目录，方便随时删除，而且 make install 不需要 sudo 权限。</span>
+</span></span><span class=line><span class=cl><span class=c1># 3. ippicv 下载较慢，使用本地共享中的文件。</span>
+</span></span><span class=line><span class=cl><span class=c1># 4. 不编译 cuda 。</span>
+</span></span><span class=line><span class=cl><span class=c1># 以上各个选项按自己喜好增加或删除。</span>
+</span></span><span class=line><span class=cl>cmake ../opencv <span class=se>\
+</span></span></span><span class=line><span class=cl>      -D <span class=nv>CMAKE_INSTALL_PREFIX</span><span class=o>=</span>~/.local/opencv-3.4.8 <span class=se>\
+</span></span></span><span class=line><span class=cl>      -D <span class=nv>OPENCV_IPPICV_URL</span><span class=o>=</span>file:///ext/data/shared/3rdparty/ippicv/ <span class=se>\
+</span></span></span><span class=line><span class=cl>      -D <span class=nv>WITH_CUDA</span><span class=o>=</span>no
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=c1># 以 8 个线程进行编译</span>
+</span></span><span class=line><span class=cl>make -j8
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装。此时会把 opencv 安装到 ~/.local/opencv-3.4.8 目录下。</span>
+</span></span><span class=line><span class=cl>make install</span></span></code></pre></td></tr></table></div></div><p>此时 OpenCV 准备完毕。</p><h2 id=三编译-easypr-动态库>三、编译 EasyPR （动态库）
+<a class=header-anchor href=#%e4%b8%89%e7%bc%96%e8%af%91-easypr-%e5%8a%a8%e6%80%81%e5%ba%93></a></h2><h3 id=31-下载>3.1 下载
+<a class=header-anchor href=#31-%e4%b8%8b%e8%bd%bd></a></h3><p>用 git 从 EasyPR
+<a href=https://github.com/liuruoze/EasyPR title=官方 rel="noopener external nofollow noreferrer" target=_blank class=exturl>官方
+<i class="fa fa-external-link-alt"></i>
+</a>下载最新代码，这里把源码存放在 <strong>~/src/EasyPR</strong> 目录中。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a class=lnlinks href=#hl-3-1>1</a>
+</span><span class=lnt id=hl-3-2><a class=lnlinks href=#hl-3-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 下载</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/liuruoze/EasyPR.git</span></span></code></pre></td></tr></table></div></div><h3 id=32-修改配置>3.2 修改配置
+<a class=header-anchor href=#32-%e4%bf%ae%e6%94%b9%e9%85%8d%e7%bd%ae></a></h3><p>我们需要的是动态库，因此需要对源码进行部分修改。</p><ol><li>文件 <code>include/easypr/config.h</code> ，把 OpenCV 版本宏改成 3.2 以上。</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a class=lnlinks href=#hl-4-1>1</a>
+</span><span class=lnt id=hl-4-2><a class=lnlinks href=#hl-4-2>2</a>
+</span><span class=lnt id=hl-4-3><a class=lnlinks href=#hl-4-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1>#define CV_VERSION_THREE_ZERO</span>
+</span></span><span class=line><span class=cl><span class=o>==</span>&gt;
+</span></span><span class=line><span class=cl><span class=c1>#define CV_VERSION_THREE_TWO</span></span></span></code></pre></td></tr></table></div></div><ol start=2><li>文件 <code>CMakeLists.txt</code> ，easypr 模块改成动态编译，同时修改 OpenCV 查找路径。</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a class=lnlinks href=#hl-5-1>1</a>
+</span><span class=lnt id=hl-5-2><a class=lnlinks href=#hl-5-2>2</a>
+</span><span class=lnt id=hl-5-3><a class=lnlinks href=#hl-5-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>add_library<span class=o>(</span>easypr STATIC <span class=si>${</span><span class=nv>SOURCE_FILES</span><span class=si>}</span><span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>==</span>&gt;
+</span></span><span class=line><span class=cl>add_library<span class=o>(</span>easypr SHARED <span class=si>${</span><span class=nv>SOURCE_FILES</span><span class=si>}</span><span class=o>)</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a class=lnlinks href=#hl-6-1>1</a>
+</span><span class=lnt id=hl-6-2><a class=lnlinks href=#hl-6-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 添加下列代码，指定 opencv 的库路径</span>
+</span></span><span class=line><span class=cl>set<span class=o>(</span>CMAKE_PREFIX_PATH <span class=si>${</span><span class=nv>CMAKE_PREFIX_PATH</span><span class=si>}</span> <span class=s2>&#34;~/.local/opencv-3.4.8&#34;</span><span class=o>)</span></span></span></code></pre></td></tr></table></div></div><ol start=3><li>文件 <code>thirdparty/CMakeLists.txt</code> ，thirdparty 模块改成动态编译。</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a class=lnlinks href=#hl-7-1>1</a>
+</span><span class=lnt id=hl-7-2><a class=lnlinks href=#hl-7-2>2</a>
+</span><span class=lnt id=hl-7-3><a class=lnlinks href=#hl-7-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>add_library<span class=o>(</span>thirdparty STATIC <span class=si>${</span><span class=nv>SOURCE_FILES</span><span class=si>}</span><span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>==</span>&gt;
+</span></span><span class=line><span class=cl>add_library<span class=o>(</span>thirdparty SHARED <span class=si>${</span><span class=nv>SOURCE_FILES</span><span class=si>}</span><span class=o>)</span></span></span></code></pre></td></tr></table></div></div><h3 id=33-编译>3.3 编译
+<a class=header-anchor href=#33-%e7%bc%96%e8%af%91></a></h3><ol start=4><li>编译</li></ol><p>直接运行 build.sh</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a class=lnlinks href=#hl-8-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>./build.sh</span></span></code></pre></td></tr></table></div></div><p>此时会生成 build 目录，里面的 <strong>build/libeasypr.so</strong> 和 <strong>build/thirdparty/libthirdparty.so</strong> 就是我们需要的最终文件。</p><h2 id=四python-封装>四、python 封装
+<a class=header-anchor href=#%e5%9b%9bpython-%e5%b0%81%e8%a3%85></a></h2><ol><li>新建开发目录，如 ~/src/libpr。</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a class=lnlinks href=#hl-9-1>1</a>
+</span><span class=lnt id=hl-9-2><a class=lnlinks href=#hl-9-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir ~/src/libpr
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ~/src/libpr</span></span></code></pre></td></tr></table></div></div><ol start=2><li>把前面生成的库放到一起，方便打包调用。</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a class=lnlinks href=#hl-10-1>1</a>
+</span><span class=lnt id=hl-10-2><a class=lnlinks href=#hl-10-2>2</a>
+</span><span class=lnt id=hl-10-3><a class=lnlinks href=#hl-10-3>3</a>
+</span><span class=lnt id=hl-10-4><a class=lnlinks href=#hl-10-4>4</a>
+</span><span class=lnt id=hl-10-5><a class=lnlinks href=#hl-10-5>5</a>
+</span><span class=lnt id=hl-10-6><a class=lnlinks href=#hl-10-6>6</a>
+</span><span class=lnt id=hl-10-7><a class=lnlinks href=#hl-10-7>7</a>
+</span><span class=lnt id=hl-10-8><a class=lnlinks href=#hl-10-8>8</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 把 easypr 的库移动到 libeasypr 中。</span>
+</span></span><span class=line><span class=cl>mkdir ~/src/libpr/libeasypr
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ~/src/libpr/libeasypr
+</span></span><span class=line><span class=cl>cp ~/src/EasyPR/build/libeasypr.so .
+</span></span><span class=line><span class=cl>cp ~/src/EasyPR/build/thirdparty/libthirdparty.so .
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 把 opencv 的库移动到 libopencv-3.4.4 中。</span>
+</span></span><span class=line><span class=cl>cp -r ~/.local/opencv-3.4.8/lib /opt/src/libpr/libopencv-3.4.8</span></span></code></pre></td></tr></table></div></div><ol start=3><li>编写自己的 c++ 程序（示例）</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a class=lnlinks href=#hl-11-1> 1</a>
+</span><span class=lnt id=hl-11-2><a class=lnlinks href=#hl-11-2> 2</a>
+</span><span class=lnt id=hl-11-3><a class=lnlinks href=#hl-11-3> 3</a>
+</span><span class=lnt id=hl-11-4><a class=lnlinks href=#hl-11-4> 4</a>
+</span><span class=lnt id=hl-11-5><a class=lnlinks href=#hl-11-5> 5</a>
+</span><span class=lnt id=hl-11-6><a class=lnlinks href=#hl-11-6> 6</a>
+</span><span class=lnt id=hl-11-7><a class=lnlinks href=#hl-11-7> 7</a>
+</span><span class=lnt id=hl-11-8><a class=lnlinks href=#hl-11-8> 8</a>
+</span><span class=lnt id=hl-11-9><a class=lnlinks href=#hl-11-9> 9</a>
+</span><span class=lnt id=hl-11-10><a class=lnlinks href=#hl-11-10>10</a>
+</span><span class=lnt id=hl-11-11><a class=lnlinks href=#hl-11-11>11</a>
+</span><span class=lnt id=hl-11-12><a class=lnlinks href=#hl-11-12>12</a>
+</span><span class=lnt id=hl-11-13><a class=lnlinks href=#hl-11-13>13</a>
+</span><span class=lnt id=hl-11-14><a class=lnlinks href=#hl-11-14>14</a>
+</span><span class=lnt id=hl-11-15><a class=lnlinks href=#hl-11-15>15</a>
+</span><span class=lnt id=hl-11-16><a class=lnlinks href=#hl-11-16>16</a>
+</span><span class=lnt id=hl-11-17><a class=lnlinks href=#hl-11-17>17</a>
+</span><span class=lnt id=hl-11-18><a class=lnlinks href=#hl-11-18>18</a>
+</span><span class=lnt id=hl-11-19><a class=lnlinks href=#hl-11-19>19</a>
+</span><span class=lnt id=hl-11-20><a class=lnlinks href=#hl-11-20>20</a>
+</span><span class=lnt id=hl-11-21><a class=lnlinks href=#hl-11-21>21</a>
+</span><span class=lnt id=hl-11-22><a class=lnlinks href=#hl-11-22>22</a>
+</span><span class=lnt id=hl-11-23><a class=lnlinks href=#hl-11-23>23</a>
+</span><span class=lnt id=hl-11-24><a class=lnlinks href=#hl-11-24>24</a>
+</span><span class=lnt id=hl-11-25><a class=lnlinks href=#hl-11-25>25</a>
+</span><span class=lnt id=hl-11-26><a class=lnlinks href=#hl-11-26>26</a>
+</span><span class=lnt id=hl-11-27><a class=lnlinks href=#hl-11-27>27</a>
+</span><span class=lnt id=hl-11-28><a class=lnlinks href=#hl-11-28>28</a>
+</span><span class=lnt id=hl-11-29><a class=lnlinks href=#hl-11-29>29</a>
+</span><span class=lnt id=hl-11-30><a class=lnlinks href=#hl-11-30>30</a>
+</span><span class=lnt id=hl-11-31><a class=lnlinks href=#hl-11-31>31</a>
+</span><span class=lnt id=hl-11-32><a class=lnlinks href=#hl-11-32>32</a>
+</span><span class=lnt id=hl-11-33><a class=lnlinks href=#hl-11-33>33</a>
+</span><span class=lnt id=hl-11-34><a class=lnlinks href=#hl-11-34>34</a>
+</span><span class=lnt id=hl-11-35><a class=lnlinks href=#hl-11-35>35</a>
+</span><span class=lnt id=hl-11-36><a class=lnlinks href=#hl-11-36>36</a>
+</span><span class=lnt id=hl-11-37><a class=lnlinks href=#hl-11-37>37</a>
+</span><span class=lnt id=hl-11-38><a class=lnlinks href=#hl-11-38>38</a>
+</span><span class=lnt id=hl-11-39><a class=lnlinks href=#hl-11-39>39</a>
+</span><span class=lnt id=hl-11-40><a class=lnlinks href=#hl-11-40>40</a>
+</span><span class=lnt id=hl-11-41><a class=lnlinks href=#hl-11-41>41</a>
+</span><span class=lnt id=hl-11-42><a class=lnlinks href=#hl-11-42>42</a>
+</span><span class=lnt id=hl-11-43><a class=lnlinks href=#hl-11-43>43</a>
+</span><span class=lnt id=hl-11-44><a class=lnlinks href=#hl-11-44>44</a>
+</span><span class=lnt id=hl-11-45><a class=lnlinks href=#hl-11-45>45</a>
+</span><span class=lnt id=hl-11-46><a class=lnlinks href=#hl-11-46>46</a>
+</span><span class=lnt id=hl-11-47><a class=lnlinks href=#hl-11-47>47</a>
+</span><span class=lnt id=hl-11-48><a class=lnlinks href=#hl-11-48>48</a>
+</span><span class=lnt id=hl-11-49><a class=lnlinks href=#hl-11-49>49</a>
+</span><span class=lnt id=hl-11-50><a class=lnlinks href=#hl-11-50>50</a>
+</span><span class=lnt id=hl-11-51><a class=lnlinks href=#hl-11-51>51</a>
+</span><span class=lnt id=hl-11-52><a class=lnlinks href=#hl-11-52>52</a>
+</span><span class=lnt id=hl-11-53><a class=lnlinks href=#hl-11-53>53</a>
+</span><span class=lnt id=hl-11-54><a class=lnlinks href=#hl-11-54>54</a>
+</span><span class=lnt id=hl-11-55><a class=lnlinks href=#hl-11-55>55</a>
+</span><span class=lnt id=hl-11-56><a class=lnlinks href=#hl-11-56>56</a>
+</span><span class=lnt id=hl-11-57><a class=lnlinks href=#hl-11-57>57</a>
+</span><span class=lnt id=hl-11-58><a class=lnlinks href=#hl-11-58>58</a>
+</span><span class=lnt id=hl-11-59><a class=lnlinks href=#hl-11-59>59</a>
+</span><span class=lnt id=hl-11-60><a class=lnlinks href=#hl-11-60>60</a>
+</span><span class=lnt id=hl-11-61><a class=lnlinks href=#hl-11-61>61</a>
+</span><span class=lnt id=hl-11-62><a class=lnlinks href=#hl-11-62>62</a>
+</span><span class=lnt id=hl-11-63><a class=lnlinks href=#hl-11-63>63</a>
+</span><span class=lnt id=hl-11-64><a class=lnlinks href=#hl-11-64>64</a>
+</span><span class=lnt id=hl-11-65><a class=lnlinks href=#hl-11-65>65</a>
+</span><span class=lnt id=hl-11-66><a class=lnlinks href=#hl-11-66>66</a>
+</span><span class=lnt id=hl-11-67><a class=lnlinks href=#hl-11-67>67</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp:test.cpp data-lang=cpp:test.cpp><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&#34;easypr.h&#34;</span><span class=cp>
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>using</span> <span class=k>namespace</span> <span class=n>easypr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>static</span> <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&gt;</span> <span class=n>plate_recognize_self</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>image</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                                <span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>model_svm</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                                <span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>model_ann</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                                <span class=k>const</span> <span class=kt>bool</span> <span class=n>life_mode</span> <span class=o>=</span> <span class=nb>true</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>cv</span><span class=o>::</span><span class=n>Mat</span> <span class=n>img</span> <span class=o>=</span> <span class=n>cv</span><span class=o>::</span><span class=n>imread</span><span class=p>(</span><span class=n>image</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>assert</span><span class=p>(</span><span class=o>!</span><span class=n>img</span><span class=p>.</span><span class=n>empty</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>CPlateRecognize</span> <span class=n>pr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>pr</span><span class=p>.</span><span class=n>setResultShow</span><span class=p>(</span><span class=nb>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>pr</span><span class=p>.</span><span class=n>setLifemode</span><span class=p>(</span><span class=nb>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>pr</span><span class=p>.</span><span class=n>setMaxPlates</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>pr</span><span class=p>.</span><span class=n>setDetectType</span><span class=p>(</span><span class=n>PR_DETECT_CMSER</span> <span class=o>|</span> <span class=n>PR_DETECT_COLOR</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&gt;</span> <span class=n>results</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>CPlate</span><span class=o>&gt;</span> <span class=n>plates</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>pr</span><span class=p>.</span><span class=n>plateRecognize</span><span class=p>(</span><span class=n>img</span><span class=p>,</span> <span class=n>plates</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=nl>plate</span> <span class=p>:</span> <span class=n>plates</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>results</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>plate</span><span class=p>.</span><span class=n>getPlateStr</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>results</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>to_string</span><span class=p>(</span><span class=n>plate</span><span class=p>.</span><span class=n>getPlatePos</span><span class=p>().</span><span class=n>center</span><span class=p>.</span><span class=n>x</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>    <span class=n>results</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>to_string</span><span class=p>(</span><span class=n>plate</span><span class=p>.</span><span class=n>getPlatePos</span><span class=p>().</span><span class=n>center</span><span class=p>.</span><span class=n>y</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>    <span class=n>results</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>to_string</span><span class=p>(</span><span class=n>plate</span><span class=p>.</span><span class=n>getPlatePos</span><span class=p>().</span><span class=n>size</span><span class=p>.</span><span class=n>width</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>    <span class=n>results</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>to_string</span><span class=p>(</span><span class=n>plate</span><span class=p>.</span><span class=n>getPlatePos</span><span class=p>().</span><span class=n>size</span><span class=p>.</span><span class=n>height</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span><span class=n>plates</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>==</span> <span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>std</span><span class=o>::</span><span class=n>stringstream</span> <span class=n>ss</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>stringstream</span><span class=o>::</span><span class=n>in</span> <span class=o>|</span> <span class=n>std</span><span class=o>::</span><span class=n>stringstream</span><span class=o>::</span><span class=n>out</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=n>ss</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;result.jpg&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>imwrite</span><span class=p>(</span><span class=n>ss</span><span class=p>.</span><span class=n>str</span><span class=p>(),</span> <span class=n>plates</span><span class=p>.</span><span class=n>at</span><span class=p>(</span><span class=mi>0</span><span class=p>).</span><span class=n>getPlateMat</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>std</span><span class=o>::</span><span class=n>move</span><span class=p>(</span><span class=n>results</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>char</span><span class=o>*</span> <span class=nf>wrap_for_python_plate_recognize</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>image</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                      <span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>model_svm</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                      <span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>model_ann</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                      <span class=k>const</span> <span class=kt>int</span> <span class=n>life_mode</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&gt;</span> <span class=n>results</span><span class=o>=</span> <span class=n>plate_recognize_self</span><span class=p>(</span><span class=n>image</span><span class=p>,</span> <span class=n>model_svm</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>model_ann</span><span class=p>,</span> <span class=n>life_mode</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>str</span> <span class=o>=</span> <span class=s>&#34;nil&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=o>!</span> <span class=n>results</span><span class=p>.</span><span class=n>empty</span><span class=p>())</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>std</span><span class=o>::</span><span class=n>ostringstream</span> <span class=n>oss</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&gt;::</span><span class=n>const_iterator</span> <span class=n>it</span> <span class=o>=</span> <span class=n>results</span><span class=p>.</span><span class=n>begin</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=n>it</span> <span class=o>!=</span> <span class=n>results</span><span class=p>.</span><span class=n>end</span><span class=p>();</span> <span class=n>it</span> <span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>oss</span> <span class=o>&lt;&lt;</span> <span class=p>(</span><span class=o>*</span><span class=n>it</span><span class=p>)</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;$&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>str</span> <span class=o>=</span> <span class=n>oss</span><span class=p>.</span><span class=n>str</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=kt>char</span> <span class=o>*</span><span class=n>ret</span> <span class=o>=</span> <span class=k>new</span> <span class=kt>char</span><span class=p>[</span><span class=n>str</span><span class=p>.</span><span class=n>length</span><span class=p>()</span> <span class=o>+</span> <span class=mi>1</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=n>strcpy</span><span class=p>(</span><span class=n>ret</span><span class=p>,</span> <span class=n>str</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>ret</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>image</span> <span class=o>=</span> <span class=s>&#34;./test.jpg&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>wrap_for_python_plate_recognize</span><span class=p>(</span><span class=n>image</span><span class=p>,</span> <span class=s>&#34;&#34;</span><span class=p>,</span> <span class=s>&#34;&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div><ol start=4><li>编译</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a class=lnlinks href=#hl-12-1> 1</a>
+</span><span class=lnt id=hl-12-2><a class=lnlinks href=#hl-12-2> 2</a>
+</span><span class=lnt id=hl-12-3><a class=lnlinks href=#hl-12-3> 3</a>
+</span><span class=lnt id=hl-12-4><a class=lnlinks href=#hl-12-4> 4</a>
+</span><span class=lnt id=hl-12-5><a class=lnlinks href=#hl-12-5> 5</a>
+</span><span class=lnt id=hl-12-6><a class=lnlinks href=#hl-12-6> 6</a>
+</span><span class=lnt id=hl-12-7><a class=lnlinks href=#hl-12-7> 7</a>
+</span><span class=lnt id=hl-12-8><a class=lnlinks href=#hl-12-8> 8</a>
+</span><span class=lnt id=hl-12-9><a class=lnlinks href=#hl-12-9> 9</a>
+</span><span class=lnt id=hl-12-10><a class=lnlinks href=#hl-12-10>10</a>
+</span><span class=lnt id=hl-12-11><a class=lnlinks href=#hl-12-11>11</a>
+</span><span class=lnt id=hl-12-12><a class=lnlinks href=#hl-12-12>12</a>
+</span><span class=lnt id=hl-12-13><a class=lnlinks href=#hl-12-13>13</a>
+</span><span class=lnt id=hl-12-14><a class=lnlinks href=#hl-12-14>14</a>
+</span><span class=lnt id=hl-12-15><a class=lnlinks href=#hl-12-15>15</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>g++ -Wall -std<span class=o>=</span>c++11 -fPIC --shared -o libpr.so test.cpp <span class=se>\
+</span></span></span><span class=line><span class=cl>-I ~/src/EasyPR/include <span class=se>\
+</span></span></span><span class=line><span class=cl>-L ~/src/EasyPR/build <span class=se>\
+</span></span></span><span class=line><span class=cl>-L ~/src/EasyPR/build/thirdparty <span class=se>\
+</span></span></span><span class=line><span class=cl>-I ~/.local/opencv-3.4.8/include <span class=se>\
+</span></span></span><span class=line><span class=cl>-L ~/.local/opencv-3.4.8/lib <span class=se>\
+</span></span></span><span class=line><span class=cl>-leasypr <span class=se>\
+</span></span></span><span class=line><span class=cl>-lthirdparty <span class=se>\
+</span></span></span><span class=line><span class=cl>-lopencv_core <span class=se>\
+</span></span></span><span class=line><span class=cl>-lopencv_objdetect <span class=se>\
+</span></span></span><span class=line><span class=cl>-lopencv_ml <span class=se>\
+</span></span></span><span class=line><span class=cl>-lopencv_imgcodecs <span class=se>\
+</span></span></span><span class=line><span class=cl>-lopencv_highgui <span class=se>\
+</span></span></span><span class=line><span class=cl>-Wno-unused-function <span class=se>\
+</span></span></span><span class=line><span class=cl>-Wno-unused-variable</span></span></code></pre></td></tr></table></div></div><p>此时会生成 libpr.so 库文件</p><ol start=5><li>编写自己的 python 程序。（示例）</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a class=lnlinks href=#hl-13-1> 1</a>
+</span><span class=lnt id=hl-13-2><a class=lnlinks href=#hl-13-2> 2</a>
+</span><span class=lnt id=hl-13-3><a class=lnlinks href=#hl-13-3> 3</a>
+</span><span class=lnt id=hl-13-4><a class=lnlinks href=#hl-13-4> 4</a>
+</span><span class=lnt id=hl-13-5><a class=lnlinks href=#hl-13-5> 5</a>
+</span><span class=lnt id=hl-13-6><a class=lnlinks href=#hl-13-6> 6</a>
+</span><span class=lnt id=hl-13-7><a class=lnlinks href=#hl-13-7> 7</a>
+</span><span class=lnt id=hl-13-8><a class=lnlinks href=#hl-13-8> 8</a>
+</span><span class=lnt id=hl-13-9><a class=lnlinks href=#hl-13-9> 9</a>
+</span><span class=lnt id=hl-13-10><a class=lnlinks href=#hl-13-10>10</a>
+</span><span class=lnt id=hl-13-11><a class=lnlinks href=#hl-13-11>11</a>
+</span><span class=lnt id=hl-13-12><a class=lnlinks href=#hl-13-12>12</a>
+</span><span class=lnt id=hl-13-13><a class=lnlinks href=#hl-13-13>13</a>
+</span><span class=lnt id=hl-13-14><a class=lnlinks href=#hl-13-14>14</a>
+</span><span class=lnt id=hl-13-15><a class=lnlinks href=#hl-13-15>15</a>
+</span><span class=lnt id=hl-13-16><a class=lnlinks href=#hl-13-16>16</a>
+</span><span class=lnt id=hl-13-17><a class=lnlinks href=#hl-13-17>17</a>
+</span><span class=lnt id=hl-13-18><a class=lnlinks href=#hl-13-18>18</a>
+</span><span class=lnt id=hl-13-19><a class=lnlinks href=#hl-13-19>19</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python:test.py data-lang=python:test.py><span class=line><span class=cl><span class=kn>import</span> <span class=nn>ctypes</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>math</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>libpr</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>cdll</span><span class=o>.</span><span class=n>LoadLibrary</span><span class=p>(</span><span class=s1>&#39;./libpr.so&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>except</span> <span class=ne>Exception</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=p>(</span><span class=n>e</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 设定 libpr 的参数类型和返回值类型</span>
+</span></span><span class=line><span class=cl><span class=n>libpr</span><span class=o>.</span><span class=n>wrap_for_python_plate_recognize</span><span class=o>.</span><span class=n>restype</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>c_char_p</span>
+</span></span><span class=line><span class=cl><span class=n>libpr</span><span class=o>.</span><span class=n>wrap_for_python_plate_recognize</span><span class=o>.</span><span class=n>argtypes</span> <span class=o>=</span> <span class=p>[</span><span class=n>ctypes</span><span class=o>.</span><span class=n>c_char_p</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>c_char_p</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>c_char_p</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>c_int</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>func_plate_recognize</span> <span class=o>=</span> <span class=n>libpr</span><span class=o>.</span><span class=n>wrap_for_python_plate_recognize</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>file_path</span> <span class=o>=</span> <span class=sa>b</span><span class=s2>&#34;./test.jpg&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>result</span> <span class=o>=</span> <span class=n>func_plate_recognize</span><span class=p>(</span><span class=n>file_path</span><span class=p>,</span> <span class=n>b</span><span class=err>`</span><span class=p>,</span> <span class=n>b</span><span class=err>`</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>result</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s2>&#34;UTF-8&#34;</span><span class=p>))</span></span></span></code></pre></td></tr></table></div></div><ol start=6><li>运行程序</li></ol><p><strong>特别注意</strong> ： EasyPR 需要依赖它目录下的 model 定义，需要把 model 目录整个拷贝过来。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a class=lnlinks href=#hl-14-1>1</a>
+</span><span class=lnt id=hl-14-2><a class=lnlinks href=#hl-14-2>2</a>
+</span><span class=lnt id=hl-14-3><a class=lnlinks href=#hl-14-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=c1># 准备工作
+</span></span></span><span class=line><span class=cl><span class=n>cp</span><span class=w> </span><span class=o>-</span><span class=n>r</span><span class=w> </span><span class=o>~/</span><span class=n>src</span><span class=o>/</span><span class=n>EasyPR</span><span class=o>/</span><span class=n>model</span><span class=w> </span><span class=p>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=n>export</span><span class=w> </span><span class=n>LD_LIBRARY_PATH</span><span class=o>=`</span><span class=n>pwd</span><span class=o>`/</span><span class=n>libeasypr</span><span class=p>:</span><span class=o>`</span><span class=n>pwd</span><span class=o>`/</span><span class=n>libopencv</span><span class=o>-</span><span class=mi>3</span><span class=p>.</span><span class=mi>4</span><span class=p>.</span><span class=mi>8</span><span class=p>:</span><span class=err>$</span><span class=n>LD_LIBRARY_PATH</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a class=lnlinks href=#hl-15-1>1</a>
+</span><span class=lnt id=hl-15-2><a class=lnlinks href=#hl-15-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># 运行
+</span></span><span class=line><span class=cl>python3 test.py</span></span></code></pre></td></tr></table></div></div></div><footer class=post-footer><div class=post-tags><a href=/tags/easypr/>easypr
+</a><a href=/tags/opencv/>opencv</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_24 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+EasyPR 编译使用说明 (Debian)</li><li class=post-copyright-author><strong>本文作者： </strong>gulucat</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=/post/software/easypr/ title="EasyPR 编译使用说明 (Debian)">/post/software/easypr/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/post/software/dokuwiki_install_by_docker/ rel=next title="dokuwiki 安装 (使用 docker)"><i class="fa fa-chevron-left"></i> dokuwiki 安装 (使用 docker)</a></div><div class="post-nav-prev post-nav-item"><a href=/post/tensorflow/slim_preprocessing/ rel=prev title=slim库中的预处理方法分析>slim库中的预处理方法分析
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div><div id=comments class=post-comments><div class=comment-head><div class=comment-headline><i class="fas fa-comments fa-fw"></i>
+<span>评论交流</span></div></div><div class=comment-wrap><div><div class=comment-loading><i class="fa fa-sync fa-spin"></i></div><div class=waline3-container></div></div></div></div></div></main><footer class=footer><div class=footer-inner><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>Gulucat.com</span></div></div></footer><script class=next-config data-name=page type=application/json>{"clipboard":{"js":{"alias":"clipboard","file":"dist/clipboard.min.js","name":"clipboard.js","version":"2.0.11"}},"comments":true,"expired":false,"isHome":false,"isPage":true,"path":"easypr","permalink":"/post/software/easypr/","title":"EasyPR 编译使用说明 (Debian)","toc":true,"waline3":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"3.5.7"}}}</script><script type=text/javascript src=/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":false,"hostname":"/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":false,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline3"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"/js/3rd"}},"version":"4.8.3","waline3":{"cfg":{"emoji":true,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"search":true,"serverurl":"https://comment.gulucat.com","sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"3.5.7"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"3.5.7"}}}</script><script type=text/javascript src="/js/main.min.js?=1769186648" defer></script><script type=text/javascript src="/js/clipboard.min.js?=1769186648" defer></script></body></html>

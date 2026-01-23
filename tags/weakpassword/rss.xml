@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Weakpassword on 咕噜猫小站</title><link>/tags/weakpassword/</link><description>Recent content in Weakpassword on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Fri, 16 Jun 2023 10:53:32 +0800</lastBuildDate><atom:link href="/tags/weakpassword/rss.xml" rel="self" type="application/rss+xml"/><item><title>弱密码检测</title><link>/post/software/wp_check/</link><pubDate>Fri, 16 Jun 2023 10:51:37 +0800</pubDate><guid>/post/software/wp_check/</guid><description>&lt;h1 id="弱密码检测"&gt;弱密码检测
+&lt;a class="header-anchor" href="#%e5%bc%b1%e5%af%86%e7%a0%81%e6%a3%80%e6%b5%8b"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文主要介绍如何在 Debian 下使用工具检测密码强度。&lt;/p&gt;
+&lt;h2 id="1-使用-cracklib-check"&gt;1. 使用 cracklib-check
+&lt;a class="header-anchor" href="#1-%e4%bd%bf%e7%94%a8-cracklib-check"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;cracklib-check&lt;/code&gt; 是一个弱密码检测工具。如果密码是弱密码，会给出原因；否则返回 OK 。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;若没有命令 &lt;code&gt;cracklib-check&lt;/code&gt;，则先安装 &lt;code&gt;cracklib&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt install libcrack2&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ol start="2"&gt;
+&lt;li&gt;检测是否是弱密码&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-1-1"&gt;&lt;a class="lnlinks" href="#hl-1-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-2"&gt;&lt;a class="lnlinks" href="#hl-1-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-3"&gt;&lt;a class="lnlinks" href="#hl-1-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-4"&gt;&lt;a class="lnlinks" href="#hl-1-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-1-5"&gt;&lt;a class="lnlinks" href="#hl-1-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 交互式。直接运行 cracklib-check ，然后输入一行密码，回车确认。可以多次输入密码，退出按 Ctrl + D 。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cracklib-check
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 非交互式。缺点：在 shell 的历史记录中能看到这条命令，容易泄漏密码。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;123456&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; cracklib-check&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="2-使用-pwscore"&gt;2. 使用 pwscore
+&lt;a class="header-anchor" href="#2-%e4%bd%bf%e7%94%a8-pwscore"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;pwscore&lt;/code&gt; 是给密码强度打分工具，分值越高，密码强度越强。&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,197 @@
+<!doctype html><html lang=zh-CN data-theme=light><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=theme-color content="#222" media="(prefers-color-scheme: light)"><meta name=generator content="Hugo 0.154.2"><link rel="shortcut icon" type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/x-icon href=/imgs/icons/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/imgs/icons/logo.png><link rel=icon type=image/png sizes=32x32 href=/imgs/icons/logo.png><link rel=apple-touch-icon sizes=180x180 href=/imgs/icons/logo.png><meta itemprop=name content="基于 LDAP 的 PAM 验证"><meta itemprop=description content="分享知识，分享生活"><meta name=description content="分享知识，分享生活"><meta itemprop=datePublished zgotmplz><meta itemprop=dateModified zgotmplz><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=keywords content="linux,ldap"><meta property="og:type" content="article"><meta property="og:title" content="基于 LDAP 的 PAM 验证"><meta property="og:description" content="分享知识，分享生活"><meta property="og:image" content="/imgs/icons/logo.svg"><meta property="og:image:width" content="312"><meta property="og:image:height" content="312"><meta property="og:image:type" content="image/jpeg/png/svg/jpg"><meta property="og:url" content="/post/linux/pam_ldap/"><meta property="og:site_name" content="咕噜猫小站"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="gulucat"><meta property="article:published_time" content="2019-10-31 15:29:44 +0800 +0800"><meta property="article:modified_time" content="2021-06-26 16:23:21 +0800 +0800"><link type=text/css rel=stylesheet href=/js/3rd/font-awesome/6.7.2/css/all.min.css><link type=text/css rel=stylesheet href=/js/3rd/animate.css/3.1.1/animate.min.css><link type=text/css rel=stylesheet href=/js/3rd/viewerjs/1.11.6/viewer.min.css><link rel=stylesheet href="/css/main.min.css?=1769186648"><style type=text/css>.post-footer hr:after{content:"~ 我可是有底线的哟 ~"}.flinks-list-footer hr:after{content:"~ 我可是有底线的哟 ~"}</style><script type=text/javascript>(function(){localDB={set:function(e,t,n){if(n===0)return;const s=new Date,o=n*864e5,i={value:t,expiry:s.getTime()+o};localStorage.setItem(e,JSON.stringify(i))},get:function(e){const t=localStorage.getItem(e);if(!t)return 0[0];const n=JSON.parse(t),s=new Date;return s.getTime()>n.expiry?(localStorage.removeItem(e),0[0]):n.value}},theme={active:function(){const e=localDB.get("theme");if(e==null)return;theme.toggle(e),window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){theme.toggle(e.matches?"dark":"light")})},toggle:function(e){document.documentElement.setAttribute("data-theme",e),localDB.set("theme",e,2);const t=document.querySelector("iframe.giscus-frame");if(t){const n={setConfig:{theme:e}};t.contentWindow.postMessage({giscus:n},"https://giscus.app")}}},theme.active()})(window)</script><script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{var e=document.createElement("script");e.charset="UTF-8",e.src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",e.async=!1,e.defer=!0,document.head.appendChild(e),e.onload=function(){NexT.utils.fmtBusuanzi()}})</script><title>基于 LDAP 的 PAM 验证 - 咕噜猫小站</title><noscript><link rel=stylesheet href=/css/noscript.css></noscript></head><body itemscope itemtype=http://schema.org/WebPage class=use-motion><div class=headband></div><main class=main><header class=header itemscope itemtype=http://schema.org/WPHeader><div class=header-inner><div class=site-brand-container><div class=site-nav-toggle><div class=toggle aria-label role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div></div><div class=site-meta><a href=/ class=brand rel=start><i class=logo-line></i><h1 class=site-title>咕噜猫小站</h1><i class=logo-line></i></a><p class=site-subtitle itemprop=description>do it, do it right, do it right now</p></div><div class=site-nav-right><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class=site-nav><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href=/ class=hvr-icon-pulse rel=section><i class="fa fa-home hvr-icon"></i>首页</a></li><li class="menu-item menu-item-about"><a href=/about/ class=hvr-icon-pulse rel=section><i class="fa fa-user hvr-icon"></i>关于</a></li><li class="menu-item menu-item-archives"><a href=/archives/ class=hvr-icon-pulse rel=section><i class="fa fa-archive hvr-icon"></i>归档
+<span class=badge>114</span></a></li><li class="menu-item menu-item-search"><a role=button class="popup-trigger hvr-icon-pulse"><i class="fa fa-search fa-fw hvr-icon"></i>搜索</a></li></ul></nav><div class=search-pop-overlay><div class="popup search-popup"><div class=search-header><span class=search-icon><i class="fa fa-search"></i></span><div class=search-input-container><input autocomplete=off autocapitalize=off maxlength=80 placeholder=搜索... spellcheck=false type=search class=search-input></div><span class=popup-btn-close role=button><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class=search-result-icon><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></div><div class="toggle sidebar-toggle" role=button><span class=toggle-line></span>
+<span class=toggle-line></span>
+<span class=toggle-line></span></div><aside class=sidebar><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class=sidebar-nav><li class=sidebar-nav-toc>文章目录</li><li class=sidebar-nav-overview>站点概览</li></ul><div class=sidebar-panel-container><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><nav id=TableOfContents><ul><li><a href=#一前言>一、前言</a></li><li><a href=#二libpam-ldap-无法调通放弃仅做记录>二、libpam-ldap (无法调通，放弃，仅做记录)</a></li><li><a href=#三libpam-ldapd-可以使用的方案>三、libpam-ldapd （可以使用的方案）</a><ul><li><a href=#1-nsswitch-配置>1. nsswitch 配置</a></li><li><a href=#2-nslcd-配置>2. nslcd 配置</a></li><li><a href=#3-配置登录后自动创建-home-目录>3. 配置登录后自动创建 home 目录</a></li><li><a href=#4-重启服务>4. 重启服务</a></li><li><a href=#5-使用-getent-命令验证配置是否正确>5. 使用 getent 命令验证配置是否正确</a></li><li><a href=#遇到过的问题>遇到过的问题</a></li></ul></li></ul></nav></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop=author itemscope itemtype=http://schema.org/Person><img class=site-author-image itemprop=image alt=gulucat src=/imgs/img-lazy-loading.gif data-src=/imgs/icons/logo.svg><p class=site-author-name itemprop=name>gulucat</p><div class=site-description itemprop=description>分享知识，分享生活</div></div><div class="site-state-wrap site-overview-item animated"><nav class=site-state><div class="site-state-item site-state-posts"><a href=/archives/><span class=site-state-item-count>114</span>
+<span class=site-state-item-name>日志</span></a></div><div class="site-state-item site-state-categories"><a href=/categories/><span class=site-state-item-count>11</span>
+<span class=site-state-item-name>分类</span></a></div><div class="site-state-item site-state-tags"><a href=/tags/><span class=site-state-item-count>98</span>
+<span class=site-state-item-name>标签</span></a></div></nav></div><div class="links-of-social site-overview-item animated"></div><div class="cc-license animated" itemprop=license><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans class=cc-opacity rel=noopener target=_blank title=共享知识><img src=/imgs/img-lazy-loading.gif data-src=/imgs/cc/small/by_nc_sa.svg alt=共享知识></a></div></div></div></div><div id=siteinfo-card-widget class=sidebar-card-widget><div class=item-headline><i class="fas fa-chart-line"></i>
+<span>网站资讯</span></div><div class=siteinfo><div class=siteinfo-item><div class=item-name><i class="fa-solid fa-calendar-check"></i>已运行：</div><div class=item-count id=runTimes data-publishdate="2019-10-28 11:31:00 +0800 +0800"></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-user"></i>总访客数：</div><div class=item-count id=busuanzi_value_site_uv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fas fa fa-eye"></i>页面浏览：</div><div class=item-count id=busuanzi_value_site_pv><i class="fa fa-sync fa-spin"></i></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-font"></i>总字数：</div><div class=item-count id=wordsCount data-count=51909></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-mug-hot"></i>阅读约：</div><div class=item-count id=readTimes data-times=169></div></div><div class=siteinfo-item><div class=item-name><i class="fa fa-clock-rotate-left"></i>最后更新于：</div><div class=item-count id=last-push-date data-lastpushdate="2024-05-27 17:46:40 +0800 +0800"></div></div></div></div></aside><div class=sidebar-dimmer></div></header><div class=tool-buttons><div id=goto-comments class="button goto-comments" title=直达评论><i class="fas fa-comments"></i></div><div id=toggle-theme class=button title=深浅模式切换><i class="fas fa-adjust"></i></div><div class=back-to-top role=button title=返回顶部><i class="fa fa-arrow-up"></i>
+<span>0%</span></div></div><div class=reading-progress-bar></div><a role=button class="book-mark-link book-mark-link-fixed"></a><noscript><div class=noscript-warning>Theme NexT works best with JavaScript enabled</div></noscript><div class="main-inner post posts-expand"><div class=post-block><article itemscope itemtype=http://schema.org/Article class=post-content lang><link itemprop=mainEntityOfPage href=/post/linux/pam_ldap/><span hidden itemprop=author itemscope itemtype=http://schema.org/Person><meta itemprop=image content="/imgs/icons/logo.svg"><meta itemprop=name content="gulucat"></span><span hidden itemprop=publisher itemscope itemtype=http://schema.org/Organization><meta itemprop=name content="gulucat"><meta itemprop=description content="分享知识，分享生活"></span><span hidden itemprop=post itemscope itemtype=http://schema.org/CreativeWork><meta itemprop=name content="基于 LDAP 的 PAM 验证"><meta itemprop=description content="基于 LDAP 的 PAM 验证
+
+参考资料：
+
+
+    https://wiki.debian.org/LDAP/PAM
+    
+    
+    
+
+
+
+    https://wiki.debian.org/LDAP/NSS
+    
+    
+    
+
+
+
+    https://wiki.samba.org/index.php/Nslcd
+    
+    
+    
+
+
+
+    https://uit.stanford.edu/service/directory/pam/local-home
+    
+    
+    
+
+
+
+    https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema
+    
+    
+    
+
+
+
+    https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/
+    
+    
+    
+
+一、前言
+
+Linux 可以通过 PAM (Pluggable Authentication Modules, 可插入认证模块)来提供认证功能，不少系统服务认证是通过 pam 来进行。 pam 的配置文件放在 /etc/pam.d/ 目录下， 其中以 common 开关的配置文件是通用认证，里面通过 pam_unix.so 模块来进行认证，该模块读取 /etc/passwd 、 /etc/shadow 等系统配置信息，做到与系统账号同步。"></span><header class=post-header><h1 class=post-title itemprop="name headline">基于 LDAP 的 PAM 验证</h1><div class=post-meta-container><div class=post-meta-items><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar"></i>
+</span><span class=post-meta-item-text title=发表于>发表于：
+</span><time title="创建时间：2019-10-31 15:29:44 +08:00" itemprop="dateCreated datePublished" datetime="2019-10-31 15:29:44 +0800 +0800">2019-10-31
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-calendar-check"></i>
+</span><span class=post-meta-item-text title=更新于>更新于：
+</span><time title="修改时间：2021-06-26 16:23:21 +08:00" itemprop="dateModified dateLastmod" datetime="2021-06-26 16:23:21 +0800 +0800">2021-06-26
+</time></span><span class=post-meta-item><span class=post-meta-item-icon><i class="fas fa-solid fa-folder-open"></i>
+</span><span class=post-meta-item-text title=分类于>分类于：
+</span><span itemprop=about itemscope itemtype=http://schema.org/Thing><a href=/categories/linux/ itemprop=url rel=index><span itemprop=name>linux</span></a></span></span></div><div class=post-meta-items><span class=post-meta-item title=字数><span class=post-meta-item-icon><i class="fas fa-solid fa-file-word"></i>
+</span><span class=post-meta-item-text>字数：</span>
+<span>1652</span>
+</span><span class=post-meta-item title=阅读><span class=post-meta-item-icon><i class="fas fa-solid fa-clock"></i>
+</span><span class=post-meta-item-text>阅读：&ap;</span>
+<span>4分钟</span>
+</span><span class=post-meta-item title=浏览><span class=post-meta-item-icon><i class="fas fa-solid fa-eye"></i>
+</span><span class=post-meta-item-text>浏览：
+</span><span id=busuanzi_value_page_pv data-path=/post/linux/pam_ldap/><i class="fa fa-sync fa-spin"></i>
+</span></span><span class=post-meta-item title><span class=post-meta-item-icon><i class="fas fa-solid fa-comments"></i>
+</span><span class=post-meta-item-text title=评论>评论：
+</span><span id=comments-count data-path=/post/linux/pam_ldap/><i class="fa fa-sync fa-spin"></i></span></span></div></div></header><div class="post-body autonumber" itemprop=articleBody><h1 id=基于-ldap-的-pam-验证>基于 LDAP 的 PAM 验证
+<a class=header-anchor href=#%e5%9f%ba%e4%ba%8e-ldap-%e7%9a%84-pam-%e9%aa%8c%e8%af%81></a></h1><p>参考资料：</p><p><a href=https://wiki.debian.org/LDAP/PAM title=https://wiki.debian.org/LDAP/PAM rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://wiki.debian.org/LDAP/PAM
+<i class="fa fa-external-link-alt"></i></a></p><p><a href=https://wiki.debian.org/LDAP/NSS title=https://wiki.debian.org/LDAP/NSS rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://wiki.debian.org/LDAP/NSS
+<i class="fa fa-external-link-alt"></i></a></p><p><a href=https://wiki.samba.org/index.php/Nslcd title=https://wiki.samba.org/index.php/Nslcd rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://wiki.samba.org/index.php/Nslcd
+<i class="fa fa-external-link-alt"></i></a></p><p><a href=https://uit.stanford.edu/service/directory/pam/local-home title=https://uit.stanford.edu/service/directory/pam/local-home rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://uit.stanford.edu/service/directory/pam/local-home
+<i class="fa fa-external-link-alt"></i></a></p><p><a href=https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema title=https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://stackoverflow.com/questions/30725840/active-directory-and-linux-nslcd-binding-without-extending-the-ad-schema
+<i class="fa fa-external-link-alt"></i></a></p><p><a href=https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/ title=https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/ rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/
+<i class="fa fa-external-link-alt"></i></a></p><h2 id=一前言>一、前言
+<a class=header-anchor href=#%e4%b8%80%e5%89%8d%e8%a8%80></a></h2><p>Linux 可以通过 <code>PAM</code> (Pluggable Authentication Modules, 可插入认证模块)来提供认证功能，不少系统服务认证是通过 pam 来进行。 pam 的配置文件放在 <code>/etc/pam.d/</code> 目录下， 其中以 common 开关的配置文件是通用认证，里面通过 <code>pam_unix.so</code> 模块来进行认证，该模块读取 /etc/passwd 、 /etc/shadow 等系统配置信息，做到与系统账号同步。</p><a id=more></a><p>通过 debian 的 wiki 可以知道，目前有两个包可以实现 pam_ldap 功能的，分别是 <code>libpam-ldap</code> 和 <code>libpam-ldapd</code> (注意，后面这个包名称后面多了个&rsquo;d')</p><p>其中， 后者(<code>libpam-ldapd</code>)是更新的解决方案，但是前者配置上比较简单。</p><h2 id=二libpam-ldap-无法调通放弃仅做记录>二、libpam-ldap (无法调通，放弃，仅做记录)
+<a class=header-anchor href=#%e4%ba%8clibpam-ldap-%e6%97%a0%e6%b3%95%e8%b0%83%e9%80%9a%e6%94%be%e5%bc%83%e4%bb%85%e5%81%9a%e8%ae%b0%e5%bd%95></a></h2><p>安装</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a class=lnlinks href=#hl-0-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt install libpam-ldap</span></span></code></pre></td></tr></table></div></div><p>与 <code>libpam-ldap</code> 相关的几个配置文件：</p><ul><li>/etc/ldap/ldap.conf （系统级 ldap 配置文件）</li><li>/etc/pam_ldap.conf</li></ul><p>安装完毕后，该包会修改 <code>/etc/pam.d/</code> 目录下的几个 common 开头的配置文件，加入跟 <code>pam_ldap.so</code> 相关的配置。首先使用 <code>pam_unix.so</code> 进行本地验证，未通过时通过 <code>pam_ldap.so</code> 进行远程验证。</p><p>理论上来说，此时应该可以使用 ldap 进行登录，然而在试验中一直报连不上服务器。搜索许久未找到解决方案，遂放弃。</p><h2 id=三libpam-ldapd-可以使用的方案>三、libpam-ldapd （可以使用的方案）
+<a class=header-anchor href=#%e4%b8%89libpam-ldapd-%e5%8f%af%e4%bb%a5%e4%bd%bf%e7%94%a8%e7%9a%84%e6%96%b9%e6%a1%88></a></h2><p><code>libpam-ldapd</code> 是新的解决方案，它使用 <code>nslcd</code> 作为服务后端，而 <code>nslcd</code> 也是 <code>libnss-ldapd</code> 的服务后端。</p><p>安装</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a class=lnlinks href=#hl-1-1>1</a>
+</span><span class=lnt id=hl-1-2><a class=lnlinks href=#hl-1-2>2</a>
+</span><span class=lnt id=hl-1-3><a class=lnlinks href=#hl-1-3>3</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt install libpam-ldapd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 同时会安装 nslcd libnss-ldapd 等包，而且只安装 libnss-ldapd 时也会安装 libpam-ldapd 包。debian 把它们做成了相互依赖。</span></span></span></code></pre></td></tr></table></div></div><p>与 <code>libpam-ldapd</code> 相关的几个配置文件：</p><ul><li>/etc/ldap/ldap.conf （系统级 ldap 配置文件）</li><li>/etc/nslcd.conf (nslcd 配置文件)</li><li>/etc/nsswitch.conf （nsswitch 配置文件）</li></ul><p>同样的，安装完毕后，程序也会修改 <code>/etc/pam.d/</code> 目录下的几个 common 开头的配置文件，加入跟 <code>pam_ldap.so</code> 相关的配置。不知道该 <code>pam_ldap.so</code> 跟上一个包里的 <code>pam_ldap.so</code> 是不是同一个，不过机制是同样的机制。但是这里还运用到了 <code>NSS</code>。</p><h3 id=1-nsswitch-配置>1. nsswitch 配置
+<a class=header-anchor href=#1-nsswitch-%e9%85%8d%e7%bd%ae></a></h3><p>nsswitch （Name Service Switch，名称服务开关）是 linux 系统给各应用实现名称解析的通用框架，名称解析流程为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a class=lnlinks href=#hl-2-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>应用程序  --&gt; nsswitch（配置文件（查询顺序）） --&gt; 对应库文件 --&gt; 解析库 --&gt; 完成解析</span></span></code></pre></td></tr></table></div></div><p>系统级的解析也是通过该框架完成，如 passwd ，在该配置上可以配置从哪里获取 passwd 信息。</p><p>这部分配置<strong>在安装软件的时候有图形界面进行设置</strong>，直接选择 <code>passwd</code>, <code>group</code>, <code>shadow</code> 就行了。</p><p>手动修改的话，编辑 <code>/etc/nsswitch.conf</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a class=lnlinks href=#hl-3-1>1</a>
+</span><span class=lnt id=hl-3-2><a class=lnlinks href=#hl-3-2>2</a>
+</span><span class=lnt id=hl-3-3><a class=lnlinks href=#hl-3-3>3</a>
+</span><span class=lnt id=hl-3-4><a class=lnlinks href=#hl-3-4>4</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># 在每一项后面加上 ldap 
+</span></span><span class=line><span class=cl>passwd:         compat ldap
+</span></span><span class=line><span class=cl>group:          compat ldap
+</span></span><span class=line><span class=cl>shadow:         compat ldap</span></span></code></pre></td></tr></table></div></div><p>该修改的意思是，passwd、group、shadow 除了从对应的文件中获取数据外，还要从 ldap 中获取信息。</p><h3 id=2-nslcd-配置>2. nslcd 配置
+<a class=header-anchor href=#2-nslcd-%e9%85%8d%e7%bd%ae></a></h3><p>在安装软件的时候，这部分会要求填写 <code>uri</code>, <code>base</code>, 和 tls 证书。可以在安装完成后，再进行手动修改。</p><p>手动对 <code>/etc/nslcd.conf</code> 进行修改，仅使用以下配置即可(ldap 的配置按自己的需要进行填写)：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a class=lnlinks href=#hl-4-1> 1</a>
+</span><span class=lnt id=hl-4-2><a class=lnlinks href=#hl-4-2> 2</a>
+</span><span class=lnt id=hl-4-3><a class=lnlinks href=#hl-4-3> 3</a>
+</span><span class=lnt id=hl-4-4><a class=lnlinks href=#hl-4-4> 4</a>
+</span><span class=lnt id=hl-4-5><a class=lnlinks href=#hl-4-5> 5</a>
+</span><span class=lnt id=hl-4-6><a class=lnlinks href=#hl-4-6> 6</a>
+</span><span class=lnt id=hl-4-7><a class=lnlinks href=#hl-4-7> 7</a>
+</span><span class=lnt id=hl-4-8><a class=lnlinks href=#hl-4-8> 8</a>
+</span><span class=lnt id=hl-4-9><a class=lnlinks href=#hl-4-9> 9</a>
+</span><span class=lnt id=hl-4-10><a class=lnlinks href=#hl-4-10>10</a>
+</span><span class=lnt id=hl-4-11><a class=lnlinks href=#hl-4-11>11</a>
+</span><span class=lnt id=hl-4-12><a class=lnlinks href=#hl-4-12>12</a>
+</span><span class=lnt id=hl-4-13><a class=lnlinks href=#hl-4-13>13</a>
+</span><span class=lnt id=hl-4-14><a class=lnlinks href=#hl-4-14>14</a>
+</span><span class=lnt id=hl-4-15><a class=lnlinks href=#hl-4-15>15</a>
+</span><span class=lnt id=hl-4-16><a class=lnlinks href=#hl-4-16>16</a>
+</span><span class=lnt id=hl-4-17><a class=lnlinks href=#hl-4-17>17</a>
+</span><span class=lnt id=hl-4-18><a class=lnlinks href=#hl-4-18>18</a>
+</span><span class=lnt id=hl-4-19><a class=lnlinks href=#hl-4-19>19</a>
+</span><span class=lnt id=hl-4-20><a class=lnlinks href=#hl-4-20>20</a>
+</span><span class=lnt id=hl-4-21><a class=lnlinks href=#hl-4-21>21</a>
+</span><span class=lnt id=hl-4-22><a class=lnlinks href=#hl-4-22>22</a>
+</span><span class=lnt id=hl-4-23><a class=lnlinks href=#hl-4-23>23</a>
+</span><span class=lnt id=hl-4-24><a class=lnlinks href=#hl-4-24>24</a>
+</span><span class=lnt id=hl-4-25><a class=lnlinks href=#hl-4-25>25</a>
+</span><span class=lnt id=hl-4-26><a class=lnlinks href=#hl-4-26>26</a>
+</span><span class=lnt id=hl-4-27><a class=lnlinks href=#hl-4-27>27</a>
+</span><span class=lnt id=hl-4-28><a class=lnlinks href=#hl-4-28>28</a>
+</span><span class=lnt id=hl-4-29><a class=lnlinks href=#hl-4-29>29</a>
+</span><span class=lnt id=hl-4-30><a class=lnlinks href=#hl-4-30>30</a>
+</span><span class=lnt id=hl-4-31><a class=lnlinks href=#hl-4-31>31</a>
+</span><span class=lnt id=hl-4-32><a class=lnlinks href=#hl-4-32>32</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>uid nslcd
+</span></span><span class=line><span class=cl>gid nslcd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 按需填写
+</span></span><span class=line><span class=cl>uri ldaps://ldapserver.com
+</span></span><span class=line><span class=cl>base ou=myou,dc=example,dc=com
+</span></span><span class=line><span class=cl>base group ou=unix,ou=groups,dc=example,dc=com
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 按需填写
+</span></span><span class=line><span class=cl>binddn CN=test,ou=myou,dc=example,dc=com
+</span></span><span class=line><span class=cl>bindpw &lt;yourpassword&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ssl on
+</span></span><span class=line><span class=cl>tls_reqcert allow
+</span></span><span class=line><span class=cl># 需要先把自定义证书加到系统证书内
+</span></span><span class=line><span class=cl>tls_cacertfile /etc/ssl/certs/ca-certificates.crt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># for map
+</span></span><span class=line><span class=cl># 按需填写
+</span></span><span class=line><span class=cl>filter  passwd  (&amp;(objectClass=user)(objectClass=person)(!(objectClass=computer))(uidNumber=*))
+</span></span><span class=line><span class=cl>filter  group   (objectClass=group)
+</span></span><span class=line><span class=cl>filter  shadow  (&amp;(objectClass=user)(objectClass=person)(!(objectClass=computer))(uidNumber=*))
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>map     passwd  uid                sAMAccountName
+</span></span><span class=line><span class=cl>#map     passwd  homeDirectory      unixHomeDirectory
+</span></span><span class=line><span class=cl>map     passwd  homeDirectory      &#34;/home/$sAMAccountName&#34;
+</span></span><span class=line><span class=cl>map     passwd  gecos              displayName
+</span></span><span class=line><span class=cl>#map     passwd  gidNumber          primaryGroupID
+</span></span><span class=line><span class=cl>map     passwd  loginShell         &#34;/bin/bash&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>#map     group   uniqueMember       member
+</span></span><span class=line><span class=cl>#map     group   gidNumber          primaryGroupID</span></span></code></pre></td></tr></table></div></div><p>首先是配置 ldap 的 url、base dn、bind dn、证书等。</p><p>后面的 filter 和 map 主要是给 ldap 使用的，filter 指定搜索条件， map 指定属性映射关系。由于这里使用 windows AD ，因此要做相应的属性映射。 （部分unix需要的属性可参考：
+<a href=https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/ title=https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/ rel="noopener external nofollow noreferrer" target=_blank class=exturl>https://blogs.technet.microsoft.com/activedirectoryua/2016/02/09/identity-management-for-unix-idmu-is-deprecated-in-windows-server/
+<i class="fa fa-external-link-alt"></i>
+</a>）</p><h3 id=3-配置登录后自动创建-home-目录>3. 配置登录后自动创建 home 目录
+<a class=header-anchor href=#3-%e9%85%8d%e7%bd%ae%e7%99%bb%e5%bd%95%e5%90%8e%e8%87%aa%e5%8a%a8%e5%88%9b%e5%bb%ba-home-%e7%9b%ae%e5%bd%95></a></h3><p>手动创建或修改文件 <code>/usr/share/pam-configs/mkhomedir</code> ，内容如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a class=lnlinks href=#hl-5-1>1</a>
+</span><span class=lnt id=hl-5-2><a class=lnlinks href=#hl-5-2>2</a>
+</span><span class=lnt id=hl-5-3><a class=lnlinks href=#hl-5-3>3</a>
+</span><span class=lnt id=hl-5-4><a class=lnlinks href=#hl-5-4>4</a>
+</span><span class=lnt id=hl-5-5><a class=lnlinks href=#hl-5-5>5</a>
+</span><span class=lnt id=hl-5-6><a class=lnlinks href=#hl-5-6>6</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Name: Create home directory during login
+</span></span><span class=line><span class=cl>Default: yes
+</span></span><span class=line><span class=cl>Priority: 900
+</span></span><span class=line><span class=cl>Session-Type: Additional
+</span></span><span class=line><span class=cl>Session:
+</span></span><span class=line><span class=cl>        required        pam_mkhomedir.so umask=0077 skel=/etc/skel</span></span></code></pre></td></tr></table></div></div><p>然后运行命令 <code>sudo pam-auth-update</code> 进行更新 pam 即可。</p><h3 id=4-重启服务>4. 重启服务
+<a class=header-anchor href=#4-%e9%87%8d%e5%90%af%e6%9c%8d%e5%8a%a1></a></h3><p>修改完毕后，需要重启服务</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a class=lnlinks href=#hl-6-1>1</a>
+</span><span class=lnt id=hl-6-2><a class=lnlinks href=#hl-6-2>2</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl restart nscd
+</span></span><span class=line><span class=cl>systemctl restart nslcd</span></span></code></pre></td></tr></table></div></div><h3 id=5-使用-getent-命令验证配置是否正确>5. 使用 getent 命令验证配置是否正确
+<a class=header-anchor href=#5-%e4%bd%bf%e7%94%a8-getent-%e5%91%bd%e4%bb%a4%e9%aa%8c%e8%af%81%e9%85%8d%e7%bd%ae%e6%98%af%e5%90%a6%e6%ad%a3%e7%a1%ae></a></h3><p>getent - get entries from Name Service Switch libraries。 从某个解析库LIB中获的条目。该命令可以检测nsswitch配置是否正确。</p><p>使用方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a class=lnlinks href=#hl-7-1>1</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>getent passwd</span></span></code></pre></td></tr></table></div></div><p>该命令从 nsswitch 中获取 passwd 信息。如果配置正确，那么输出的结果除了本地的 passwd 信息外，还会包含 ldap 的账户信息。</p><p>（注意，这里能正确输出的前提是，ldap 中相应的 uid 等信息要存在，后续往 ldap 中添加用户，至少要设置 <code>uidNumber</code> <code>gidNumber</code> <code>Loginshell</code> 属性。）</p><h3 id=遇到过的问题>遇到过的问题
+<a class=header-anchor href=#%e9%81%87%e5%88%b0%e8%bf%87%e7%9a%84%e9%97%ae%e9%a2%98></a></h3><ol><li>getent passwd 明明已经可以获取到用户信息，可是 ssh 就是连不上，报 Failed password 。几经周折，最后发现它还是对文件 <code>/etc/ldap/ldap.conf</code> 有依赖， nslcd.conf 中配置了 <code>ssl on</code> ，而 ldap.conf 中没有配置，因此在实际获取数据时，没有用正确的连接方式，因而获取不到数据。解决方法： 在 ldap.conf 和 nslcd.conf 中都加上 <code>ssl on</code> 。</li></ol><p><strong>2019-11-12 补充</strong>： 上面的解决方法不对。真正原因是 nscd 缓存未刷新，重启一下 nscd 服务即可， 命令 <code>service nscd restart</code>。 ldap.conf 里面不需要设置 ssl on 。</p></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>linux
+</a><a href=/tags/ldap/>ldap</a></div><div class=post-share-tools><div class=post-share-loading><i class="fa-solid fa-ellipsis fa-spin"></i></div><div class="a2a_kit a2a_kit_size_24 a2a_default_style"><a class=a2a_dd href=https://www.addtoany.com/share></a><a class=a2a_button_wechat></a><a class=a2a_button_qzone></a><a class=a2a_button_sina_weibo></a><a class=a2a_button_douban></a><a class=a2a_button_facebook></a><a class=a2a_button_x></a><a class=a2a_button_email></a><a class=a2a_button_printfriendly></a></div></div><hr><div class=post-copyright><img src=/imgs/cc/cc.svg class=cc-icon width=75 height=75 align=right alt=共享知识 title=共享知识><ul><li class=post-copyright-title><strong>文章标题：</strong>
+基于 LDAP 的 PAM 验证</li><li class=post-copyright-author><strong>本文作者： </strong>gulucat</li><li class=post-copyright-link><strong>本文链接：</strong>
+<a id=post-cr-link href=/post/linux/pam_ldap/ title="基于 LDAP 的 PAM 验证">/post/linux/pam_ldap/</a></li><li class=post-copyright-license><strong>版权声明： </strong>本作品采用 <i class="fab fa-fw fa-creative-commons"></i><a target=_blank href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans>BY-NC-SA</a> 许可协议。转载请注明出处！</li><li><div class=license-icons><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans target=_blank><img src=/imgs/cc/big/by_nc_sa.svg alt=BY-NC-SA title=BY-NC-SA>
+</a><a href=https://notbyai.fyi target=_blank><img src=/imgs/notbyai/zh-hans/white.svg title="Not By AI"></a></div></li></ul></div><div class=post-nav><div class="post-nav-next post-nav-item"><a href=/post/windows/windows_act/ rel=next title="Windows 激活使用说明"><i class="fa fa-chevron-left"></i> Windows 激活使用说明</a></div><div class="post-nav-prev post-nav-item"><a href=/post/software/git_merge_exp/ rel=prev title="Git 合并经验总结">Git 合并经验总结
+<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div><div id=comments class=post-comments><div class=comment-head><div class=comment-headline><i class="fas fa-comments fa-fw"></i>
+<span>评论交流</span></div></div><div class=comment-wrap><div><div class=comment-loading><i class="fa fa-sync fa-spin"></i></div><div class=waline3-container></div></div></div></div></div></main><footer class=footer><div class=footer-inner><div class=copyright>&copy;
+<span itemprop=copyrightYear>2016 - 2026
+</span><span class=with-love><i class="fa fa-heart"></i>
+</span><span class=author itemprop=copyrightHolder>Gulucat.com</span></div></div></footer><script class=next-config data-name=page type=application/json>{"clipboard":{"js":{"alias":"clipboard","file":"dist/clipboard.min.js","name":"clipboard.js","version":"2.0.11"}},"comments":true,"expired":false,"isHome":false,"isPage":true,"path":"pam_ldap","permalink":"/post/linux/pam_ldap/","title":"基于 LDAP 的 PAM 验证","toc":true,"waline3":{"commentcnt":{"alias":"@waline/client","alias_name":"waline","file":"dist/comment.js","name":"comment","version":"3.5.7"}}}</script><script type=text/javascript src=/js/3rd/animejs/3.2.2/anime.min.js crossorigin=anonymous defer></script><script type=text/javascript src=/js/3rd/viewerjs/1.11.6/viewer.min.js crossorigin=anonymous defer></script><script class=next-config data-name=main type=application/json>{"bookmark":{"color":"#222","enable":true,"save":"manual"},"copybtn":true,"darkmode":false,"hostname":"/","i18n":{"ds_day":" 天前","ds_days":" 天 ","ds_hour":" 小时前","ds_hours":" 小时 ","ds_just":"刚刚","ds_min":" 分钟前","ds_mins":" 分钟","ds_month":" 个月前","ds_years":" 年 ","empty":"没有找到任何搜索结果：${query}","hits":"找到 ${hits} 个搜索结果","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","placeholder":"搜索..."},"isMultiLang":false,"lang":"zh-CN","lazyload":false,"localSearch":{"enable":true,"limit":1e3,"path":"/searchindexes.xml","preload":false,"topnperarticle":-1,"trigger":"auto","unescape":false},"motion":{"async":true,"enable":true,"transition":{"collheader":"slideInRight","postblock":"fadeIn","postbody":"fadeInDown","postheader":"fadeInDown","sidebar":"fadeInUp"}},"postmeta":{"comments":{"enable":true,"plugin":"waline3"},"views":{"enable":true,"plugin":"busuanzi"}},"root":"/","scheme":"Gemini","share":{"addtoany":{"js":"https://static.addtoany.com/menu/page.js","locale":"zh-CN","num":8},"enable":true},"sidebar":{"display":"post","offset":12,"padding":18,"position":"left","width":256},"vendor":{"plugins":"local","router":{"name":"local","type":"modern","url":"/js/3rd"}},"version":"4.8.3","waline3":{"cfg":{"emoji":true,"imguploader":false,"placeholder":"请文明发言哟 ヾ(≧▽≦*)o","reaction":true,"reactiontext":["点赞","踩一下","得意","不屑","尴尬","睡觉"],"reactiontitle":"你认为这篇文章怎么样？","requiredmeta":["nick","mail"],"search":true,"serverurl":"https://comment.gulucat.com","sofa":"快来发表你的意见吧 (≧∀≦)ゞ","wordlimit":200},"css":{"alias":"@waline/client","file":"dist/waline.css","name":"waline","version":"3.5.7"},"js":{"alias":"@waline/client","file":"dist/waline.js","name":"waline","version":"3.5.7"}}}</script><script type=text/javascript src="/js/main.min.js?=1769186648" defer></script><script type=text/javascript src="/js/clipboard.min.js?=1769186648" defer></script></body></html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Isc-Kea on 咕噜猫小站</title><link>/tags/isc-kea/</link><description>Recent content in Isc-Kea on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sat, 26 Jun 2021 16:16:52 +0800</lastBuildDate><atom:link href="/tags/isc-kea/rss.xml" rel="self" type="application/rss+xml"/><item><title>ISC KEA 服务器安装与配置</title><link>/post/linux/isc_kea/</link><pubDate>Thu, 04 Feb 2021 20:06:15 +0800</pubDate><guid>/post/linux/isc_kea/</guid><description>&lt;h1 id="isc-kea-服务器安装与配置"&gt;ISC KEA 服务器安装与配置
+&lt;a class="header-anchor" href="#isc-kea-%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;本文以 Debian 10 为例，介绍 Kea 服务器的安装与配置方法。&lt;/p&gt;
+&lt;h2 id="一kea-安装与配置"&gt;一、Kea 安装与配置
+&lt;a class="header-anchor" href="#%e4%b8%80kea-%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;待补充&lt;/p&gt;
+&lt;h2 id="二kea-stork-安装与配置"&gt;二、Kea Stork 安装与配置
+&lt;a class="header-anchor" href="#%e4%ba%8ckea-stork-%e5%ae%89%e8%a3%85%e4%b8%8e%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Stork 为 Kea 服务的一个可视化前端。&lt;/p&gt;
+&lt;p&gt;参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href="https://stork.readthedocs.io/" title="官方说明文档" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ 官方说明文档
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Stork 分为 Server 和 Agent 两部分。Agent 需要跟 kea 或者 bind9 服务安装在同一台机器上，用于获取这些服务的数据。Server 从 Agent 处获取信息并展示。Server 可以单独安装其他机器上。&lt;/p&gt;</description></item></channel></rss>

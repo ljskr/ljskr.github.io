@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on 咕噜猫小站</title><link>/categories/java/</link><description>Recent content in Java on 咕噜猫小站</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sat, 26 Jun 2021 21:05:00 +0800</lastBuildDate><atom:link href="/categories/java/rss.xml" rel="self" type="application/rss+xml"/><item><title>Shiro 使用介绍</title><link>/post/java/shiro_use/</link><pubDate>Thu, 25 Feb 2021 20:57:00 +0800</pubDate><guid>/post/java/shiro_use/</guid><description>&lt;h1 id="shiro-使用介绍"&gt;Shiro 使用介绍
+&lt;a class="header-anchor" href="#shiro-%e4%bd%bf%e7%94%a8%e4%bb%8b%e7%bb%8d"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="文档"&gt;文档
+&lt;a class="header-anchor" href="#%e6%96%87%e6%a1%a3"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;img src="/imgs/img-lazy-loading.gif" data-src=":public:java:shiro%e6%a1%86%e6%9e%b6%e4%bd%bf%e7%94%a8%e4%bb%8b%e7%bb%8d.docx" alt="shiro框架使用介绍.docx " /&gt;&lt;/p&gt;</description></item><item><title>Maven 镜像配置</title><link>/post/java/maven_mirror/</link><pubDate>Mon, 23 Dec 2019 18:00:00 +0800</pubDate><guid>/post/java/maven_mirror/</guid><description>&lt;h1 id="maven-镜像配置"&gt;Maven 镜像配置
+&lt;a class="header-anchor" href="#maven-%e9%95%9c%e5%83%8f%e9%85%8d%e7%bd%ae"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;p&gt;参考： 
+&lt;a href="https://maven.aliyun.com" title="https://maven.aliyun.com" rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ https://maven.aliyun.com
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="全局"&gt;全局
+&lt;a class="header-anchor" href="#%e5%85%a8%e5%b1%80"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;修改 &lt;code&gt;~/.m2/settings.xml&lt;/code&gt; 或者 maven 安装目录下的 &lt;code&gt;conf/settings.xml&lt;/code&gt; 文件，在 mirrors 配置中加上如下代码&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt" id="hl-0-1"&gt;&lt;a class="lnlinks" href="#hl-0-1"&gt;1&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-2"&gt;&lt;a class="lnlinks" href="#hl-0-2"&gt;2&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-3"&gt;&lt;a class="lnlinks" href="#hl-0-3"&gt;3&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-4"&gt;&lt;a class="lnlinks" href="#hl-0-4"&gt;4&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-5"&gt;&lt;a class="lnlinks" href="#hl-0-5"&gt;5&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-6"&gt;&lt;a class="lnlinks" href="#hl-0-6"&gt;6&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-7"&gt;&lt;a class="lnlinks" href="#hl-0-7"&gt;7&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-8"&gt;&lt;a class="lnlinks" href="#hl-0-8"&gt;8&lt;/a&gt;
+&lt;/span&gt;&lt;span class="lnt" id="hl-0-9"&gt;&lt;a class="lnlinks" href="#hl-0-9"&gt;9&lt;/a&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-xml" data-lang="xml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;lt;mirrors&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c"&gt;&amp;lt;!-- 阿里云仓库 --&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;lt;mirror&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;lt;id&amp;gt;&lt;/span&gt;alimaven&lt;span class="nt"&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;lt;mirrorOf&amp;gt;&lt;/span&gt;central&lt;span class="nt"&gt;&amp;lt;/mirrorOf&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;lt;name&amp;gt;&lt;/span&gt;aliyun maven&lt;span class="nt"&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;lt;url&amp;gt;&lt;/span&gt;https://maven.aliyun.com/repository/central&lt;span class="nt"&gt;&amp;lt;/url&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;lt;/mirror&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;lt;/mirrors&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="单个项目"&gt;单个项目
+&lt;a class="header-anchor" href="#%e5%8d%95%e4%b8%aa%e9%a1%b9%e7%9b%ae"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;在项目的 &lt;code&gt;pom.xml&lt;/code&gt; 中添加&lt;/p&gt;</description></item><item><title>Maven 简介</title><link>/post/java/maven/</link><pubDate>Tue, 29 Oct 2019 21:10:00 +0800</pubDate><guid>/post/java/maven/</guid><description>&lt;h1 id="maven-简介"&gt;Maven 简介
+&lt;a class="header-anchor" href="#maven-%e7%ae%80%e4%bb%8b"&gt;&lt;/a&gt;
+&lt;/h1&gt;&lt;h2 id="环境变量"&gt;环境变量
+&lt;a class="header-anchor" href="#%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f"&gt;&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;只需要设置 &lt;code&gt;PATH&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;p&gt;Maven 3.5.0 之后的版本，会自动获取 &lt;code&gt;M2_HOME&lt;/code&gt; 信息，不再需要设置环境变量。 详见 
+&lt;a href="https://issues.apache.org/jira/browse/MNG-5607" title=" MNG-5607 " rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ MNG-5607 
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt; 和 
+&lt;a href="https://maven.apache.org/docs/3.5.0/release-notes.html" title=" Release Notes " rel="noopener external nofollow noreferrer" target="_blank" class=" exturl"&gt;
+ Release Notes 
+ 
+ &lt;i class="fa fa-external-link-alt"&gt;&lt;/i&gt;
+ 
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;若运行 &lt;code&gt;mvn -v&lt;/code&gt; 能打印出 maven 的版本信息，则说明安装成功。&lt;/p&gt;</description></item></channel></rss>
